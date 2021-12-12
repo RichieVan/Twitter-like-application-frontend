@@ -52,7 +52,7 @@
     "mini-css-extract-plugin": "^2.3.0"
   },
   "scripts": {
-    "start": "SET NODE_ENV=development && webpack-dev-server",
+    "start": "node server.js",
     "build": "webpack"
   },
   "babel": {
