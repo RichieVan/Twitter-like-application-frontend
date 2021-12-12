@@ -1,0 +1,140 @@
+.modals {
+    position: relative;
+    z-index: 1000;
+}
+
+.modal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    padding: 30px 0;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    overflow: auto;
+}
+
+.modal.center {
+    align-items: center;
+}
+
+.modal.start {
+    align-items: start;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal .modal-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-radius: 10px;
+}
+
+.modal .modal-content {
+    display: block;
+    position: relative;
+    padding: 15px 20px 20px;
+    background: var(--bg1);
+}
+
+.modal .modal-heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 60px;
+    margin: 0;
+    font-size: 20px;
+    line-height: 20px;
+    background: var(--bc2);
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    border-bottom: 1px solid #000;
+}
+
+.modal.fading-out {
+    opacity: 0;
+}
+
+.modal .modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    height: 36px;
+    width: 36px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.modal .modal-close:hover {
+    color: var(--cblue);
+}
+
+/* .modal .modal-goBack {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 15px;
+    margin-bottom: 20px;
+    background: var(--bg1);
+    color: #fff;
+    border: 1px solid var(--bc1);
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 
+        color .1s linear,
+        border-color .1s linear;
+} */
+
+/* .modal .modal-goBack span {
+    margin-left: 10px;
+}
+
+.modal .modal-goBack:hover {
+    color: var(--cblue);
+    border-color: var(--cblue);
+} */
+
+.modal .modal-goBack {
+    margin-bottom: 20px;
+}
+
+.modal .container.type-post {
+    min-height: calc(100vh - 60px);
+    width: 100vw;
+}
+
+.modal .container.type-post .modal-content {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 0;
+}
+
+.modal .container.type-post .modal-close {
+    right: auto;
+    left: 100%;
+    top: 0px;
+    height: 40px;   
+    width: 40px;
+    font-size: 24px;
+}
+
+.modal .modal-container_fix {
+    margin-right: calc(-100vw + 100%);
+}
+
+.modal.location {
+    z-index: 900;
+}

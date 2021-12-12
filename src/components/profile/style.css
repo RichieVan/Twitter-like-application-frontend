@@ -1,0 +1,322 @@
+.pf-container {
+    position: relative;
+    /* border: 1px solid var(--bc1); */
+}
+
+.pf-header-wrapper {
+    background: #161616;
+    border-bottom: 2px solid var(--bc1);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+}
+
+.pf-header {
+    position: relative;
+}
+
+.pf-header:after {
+    display: block;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    width: calc(100% - 30px);
+    height: 1px;
+    background: var(--bc1);
+}
+
+.pf-header .header-bg {
+    padding: calc(100% / 42 * 5) 0;
+    width: 100%;
+    height: 150px;
+    background-color: rgb(173, 173, 173);
+    z-index: 1;
+    transition: background-color .2s linear;
+}
+
+.pf-header .user-info {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 15px 15px;
+    z-index: 2;
+}
+
+.pf-header .user-info .avatar {
+    position: absolute;
+    bottom: 10px;
+    flex-shrink: 0;
+    height: 105px;
+    width: 105px;
+    margin-left: 5px;
+    background: #161616 center no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    border: 5px solid #161616;
+}
+
+.pf-header .user-info .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 15px;
+    margin-left: 130px;
+    /* padding-bottom: 8px; */
+}
+
+.pf-header .user-info .username {
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: bold;
+    margin-bottom: 3px;
+    color: #fff;
+}
+
+.pf-header .user-info .profile-tag {
+    font-size: 16px;
+    color: var(--tc1);
+}
+
+.pf-header .options-bar {
+    padding-top: 17px;
+    color: var(--tc1);
+}
+
+.pf-header .options-bar .option {
+    display: block;
+    height: 20px;
+    width: 20px;
+    outline: none;
+}
+
+.pf-header .options-bar .option svg {
+    vertical-align: 0;
+    font-size: 20px;
+    transition: color .1s linear;
+}
+
+.pf-header .options-bar .option:hover svg {
+    color: #fff;
+}
+
+.pf-stats {
+    position: relative;
+    padding: 10px 15px;
+    /* background: rgb(24, 29, 43); */
+    color: var(--tc1);
+}
+
+.pf-stats .loading-content {
+    min-height: 0;
+    padding: 0;
+}
+
+.pf-stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.pf-stats [class^=col-]:not(:last-child):after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: var(--bc1);
+}
+
+.pf-stats .stat b {
+    margin-top: 2px;
+    font-size: 14px;
+    letter-spacing: 0.3pt;
+}
+
+.pf-settings {
+    width: 560px;
+}
+
+.pf-settings .settings-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.pf-settings .settings-group:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.pf-settings .settings-group_name {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.pf-settings .settings-group_name span {
+    /* padding: 2px 10px 3px 10px; */
+    padding: 2px 10px 3px 0px;
+    /* background: #000; */
+}
+
+/* .pf-settings .settings-group_name .settings-group_name_gradient {
+    display: block;
+    flex-grow: 1;
+    background: linear-gradient(90deg, #000 0%, rgba(0,0,0,0) 100%);
+} */
+
+.pf-settings .setting {
+    width: 100%;
+}
+
+.pf-settings .settings-group > .setting:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.pf-settings .setting_input {
+    display: flex;
+    position: relative;
+    width: 100%;
+    background: var(--bg1);
+    color: #fff;
+    overflow: hidden;
+}
+
+.pf-settings .setting_input:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.pf-settings .setting_input label {
+    position: absolute;
+    left: 12px;
+    top: 16px;
+    line-height: 24px;
+    font-size: 18px;
+    cursor: text;
+    color: var(--tc1);
+    transition: 
+        top .05s linear,
+        color .05s linear,
+        font-size .05s linear;
+}
+
+.pf-settings .setting_input input,
+.pf-settings .setting_input textarea {
+    background: inherit;
+}
+
+.pf-settings .setting_input input:focus,
+.pf-settings .setting_input textarea:focus {
+    border-color: var(--cblue);
+}
+
+.pf-settings .setting_input input:focus + label,
+.pf-settings .setting_input input[data-empty='false'] + label,
+.pf-settings .setting_input textarea:focus + label,
+.pf-settings .setting_input textarea[data-empty='false'] + label {
+    top: 7px;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.pf-settings .setting_input input:focus + label,
+.pf-settings .setting_input textarea:focus + label {
+    color: var(--cblue);
+}
+
+.pf-settings .avatar {
+    flex-shrink: 0;
+    height: 100px;
+    width: 100px;
+    margin-right: 10px;
+    background: center no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.pf-settings .avatar .upload-new {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    border-radius: inherit;
+    cursor: pointer;
+    transition: background-color .2s;
+}
+
+.pf-settings .avatar .upload-new svg {
+    color: transparent;
+    font-size: 20px;
+    transition: color .2s;
+}
+
+.pf-settings .avatar .upload-new:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.pf-settings .avatar .upload-new:hover svg {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 20px;
+}
+
+.auth-form .input-container:not(:last-child) {
+    margin-bottom: 12px;
+}
+
+.auth-form .auth-heading {
+    display: flex;
+    align-items: start;
+    margin-bottom: 12px;
+}
+
+.auth-form b {
+    font-size: 20px;
+    padding-left: 5px;
+}
+
+.auth-form .btn {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.auth-form .btn svg {
+    height: 18px;
+    width: 18px;
+    margin: 1px;
+}
+
+.pf-info_container {
+    display: flex;
+    border-top: 2px solid var(--bc1);
+}
+
+.pf-info_container .pf-info {
+    padding: 10px 15px;
+    flex-grow: 1;
+}
+
+.pf-info_container .pf-buttons {
+    padding: 15px;
+    flex-shrink: 0;
+}
+
+.pf-info_container .pf-info b {
+    color: var(--tc1);
+    font-size: 15px;
+}
+
+.pf-info_container .pf-info p {
+    margin: 5px 0;
+}

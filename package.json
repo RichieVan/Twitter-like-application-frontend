@@ -1,0 +1,73 @@
+{
+  "name": "local",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
+  "description": "test",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/react-fontawesome": "^0.1.16",
+    "@popperjs/core": "^2.10.2",
+    "axios": "^0.23.0",
+    "bootstrap": "^5.1.1",
+    "express": "^4.17.1",
+    "fast-average-color": "^7.0.1",
+    "fs": "0.0.1-security",
+    "mobx": "^6.3.5",
+    "mobx-react-lite": "^3.2.1",
+    "popper.js": "^1.16.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "redux": "^4.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.15.6",
+    "@babel/plugin-transform-arrow-functions": "^7.14.5",
+    "@babel/plugin-transform-async-to-generator": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.6",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/runtime": "^7.15.4",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^6.3.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "path": "^0.12.7",
+    "react-router-dom": "^6.0.2",
+    "react-svg-loader": "^3.0.3",
+    "style-loader": "^3.3.0",
+    "svg-inline-loader": "^0.8.2",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.2.1"
+  },
+  "optionalDependencies": {
+    "mini-css-extract-plugin": "^2.3.0"
+  },
+  "scripts": {
+    "start": "SET NODE_ENV=development && webpack-dev-server",
+    "build": "webpack"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime",
+      "@babel/plugin-transform-async-to-generator",
+      "@babel/plugin-transform-arrow-functions",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-object-rest-spread"
+    ]
+  },
+  "author": "",
+  "license": "ISC"
+}
