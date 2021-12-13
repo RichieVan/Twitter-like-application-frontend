@@ -1,9 +1,10 @@
 import axios from "axios";
 
-export const BASE_URL = 'http://localhost:8101/api'
+export const API_URL = 'https://rvbackend.herokuapp.com';
+export const APP_URL = 'https://rvfront.herokuapp.com';
 
 const api = axios.create({
-    baseURL: BASE_URL,
+    baseURL: API_URL,
     withCredentials: true
 })
 
@@ -23,7 +24,7 @@ api.interceptors.response.use(
         if (error.response.status == 401 && error.config && !originalRequest.isRetry) {
             originalRequest.isRetry = true;
             try {
-                const response = await axios.get(`${BASE_URL}/refresh`, {withCredentials: true});
+                const response = await axios.get(`${API_URL}/refresh`, {withCredentials: true});
                 localStorage.setItem('accessToken', response.data.accessToken);
                 return api.request(originalRequest);
             } catch (e) {

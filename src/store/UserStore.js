@@ -1,7 +1,7 @@
 import axios from "axios";
 import { makeAutoObservable } from "mobx";
 import UserService from '../services/UserService.js';
-import { BASE_URL } from "../http/index.js";
+import { API_URL } from "../http/index.js";
 
 import React from "react";
 import ActivateAccountPopup from "../components/popup/ActivateAccount.js";
@@ -121,7 +121,7 @@ export default class UserStore {
 
     async checkAuthorization () {
         try {
-            const response = await axios.get(`${BASE_URL}/refresh`, {withCredentials : true})
+            const response = await axios.get(`${API_URL}/refresh`, {withCredentials : true})
             
             localStorage.setItem('accessToken', response.data.accessToken);
             this.setAuth(true);

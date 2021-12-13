@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingMask from './LoadingMask.js';
 import { useNavigate } from 'react-router-dom';
 import getRandomInt from '../lib/getRandomInt'
+import { API_URL } from '../http/index.js';
 
 const LoginForm = () => {
     const {userStore} = useContext(Context);
@@ -151,7 +152,7 @@ const Greeting = () => {
     const bgImage = getRandomInt(3) + 1 + '.png';
 
     const styles = {
-        backgroundImage : `url(${appStore.apiUrl}/uploads/authbg/${bgImage})`
+        backgroundImage : `url(${API_URL}/uploads/authbg/${bgImage})`
     }
 
     return (

@@ -5,9 +5,10 @@ import './style.css';
 import LoadingMask from '../LoadingMask';
 import { Link } from 'react-router-dom';
 import ActivateAccountPopup from '../popup/ActivateAccount';
+import { API_URL } from '../http/index.js';
 
 const PostForm = ({type = 'post', postId = null}) => {
-    const {userStore, appStore, postStore, modalStore} = useContext(Context);
+    const {userStore, postStore, modalStore} = useContext(Context);
     const [textContent, setTextContent] = useState('');
     const [isDisabled, setDisabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +16,7 @@ const PostForm = ({type = 'post', postId = null}) => {
     const textInput = useRef(null)
 
     const avatarStyles = {
-        backgroundImage : `url(${(!userStore.user.avatar.url) ? appStore.apiUrl + '/uploads/avatar/default.png' : userStore.user.avatar.url})`
+        backgroundImage : `url(${(!userStore.user.avatar.url) ? API_URL + '/uploads/avatar/default.png' : userStore.user.avatar.url})`
     }
 
     return (

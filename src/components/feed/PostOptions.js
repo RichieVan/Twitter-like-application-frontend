@@ -8,6 +8,7 @@ import { faEllipsisV, faLink } from '@fortawesome/free-solid-svg-icons';
 import './style.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ConfirmAction from '../popup/ConfirmAction';
+import { APP_URL } from '../../http';
 
 const PostOptions = ({show, owner, postId, type}) => {
     const {
@@ -51,7 +52,7 @@ const PostOptions = ({show, owner, postId, type}) => {
                                     <button 
                                         className='option-link'
                                         onClick={e => {
-                                            window.navigator.clipboard.writeText(appStore.appUrl + '/post/' + postId)
+                                            window.navigator.clipboard.writeText(APP_URL + '/post/' + postId)
                                                 .then(() => {
                                                     notificationStore.show('Скопировано!', 2000, 'success')
                                                 })
