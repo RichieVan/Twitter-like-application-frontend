@@ -6,7 +6,6 @@
     "node": "14.x"
   },
   "description": "test",
-  "type": "module",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-regular-svg-icons": "^5.15.4",
@@ -53,7 +52,7 @@
     "mini-css-extract-plugin": "^2.3.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "webpack-dev-server",
     "build": "webpack"
   },
   "babel": {
