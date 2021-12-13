@@ -5,7 +5,7 @@ import './style.css';
 import LoadingMask from '../LoadingMask';
 import { Link } from 'react-router-dom';
 import ActivateAccountPopup from '../popup/ActivateAccount';
-import { API_URL } from '../../http/index.js';
+import { STATIC_URL } from '../../http/index.js';
 
 const PostForm = ({type = 'post', postId = null}) => {
     const {userStore, postStore, modalStore} = useContext(Context);
@@ -16,7 +16,7 @@ const PostForm = ({type = 'post', postId = null}) => {
     const textInput = useRef(null)
 
     const avatarStyles = {
-        backgroundImage : `url(${(!userStore.user.avatar.url) ? API_URL + '/uploads/avatar/default.png' : userStore.user.avatar.url})`
+        backgroundImage : `url(${(!userStore.user.avatar.url) ? STATIC_URL + '/uploads/avatar/default.png' : userStore.user.avatar.url})`
     }
 
     return (
