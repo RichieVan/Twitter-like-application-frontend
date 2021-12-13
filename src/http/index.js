@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const API_URL = 'https://rvbackend.herokuapp.com';
+export const API_URL = 'https://rvbackend.herokuapp.com/api';
 export const APP_URL = 'https://rvfront.herokuapp.com';
 
 const api = axios.create({
