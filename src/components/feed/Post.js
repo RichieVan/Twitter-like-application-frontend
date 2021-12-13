@@ -2,10 +2,6 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../..';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faEllipsisV } from '@fortawesome/free-solid-svg-icons';
-import { faComment as faCommentRegular } from '@fortawesome/free-regular-svg-icons';
-
 import './style.css';
 import PostOptions from './PostOptions';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
