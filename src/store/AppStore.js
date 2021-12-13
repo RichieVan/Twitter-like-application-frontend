@@ -5,8 +5,8 @@ export default class AppStore {
     isGlobalLoading = false;
     // apiUrl = 'http://localhost:8101';
     // appUrl = 'http://localhost:8000';
-    apiUrl = 'https://rvbackend.herokuapp.com/';
-    appUrl = 'https://rvfront.herokuapp.com/';
+    apiUrl = 'https://rvbackend.herokuapp.com';
+    appUrl = 'https://rvfront.herokuapp.com';
     activePostOptions = null;
     userStore;
 
