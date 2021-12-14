@@ -90,6 +90,7 @@ export default class PostStore {
             });
             
             this.setFeedPostsList(response);
+            this.setSyncing(false);
         } catch (e) {
             console.log(e);
             this.setSyncing(false);
