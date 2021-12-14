@@ -5,7 +5,6 @@ import { API_URL } from "../http/index.js";
 
 import React from "react";
 import ActivateAccountPopup from "../components/popup/ActivateAccount.js";
-import NotificationStore from "./NotificationStore.js";
 
 export default class UserStore {
     user = {};

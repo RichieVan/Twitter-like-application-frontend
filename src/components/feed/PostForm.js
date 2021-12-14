@@ -142,4 +142,4 @@ const PostForm = ({type = 'post', postId = null}) => {
     );
 }
 
-export default observer(PostForm);
+export default PostForm;
