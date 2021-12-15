@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import React, { useContext } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Context } from "..";
@@ -16,4 +17,4 @@ const AuthRequired = ({children, to = null, element = null}) => {
     return children;
 }
 
-export default AuthRequired;
+export default observer(AuthRequired);
