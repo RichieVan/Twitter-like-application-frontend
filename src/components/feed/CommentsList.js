@@ -2,9 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../../index.js';
 import FormatPostText from '../../lib/formatPostText.js';
-import PostService from '../../services/PostService.js';
 import LoadingMask from '../LoadingMask.js';
-import Post from './Post.js';
 import PostComment from './PostComment.js';
 import './style.css';
 

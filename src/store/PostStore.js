@@ -80,16 +80,17 @@ export default class PostStore {
         try {
             this.setSyncing(true);
             const fromPost = toJS(this.firstLoaded);
-            await PostService.create({
+            const response = await PostService.create({
                 ...data, 
-                from : {
-                    fromTimestamp : fromPost?.createdAt.timestamp || 0,
-                    fromId : fromPost?.id || 0
+                params : {
+                    fromTimestamp : fromPost?.createdAt.timestamp || new Date(0),
+                    fromId : fromPost?.id || 0,
+                    forSubs : (this.feedType == 'subs')
                 }
             });
             
-            const response = await this.syncPosts();
             this.setFeedPostsList(response);
+            this.setSyncing(false);
         } catch (e) {
             console.log(e);
             this.setSyncing(false);

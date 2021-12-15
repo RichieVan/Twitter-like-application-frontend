@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Context } from '../../../index.js';
 import FormatPostText from '../../../lib/formatPostText.js';
 import LoadingMask from '../../LoadingMask.js';

@@ -21,26 +21,15 @@ const App = () => {
     const locationState = location.state;
 
     useEffect(() => {
-        console.log('app render');
-
         appStore.preloader()
-            .then(() => {
-                //urlStore.parseUrl();
-            });
     }, [])
 
     if (appStore.isFirstLoading) {
         return (<p>Загрузка...</p>);
     }
 
-    //<div><Link to='/games/stat'>Games</Link></div>
-
-    // console.log(location);
-    if (locationState?.backgroundLocation) {
-        modalStore.setBodyUnscrollable(true);
-    } else {
-        modalStore.setBodyUnscrollable(false);
-    }
+    if (locationState?.backgroundLocation) modalStore.setBodyUnscrollable(true);
+    else modalStore.setBodyUnscrollable(false);
 
     return (
         <div>

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Context } from '../../index.js';
-import { faUpload, faArrowLeft, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoadingMask from '../LoadingMask.js';
 

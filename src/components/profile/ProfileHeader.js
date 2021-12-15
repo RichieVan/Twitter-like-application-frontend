@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './style.css';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../../index.js';
 import FastAverageColor from 'fast-average-color';
-import { useLocation } from 'react-router-dom';
 import ProfileStats from './ProfileStats';
 import ProfileOptions from './ProfileOptions';
 import ProfileInfo from './ProfileInfo';

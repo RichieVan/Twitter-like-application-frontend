@@ -5,7 +5,7 @@ import { Context } from '../../index.js';
 import ProfileHeader from './ProfileHeader';
 import ProfilePostsList from '../feed/lists/ProfilePostsList';
 import LoadingMask from '../LoadingMask' ;
-import { useLocation, useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 
 const Profile = () => {
     const {userStore} = useContext(Context);
