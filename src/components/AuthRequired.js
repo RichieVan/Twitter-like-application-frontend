@@ -6,6 +6,8 @@ const AuthRequired = ({children, to = null, element = null}) => {
     const {userStore} = useContext(Context);
     const navigate = useNavigate();
 
+    console.log(userStore.isAuth);
+    console.log(to);
     if (!userStore.isAuth) {
         if (to) return (<Navigate to={to} state={{authRedirected : true}} replace/>)
         if (element) return (element)
