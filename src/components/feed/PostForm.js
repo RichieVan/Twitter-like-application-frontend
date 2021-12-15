@@ -5,7 +5,6 @@ import './style.css';
 import LoadingMask from '../LoadingMask';
 import { Link } from 'react-router-dom';
 import ActivateAccountPopup from '../popup/ActivateAccount';
-import { STATIC_URL } from '../../http/index.js';
 
 const PostForm = ({type = 'post', postId = null}) => {
     const {userStore, postStore, modalStore} = useContext(Context);
@@ -15,14 +14,10 @@ const PostForm = ({type = 'post', postId = null}) => {
 
     const textInput = useRef(null)
 
-    const avatarStyles = {
-        backgroundImage : `url(${(!userStore.user.avatar.url) ? STATIC_URL + '/uploads/avatar/default.png' : userStore.user.avatar.url})`
-    }
-
     return (
         <div className={'post-form type-' + type}>
             {isLoading && (<LoadingMask cHeight={50} cWidth={50} bg='inherit' opacity={.6}/>)}
-            {!userStore.isAuth && (
+            {!userStore.user.isActivated && (
                 <div className="auth-mask">
                     <b>Вы не можете оставлять посты или комментарии</b>
                     <div>Сперва необходимо&nbsp;
