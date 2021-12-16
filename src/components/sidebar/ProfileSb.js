@@ -19,15 +19,11 @@ const ProfileInfo = () => {
     return (
         <div className='sb-block_container'>
           <div className='user-info'>
-            <div className="avatar" style={avatarStyles}>
-              <a className='upload-new' onClick={() => {
-                  modalStore.openModal(<UpdateAvatarPopup directly={true}/>, {
-                    heading : 'Обновление аватара пользователя'
-                  });
-                }}>
-                <FontAwesomeIcon icon={faUpload} />
-              </a>
-            </div>
+            <Link 
+              to={`/profile/${userStore.user.login}`} 
+              className='avatar' 
+              style={{backgroundImage : `url(${userStore.user.avatar.url})`}}
+            ></Link>
             <div className='d-flex flex-column justify-content-center'>
               <b className="username">
                 <Link 

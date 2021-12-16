@@ -92,7 +92,7 @@ export default class PostStore {
             this.setFeedPostsList(response);
             this.setSyncing(false);
         } catch (e) {
-            console.log(e);
+            //console.log(e);
             this.setSyncing(false);
             throw Error(e.response.data.message);
         }
@@ -110,14 +110,13 @@ export default class PostStore {
             });
             this.setCurrentCommentsList(response.data);
         } catch (e) {
-            console.log(e);
+            //console.log(e);
             throw Error(e.response.data.message);
         }
     }
 
     async fetchPosts () {
         try {
-            console.log(this.feedType == 'subs');
             const {data} = await PostService.getFeed(
                 {
                     forSubs : (this.feedType == 'subs')
@@ -127,7 +126,7 @@ export default class PostStore {
             this.setCanLoadMore(data.canLoadMore)
             return data.posts.length > 0 ? data.posts : null;
         } catch (e) {
-            console.log(e);
+            //console.log(e);
             //throw Error(e.response.data.message);
         }
     }
@@ -145,7 +144,7 @@ export default class PostStore {
             this.setFeedPostsList(toJS(this.feedPostsList).concat(data.posts))
             return data.canLoadMore;
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -167,7 +166,7 @@ export default class PostStore {
                 else return data;
             } catch (e) {
                 this.setSyncing(false);
-                console.log(e);
+                //console.log(e);
             }
         }
     }
@@ -178,7 +177,7 @@ export default class PostStore {
             this.setCurrentCommentsList(response.data);
             return this.currentCommentsList;
         } catch (e) {
-            console.log(e);
+            //console.log(e);
             //throw Error(e.response.data.message);
         }
     }
@@ -188,7 +187,7 @@ export default class PostStore {
             const response = await PostService.loadNewPosts(toJS(this.currentCommentsList)[0]?.id || 0);
             this.setFeedPostsList(response.data);
         } catch (e) {
-            console.log(e);
+            //console.log(e);
             //throw Error(e.response.data.message);
         }
     }
@@ -198,7 +197,7 @@ export default class PostStore {
             const response = await PostService.deletePost(id);
             this.deleteFromFeedPostsList(response.data);
         } catch (e) {
-            console.log(e);
+            //console.log(e);
             //throw Error(e.response.data.message);
         }
     }
@@ -208,7 +207,7 @@ export default class PostStore {
             const response = await PostService.deletePost(id);
             this.deleteFromCurrentCommentsList(response.data);
         } catch (e) {
-            console.log(e);
+            //console.log(e);
             //throw Error(e.response.data.message);
         }
     }
@@ -218,7 +217,7 @@ export default class PostStore {
             const response = await PostService.like(id);
             return response.data;
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -227,7 +226,7 @@ export default class PostStore {
             const response = await PostService.unlike(id);
             return response.data;
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -237,7 +236,7 @@ export default class PostStore {
             // this.setCanLoadMore(data.canLoadMore)
             return data;
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -253,7 +252,7 @@ export default class PostStore {
             // this.setCanLoadMore(data.canLoadMore)
             return data;
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -272,7 +271,7 @@ export default class PostStore {
             return data;
         } catch (e) {
             this.setSyncing(false);
-            console.log(e);
+            //console.log(e);
         }
     }
 }
