@@ -210,8 +210,6 @@ const UpdateAvatarPopup = ({closeModal, fileUrlHandler, directly}) => {
     })
 
     const handleAvatar = function (avatar) {
-        console.log(avatar);
-
         if (avatar.size > 1024 * 1024 * 2) { 
             setNewAvatar(null);
             notificationStore.show('Размер загружаемого изображения первышает лимит в 2 мб', 5000, 'error');
@@ -305,7 +303,6 @@ const UpdateAvatarPopup = ({closeModal, fileUrlHandler, directly}) => {
                                     })
                                     .catch((error) => {
                                         notificationStore.show('Произошла неизвестная ошибка', 3000, 'error');
-                                        console.log(error);
                                     })
                             } else {
                                 fileUrlHandler(newAvatarLink)

@@ -32,7 +32,7 @@ api.interceptors.response.use(
                 localStorage.removeItem('accessToken');
             }
         }
-        throw error;
+        if (process.env?.NODE_ENV !== 'production') throw error
     }
 )
 
