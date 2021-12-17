@@ -1,9 +1,12 @@
 const path = require('path');
+const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 //const modeStatus = ('development' == process.env.NODE_ENV) ? 'development' : 'production';
 const modeStatus = 'development';
+
+require('dotenv').config({path : './.env'})
 
 module.exports = {
     mode: modeStatus,
@@ -66,6 +69,9 @@ module.exports = {
                     to: path.resolve(__dirname, 'dist/assets')
                 },
             ]
+        }),
+        new webpack.DefinePlugin({
+            'process.env' : JSON.stringify(process.env)
         })
     ],
     resolve : {
