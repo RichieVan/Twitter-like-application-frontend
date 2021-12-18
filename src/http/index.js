@@ -1,8 +1,9 @@
 import axios from "axios";
+console.log(process.env.NODE_ENV);
 
-export const STATIC_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:8101' : 'https://rvbackend.herokuapp.com';
-export const API_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:8101/api' : 'https://rvbackend.herokuapp.com/api';
-export const APP_URL = process.env.NODE_ENV == 'development' ? 'http://localhost:8000' : 'https://rvfront.herokuapp.com';
+export const STATIC_URL = process.env?.NODE_ENV == 'development' ? 'http://localhost:8101' : 'https://rvbackend.herokuapp.com';
+export const API_URL = process.env?.NODE_ENV == 'development' ? 'http://localhost:8101/api' : 'https://rvbackend.herokuapp.com/api';
+export const APP_URL = process.env?.NODE_ENV == 'development' ? 'http://localhost:8000' : 'https://rvfront.herokuapp.com';
 
 const api = axios.create({
     baseURL: API_URL,
