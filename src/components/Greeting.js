@@ -150,8 +150,9 @@ const Greeting = () => {
     const {appStore} = useContext(Context);
 
     const bgImage = getRandomInt(3) + 1 + '.png';
+
     const styles = {
-        backgroundImage : `url(/assets/img/backgrounds/${bgImage})`
+        backgroundImage : `url(${STATIC_URL}/uploads/authbg/${bgImage})`
     }
 
     return (
