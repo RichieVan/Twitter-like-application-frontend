@@ -1,6 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { useContext } from "react";
-import { useEffect, useRef, useState } from "react/cjs/react.development";
+import React, { useContext, useRef, useState } from "react";
 import { Context } from "../..";
 
 const FeedTypeChange = () => {
