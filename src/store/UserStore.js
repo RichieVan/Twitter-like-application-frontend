@@ -40,7 +40,7 @@ export default class UserStore {
             this.notificationStore.show('Вы были успешно авторизованы', 4000, 'success')
         } catch (e) {
             this.notificationStore.show(e.response.data.message, 8000, 'error')
-            //throw Error(e.response.data.message);
+            throw Error(e.response.data.message);
         }
     }
 
@@ -64,7 +64,7 @@ export default class UserStore {
                 }, timeout);
                 timeout += 200;
             })
-            //throw Error('Ошибка валидации');
+            throw Error('Ошибка валидации');
         }
     }
 
