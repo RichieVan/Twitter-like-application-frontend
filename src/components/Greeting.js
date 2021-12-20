@@ -66,10 +66,10 @@ const LoginForm = () => {
 const RegistrationForm = () => {
     const {userStore} = useContext(Context);
 
-    const [login, setLogin] = useState('1');
-    const [email, setEmail] = useState('1@1.1');
-    const [password, setPassword] = useState('123');
-    const [passwordRepeat, setPasswordRepeat] = useState('123');
+    const [login, setLogin] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [passwordRepeat, setPasswordRepeat] = useState('');
     const [isLoading, setisLoading] = useState(false);
 
     const navigate = useNavigate();
