@@ -1,40 +1,47 @@
-import React from "react";
-import { makeObservable, observable, action, makeAutoObservable } from "mobx";
+import React from 'react';
+import {
+  makeObservable,
+  observable,
+  action,
+} from 'mobx';
 
 export default class NotificationStore {
-    notifications = [];
-    idCounter = 0;
+  notifications = [];
 
-    constructor() {
-        makeObservable(this, 
-            {
-                notifications : observable,
-                idCounter : observable,
-                show : action,
-                clear : action,
-                incrementCounter : action
-            }, 
-            {deep: true}
-        );
-    }   
+  idCounter = 0;
 
-    show (content, timeout, type = 'info') {
-        const notificationId = this.idCounter;
-        this.incrementCounter();
+  constructor() {
+    makeObservable(
+      this,
+      {
+        notifications: observable,
+        idCounter: observable,
+        show: action,
+        clear: action,
+        incrementCounter: action,
+      },
+      { deep: true },
+    );
+  }
 
-        this.notifications = this.notifications.concat([{
-            id: notificationId,
-            content,
-            timeout,
-            type
-        }]);
-    }
+  show(content, timeout, type = 'info') {
+    const notificationId = this.idCounter;
+    this.incrementCounter();
 
-    clear (id) {
-        this.notifications = this.notifications.filter(item => item.id != id);
-    }
+    this.notifications = this.notifications.concat([{
+      id: notificationId,
+      content,
+      timeout,
+      type,
+    }]);
+  }
 
-    incrementCounter () {
-        return this.idCounter++;
-    }
+  clear(id) {
+    this.notifications = this.notifications.filter((item) => item.id !== id);
+  }
+
+  incrementCounter() {
+    this.idCounter += 1;
+    return this.idCounter;
+  }
 }

@@ -1,14 +1,14 @@
-import React, { createContext } from "react";
-import ReactDOM from "react-dom";
-import App from './App';
-import {BrowserRouter} from 'react-router-dom';
+import React, { createContext } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import AppStore from "./store/AppStore";
-import ModalStore from "./store/ModalStore";
-import NotificationStore from "./store/NotificationStore";
-import UrlStore from "./store/UrlStore";
-import UserStore from "./store/UserStore";
-import PostStore from "./store/PostStore";
+import App from './App';
+import AppStore from './store/AppStore';
+import ModalStore from './store/ModalStore';
+import NotificationStore from './store/NotificationStore';
+import UrlStore from './store/UrlStore';
+import UserStore from './store/UserStore';
+import PostStore from './store/PostStore';
 
 const modalStore = new ModalStore();
 const notificationStore = new NotificationStore();
@@ -23,11 +23,10 @@ const storeList = {
   modalStore,
   notificationStore,
   urlStore,
-  postStore
-}
+  postStore,
+};
 
-export const Context = createContext(storeList)
-
+const Context = createContext(storeList);
 const application = (
   <Context.Provider value={storeList}>
     <BrowserRouter>
@@ -38,5 +37,7 @@ const application = (
 
 ReactDOM.render(
   application,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
+
+export { Context };

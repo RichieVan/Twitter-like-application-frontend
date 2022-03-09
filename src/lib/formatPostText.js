@@ -1,22 +1,24 @@
-import React from "react";
+import React from 'react';
 
-export default function FormatPostText (textContent) {
-    let textExludeLineBreaks = textContent.split(/\r\n/);
+export default function FormatPostText(textContent) {
+  let textExludeLineBreaks = textContent.split(/\r\n/);
 
-    if (textExludeLineBreaks.length == 1) {
-        textExludeLineBreaks = textContent.split(/\n/);
+  if (textExludeLineBreaks.length === 1) {
+    textExludeLineBreaks = textContent.split(/\n/);
+  }
+  if (textExludeLineBreaks.length === 1) {
+    textExludeLineBreaks = textContent.split(/\r/);
+  }
+
+  const contentArray = [];
+  textExludeLineBreaks.forEach((val, index) => {
+    if (index !== 0) {
+      const linebreakKey = index * 2 - 1;
+      contentArray.push(<br key={linebreakKey} />);
     }
-    if (textExludeLineBreaks.length == 1) {
-        textExludeLineBreaks = textContent.split(/\r/);
-    }
+    const spanKey = index * 2;
+    contentArray.push(<span key={spanKey}>{val}</span>);
+  });
 
-    let contentArray = [];
-    textExludeLineBreaks.map((val, index) => {
-        if (index !== 0) {
-            contentArray.push(<br key={index * 2 - 1}/>);
-        }
-        contentArray.push(<span key={index * 2}>{val}</span>);
-    });
-
-    return contentArray;
+  return contentArray;
 }

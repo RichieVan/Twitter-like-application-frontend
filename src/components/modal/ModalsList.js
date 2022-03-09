@@ -1,23 +1,25 @@
-import { observer } from "mobx-react-lite";
-import React, { useContext, useEffect, useState } from "react";
-import { Context } from "../..";
+import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
+
 import './style.css';
+import { Context } from '../..';
 import Modal from './Modal';
 
-const ModalsList = () => {
-    const {modalStore} = useContext(Context);
+function ModalsList() {
+  const { modalStore } = useContext(Context);
 
-    return (
-        <div className='modals'>
-            {modalStore.modals.map((value) => {
-                return (
-                    <Modal key={value.props.modalName} {...value.props}>
-                        {value.element}
-                    </Modal>
-                );
-            })}
-        </div>
-    )
+  return (
+    <div className="modals">
+      {modalStore.modals.map((value) => (
+        <Modal
+          key={value.props.modalName}
+          {...value.props}
+        >
+          {value.element}
+        </Modal>
+      ))}
+    </div>
+  );
 }
 
 export default observer(ModalsList);

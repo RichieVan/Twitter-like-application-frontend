@@ -1,64 +1,58 @@
-import React from "react";
+import React, { useRef, useState } from 'react';
+
 import './style.css';
 
-class DragAndDrop extends React.Component {
-    constructor(props) {
-      super(props);
-      this.fileInput = React.createRef();
+function DragAndDrop({ filesHandler, multiple }) {
+  const fileInput = useRef(null);
+  const [dropping, setDropping] = useState(false);
 
-      this.state = {
-          dropping : false
-      }
-    }
+  const dragoverHandler = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
 
-    dragover = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-    }
+  const dragenterHandler = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setDropping(true);
+  };
 
-    dragenter = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        this.setState({dropping : true});
-    }
+  const dragleaveHandler = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setDropping(false);
+  };
 
-    dragleave = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        this.setState({dropping : false});
-    }
+  const dropHandler = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
 
-    drop = (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        
-        var dt = e.dataTransfer;
-        var files = dt.files;
+    const dt = e.dataTransfer;
+    const { files } = dt;
 
-        this.setState({dropping : false});
-        this.props.filesHandler(files);
-    }
-  
-    render() {
-      return (
-        <div className={this.state.dropping ? 'drop-container dropping' : 'drop-container'} onDragEnter={this.dragenter}>
-            <div className='drop-area' onDragOver={this.dragover} onDragEnter={this.dragenter} onDrop={this.drop} onDragLeave={this.dragleave}></div>
-            <div className='drop-form'>
-                <b>Перенесите файл сюда</b>
-                <span>или</span>
-                <label>
-                    выбрать файл на диске
-                    <input type="file" 
-                        ref={this.fileInput} 
-                        onChange={(e) => {this.props.filesHandler(this.fileInput.current.files)}} 
-                        disabled={this.state.dropping}
-                        multiple={this.props.multiple}
-                    />
-                </label>
-            </div>
-        </div>
-      );
-    }
+    setDropping(false);
+    filesHandler(files);
+  };
+
+  return (
+    <div className={dropping ? 'drop-container dropping' : 'drop-container'} onDragEnter={dragenterHandler}>
+      <div className="drop-area" onDragOver={dragoverHandler} onDragEnter={dragenterHandler} onDrop={dropHandler} onDragLeave={dragleaveHandler} />
+      <div className="drop-form">
+        <b>Перенесите файл сюда</b>
+        <span>или</span>
+        <label>
+          выбрать файл на диске
+          <input
+            type="file"
+            ref={fileInput}
+            onChange={() => filesHandler(fileInput.current.files)}
+            disabled={dropping}
+            multiple={multiple}
+          />
+        </label>
+      </div>
+    </div>
+  );
 }
 
 export default DragAndDrop;

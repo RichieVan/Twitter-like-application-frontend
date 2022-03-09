@@ -1,6 +1,7 @@
 export default (num) => {
-    if ((num + '').length < 2) {
-        num = '0' + num;
-    }
-    return num;
-}
+  let convertedNum = String(num);
+  if (convertedNum.length < 2) {
+    convertedNum = `0${convertedNum}`;
+  }
+  return convertedNum;
+};

@@ -1,87 +1,87 @@
 .notifications {
-    position: fixed;
-    left: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100vw;
-    pointer-events: none;
-    z-index: 1500;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  pointer-events: none;
+  z-index: 1500;
 }
 
 .nfc-container {
-    display: inline-block;
-    position: relative;
-    top: -15px;
-    margin: 0 auto;
-    max-width: 600px;
-    max-height: 150px;
-    pointer-events: auto;
-    transition: top .3s ease-out, max-height .5s ease-out;
+  display: inline-block;
+  position: relative;
+  top: -15px;
+  margin: 0 auto;
+  max-width: 600px;
+  max-height: 150px;
+  pointer-events: auto;
+  transition: top .3s ease-out, max-height .5s ease-out;
 }
 
 .nfc-container.fading-in {
-    top: 0;
+  top: 0;
 }
 
 .nfc-container.fading-out {
-    max-height: 0;
+  max-height: 0;
 }
 
 .nfc-container .content {
-    display: flex;
-    padding: 12px 20px;
-    margin: 10px 0;
-    border-radius: 15px;
-    font-weight: 500;
-    opacity: 0;
-    transition: opacity .3s ease-out;
+  display: flex;
+  padding: 12px 20px;
+  margin: 10px 0;
+  border-radius: 15px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity .3s ease-out;
 }
 
 .nfc-container .content svg {
-    display: block;
-    flex-shrink: 0;
-    height: 16px;
-    width: 16px;
-    margin: 3px 10px 0 0;
+  display: block;
+  flex-shrink: 0;
+  height: 16px;
+  width: 16px;
+  margin: 3px 10px 0 0;
 }
 
 .nfc-container .content .text {
-    margin: 0;
-    line-height: 20px;
+  margin: 0;
+  line-height: 20px;
 }
 
 .nfc-container.fading-in .content {
-    opacity: 1;
+  opacity: 1;
 }
 
 .nfc-container .content.info {
-    background: var(--bg1);
-    border: 2px solid var(--cblue);
-    box-shadow: 0 0 10px 1px rgb(202, 208, 211);
+  background: var(--bg1);
+  border: 2px solid var(--cblue);
+  box-shadow: 0 0 10px 1px rgb(202, 208, 211);
 }
 
 .nfc-container .content.info svg {
-    color: rgb(110, 209, 255);
+  color: rgb(110, 209, 255);
 }
 
 .nfc-container .content.success {
-    background: var(--bg1);
-    border: 2px solid var(--cgreen);
-    box-shadow: 0 0 10px 1px rgb(202, 211, 203);
+  background: var(--bg1);
+  border: 2px solid var(--cgreen);
+  box-shadow: 0 0 10px 1px rgb(202, 211, 203);
 }
 
 .nfc-container .content.success svg {
-    color: rgb(115, 255, 110);
+  color: rgb(115, 255, 110);
 }
 
 .nfc-container .content.error {
-    background: var(--bg1);
-    border: 2px solid var(--cred);
-    box-shadow: 0 0 10px 1px rgb(211, 202, 202);
+  background: var(--bg1);
+  border: 2px solid var(--cred);
+  box-shadow: 0 0 10px 1px rgb(211, 202, 202);
 }
 
 .nfc-container .content.error svg {
-    color: var(--cred);
+  color: var(--cred);
 }
