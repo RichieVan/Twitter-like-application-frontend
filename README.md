@@ -1,4 +1,4 @@
-# rvfront
+# Twitter-like application (frontend)
 Основной стэк:
 - React.js, react-dom
 - Mobx, mobx-react-lite
