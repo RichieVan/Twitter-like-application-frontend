@@ -9,15 +9,14 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 
-import './style.css';
-import PostOptions from './PostOptions';
+import PostOptions from '../postOptions/PostOptions';
 import PostService from '../../services/PostService';
 import LoadingMask from '../LoadingMask';
 import FormatPostText from '../../lib/formatPostText.js';
-import PostForm from './PostForm';
-import CommentsList from './CommentsList';
-import LikeButton from './buttons/like';
-import CommentButton from './buttons/comments';
+import PostForm from '../postForm/PostForm';
+import CommentsList from '../CommentsList/CommentsList';
+import LikeButton from '../LikeButton/LikeButton';
+import CommentButton from '../CommentButton/CommentButton';
 import { Context } from '../..';
 
 function PostView() {
@@ -132,12 +131,10 @@ function PostView() {
           postId={postData.id}
         />
       )}
-      <div className="comments">
-        <CommentsList
-          postId={params.id}
-          postOwner={postData.user}
-        />
-      </div>
+      <CommentsList
+        postId={params.id}
+        postOwner={postData.user}
+      />
     </div>
   );
 }

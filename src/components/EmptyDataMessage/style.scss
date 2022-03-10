@@ -1,0 +1,16 @@
+.empty-data-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px 0;
+  
+  b {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  span {
+    font-size: 18px;
+  }
+}

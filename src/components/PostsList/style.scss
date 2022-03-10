@@ -1,0 +1,21 @@
+.posts-list {
+  position: relative;
+  background: #161616;
+
+  @keyframes syncing {
+    from {opacity: 0;}
+    to {opacity: .8;}
+  }
+  
+  &__syncing {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: var(--bg1);
+    opacity: .8;
+    z-index: 2;
+    animation: syncing .2s linear;
+  }
+}

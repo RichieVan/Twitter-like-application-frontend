@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import './style.css';
 import { Context } from '../../index.js';
 import ProfileHeader from './ProfileHeader';
-import ProfilePostsList from '../feed/lists/ProfilePostsList';
+import ProfilePostsList from '../ProfilePostsList/ProfilePostsList';
 import LoadingMask from '../LoadingMask';
 
 function Profile() {

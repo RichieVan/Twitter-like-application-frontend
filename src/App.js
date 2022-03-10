@@ -7,8 +7,6 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import '../node_modules/bootstrap/dist/css/bootstrap-grid.min.css';
-import './styles/style.css';
 import { Context } from './index';
 import Layout from './Layout';
 import Profile from './components/profile/Profile';
@@ -17,7 +15,7 @@ import LocationModal from './components/modal/LocationModal';
 import ProfileSettings from './components/profile/settings/ProfileSettings';
 import AuthRequired from './components/AuthRequired';
 import Greeting from './components/Greeting';
-import PostView from './components/feed/PostView';
+import PostView from './components/PostView/PostView';
 
 function App() {
   const {

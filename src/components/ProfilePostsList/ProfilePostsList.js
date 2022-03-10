@@ -7,12 +7,12 @@ import React, {
 } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Context } from '../../../index';
-import FormatPostText from '../../../lib/formatPostText';
-import LoadingMask from '../../LoadingMask';
-import PostLoadMore from '../PostLoadMore';
-import Post from '../Post';
-import '../style.css';
+import { Context } from '../../index';
+import FormatPostText from '../../lib/formatPostText';
+import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
+import LoadingMask from '../LoadingMask';
+import Post from '../Post/Post';
+import PostsList from '../PostsList/PostsList';
 
 function ProfilePostsList({ userData }) {
   const { postStore } = useContext(Context);
@@ -50,6 +50,30 @@ function ProfilePostsList({ userData }) {
     }
   }, [location.pathname]);
 
+  const loadMoreAction = () => new Promise((resolve, reject) => {
+    postStore.loadMoreUserPosts(userData.id, lastPost.current)
+      .then((data) => {
+        setPosts(
+          posts.concat(
+            data.posts.map((val, i, arr) => {
+              if (i === arr.length - 1) lastPost.current = val;
+              const contentArray = FormatPostText(val.textContent);
+              return (
+                <Post
+                  key={val.id}
+                  id={val.id}
+                  options={val}
+                  contentArray={contentArray}
+                />
+              );
+            }),
+          ),
+        );
+        if (data.canLoadMore) resolve();
+        else reject(() => { setCanLoadMore(data.canLoadMore); });
+      });
+  });
+
   const render = () => {
     if (posts.length > 0) {
       return posts;
@@ -58,44 +82,21 @@ function ProfilePostsList({ userData }) {
       return (<LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={1} />);
     }
     return (
-      <div className="feed-no-data">
+      <EmptyDataMessage>
         <b>Посты не найдены</b>
-        <span>Этот пользователь еще не оставил ни одного :(</span>
-      </div>
+        <span>Этот пользователь еще не оставил ни одного поста</span>
+      </EmptyDataMessage>
     );
   };
 
   return (
-    <div className="posts-list">
+    <PostsList
+      canLoadMore={canLoadMore}
+      loadMoreAction={loadMoreAction}
+      isSyncing={postStore.syncing}
+    >
       {render()}
-      {canLoadMore && (
-        <PostLoadMore action={() => new Promise((resolve, reject) => {
-          postStore.loadMoreUserPosts(userData.id, lastPost.current)
-            .then((data) => {
-              setPosts(
-                posts.concat(
-                  data.posts.map((val, i, arr) => {
-                    if (i === arr.length - 1) lastPost.current = val;
-                    const contentArray = FormatPostText(val.textContent);
-                    return (
-                      <Post
-                        key={val.id}
-                        id={val.id}
-                        options={val}
-                        contentArray={contentArray}
-                      />
-                    );
-                  }),
-                ),
-              );
-              if (data.canLoadMore) resolve();
-              else reject(() => { setCanLoadMore(data.canLoadMore); });
-            });
-        })}
-        />
-      )}
-      {postStore.syncing && (<div className="syncing-mask" />)}
-    </div>
+    </PostsList>
   );
 }
 

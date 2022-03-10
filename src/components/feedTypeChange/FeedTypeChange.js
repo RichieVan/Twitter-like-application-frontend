@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useRef, useState } from 'react';
+
 import { Context } from '../..';
 
 function FeedTypeChange() {
@@ -7,7 +8,7 @@ function FeedTypeChange() {
   const [isChecked, setChecked] = useState(postStore.feedType === 'subs');
   const inputElement = useRef(null);
 
-  const allLabelClickHandler = () => {
+  const showAllClickHandler = () => {
     if (inputElement.current.checked && postStore.canChangeFeedType) {
       postStore.setCanChangeFeedType(false);
       setChecked(false);
@@ -15,7 +16,7 @@ function FeedTypeChange() {
     }
   };
 
-  const subscribedLabelClickHandler = () => {
+  const showSubsClickHandler = () => {
     if (!inputElement.current.checked && postStore.canChangeFeedType) {
       postStore.setCanChangeFeedType(false);
       setChecked(true);
@@ -24,19 +25,23 @@ function FeedTypeChange() {
   };
 
   return (
-    <div className="feed-tc_container">
-      <div className="input-container">
+    <div className="feed-type">
+      <div className="feed-type__wrapper">
         <button
           type="button"
-          className="feed-tc_label"
-          onClick={() => allLabelClickHandler()}
+          className="feed-type__option"
+          onClick={() => showAllClickHandler()}
         >
           Все
         </button>
-        <div className="input-wrapper">
+        <label
+          className="feed-type__label"
+          htmlFor="feedTypeChange"
+        >
           <input
             ref={inputElement}
             type="checkbox"
+            className="feed-type__check"
             id="feedTypeChange"
             name="feedTypeChange"
             checked={isChecked}
@@ -50,12 +55,12 @@ function FeedTypeChange() {
               setChecked(e.target.checked);
             }}
           />
-          <label htmlFor="feedTypeChange" />
-        </div>
+          <span />
+        </label>
         <button
           type="button"
-          className="feed-tc_label"
-          onClick={() => subscribedLabelClickHandler()}
+          className="feed-type__option"
+          onClick={() => showSubsClickHandler()}
         >
           Подписки
         </button>

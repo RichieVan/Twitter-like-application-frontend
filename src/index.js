@@ -2,6 +2,8 @@ import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
+import './styles/style.scss';
+
 import App from './App';
 import AppStore from './store/AppStore';
 import ModalStore from './store/ModalStore';

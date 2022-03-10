@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import './style.css';
 import { Context } from '../..';
-import PostOptions from './PostOptions';
-import LikeButton from './buttons/like';
-import CommentButton from './buttons/comments';
+import PostOptions from '../postOptions/PostOptions';
+import LikeButton from '../LikeButton/LikeButton';
+import CommentButton from '../CommentButton/CommentButton';
 
 function Post({ id, options, contentArray }) {
   const { userStore, appStore, postStore } = useContext(Context);
@@ -28,35 +27,35 @@ function Post({ id, options, contentArray }) {
   };
 
   return (
-    <article className="post feed-view">
+    <article className="post post_type_feed">
       <div
-        className="content-wrapper"
+        className="post__wrapper"
         onClick={(e) => postClickHandler(e)}
       >
-        <div className="avatar-container">
+        <div className="post__avatar">
           <Link
             to={`/profile/${postData.user.login}`}
-            className="avatar"
+            className="post__avatar-link"
             style={{ backgroundImage: `url(${postData.user.id === userStore.user.id ? userStore.user.avatar.url : postData.user.avatar.url})` }}
             onClick={(e) => {
               e.stopPropagation();
             }}
           />
         </div>
-        <div className="post-contents">
-          <div className="heading">
+        <div className="post__content-wrapper">
+          <div className="post__heading">
             <Link
               to={`/profile/${postData.user.login}`}
-              className="profile-name"
+              className="post__profile-link"
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
               {postData.user.username}
             </Link>
-            <div className="datetime-created" title={postData.createdAt.title}>{postData.createdAt.view}</div>
+            <div className="post__datetime" title={postData.createdAt.title}>{postData.createdAt.view}</div>
           </div>
-          <div className="content">
+          <div className="post__content">
             {contentArray}
           </div>
         </div>
@@ -67,7 +66,7 @@ function Post({ id, options, contentArray }) {
         postId={id}
         type="post"
       />
-      <div className="bottom-panel">
+      <div className="post__panel">
         <LikeButton componentData={postData} setComponentData={setPostData} />
         <CommentButton componentData={postData} />
       </div>

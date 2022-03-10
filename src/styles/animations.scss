@@ -1,0 +1,14 @@
+@keyframes likeAnimation {
+  0% {
+    box-shadow: 0 0 5px 5px #fff;
+    opacity: 1;
+  }
+  
+  80% {
+    box-shadow: 0 0 13px 10px var(--cblue);
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

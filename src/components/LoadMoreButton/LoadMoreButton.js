@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LoadingMask from '../LoadingMask';
 
-function PostLoadMore({ action }) {
+function LoadMoreButton({ action }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const clickHandler = () => {
@@ -12,10 +12,10 @@ function PostLoadMore({ action }) {
   };
 
   return (
-    <div className="load-more_container">
+    <div className="load-more">
       <button
         type="button"
-        className="feed-load-more"
+        className="load-more__button"
         onClick={() => clickHandler()}
       >
         Загрузить еще
@@ -27,4 +27,4 @@ function PostLoadMore({ action }) {
   );
 }
 
-export default PostLoadMore;
+export default LoadMoreButton;

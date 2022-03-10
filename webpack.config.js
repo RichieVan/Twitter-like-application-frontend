@@ -7,8 +7,6 @@ dotenv.config();
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-console.log(process.env?.BUILD_ENV);
 const modeStatus = (process.env?.BUILD_ENV === 'production') ? 'production' : 'development';
 
 require('dotenv').config({ path: './.env' });
@@ -29,6 +27,14 @@ module.exports = {
         test: /\.(jsx|js)$/,
         exclude: '/node_modules',
         use: 'babel-loader',
+      },
+      {
+        test: /\.(sass|scss)$/,
+        use: [
+          modeStatus === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ],
       },
       {
         test: /\.css$/,
@@ -80,7 +86,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.css'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
     modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
   },
   performance: {

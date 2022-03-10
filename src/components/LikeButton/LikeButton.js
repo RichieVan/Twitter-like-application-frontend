@@ -1,14 +1,16 @@
 import React, {
-  useContext, useEffect, useRef, useState,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
 } from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
-import { Context } from '../../..';
+import { Context } from '../..';
+import PanelButton from '../PanelButton/PanelButton';
 
-function LikeButton({ componentData, setComponentData }) {
+function LikeButton({ componentData, setComponentData, mods = [] }) {
   const { userStore, postStore, notificationStore } = useContext(Context);
   const [likedByUser, setLikedByUser] = useState(componentData.currentUserLiked);
   const [tempLikesValue, setTempLikesValue] = useState(false);
@@ -17,6 +19,9 @@ function LikeButton({ componentData, setComponentData }) {
   useEffect(() => {
     setLikedByUser(componentData.currentUserLiked);
   }, [componentData]);
+
+  const classMods = ['type_like'].concat(mods);
+  if (likedNow.current && likedByUser) classMods.push('liked');
 
   const clickHandler = () => {
     if (userStore.isAuth) {
@@ -51,16 +56,13 @@ function LikeButton({ componentData, setComponentData }) {
   };
 
   return (
-    <button
-      type="button"
-      className={`like${likedNow.current && likedByUser ? ' liked' : ''}`}
-      onClick={() => clickHandler()}
+    <PanelButton
+      mods={classMods}
+      handler={clickHandler}
+      icon={likedByUser ? faHeart : faHeartRegular}
     >
-      <div className="bpbutton_wrapper">
-        <FontAwesomeIcon icon={likedByUser ? faHeart : faHeartRegular} />
-        <span>{getLikesCount()}</span>
-      </div>
-    </button>
+      {getLikesCount()}
+    </PanelButton>
   );
 }
 

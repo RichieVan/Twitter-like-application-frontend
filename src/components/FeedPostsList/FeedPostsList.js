@@ -6,13 +6,13 @@ import React, {
   useState,
 } from 'react';
 
-import PostLoadMore from '../PostLoadMore';
-import Post from '../Post';
-import LoadingMask from '../../LoadingMask';
-import { Context } from '../../../index';
-import FormatPostText from '../../../lib/formatPostText';
+import Post from '../Post/Post';
+import LoadingMask from '../LoadingMask';
+import { Context } from '../../index';
+import FormatPostText from '../../lib/formatPostText';
 
-import '../style.css';
+import PostsList from '../PostsList/PostsList';
+import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 
 function FeedPostsList() {
   const { postStore } = useContext(Context);
@@ -54,6 +54,14 @@ function FeedPostsList() {
     }
   }, [postStore.feedPostsList]);
 
+  const loadMoreAction = () => new Promise((resolve, reject) => {
+    postStore.loadMorePosts()
+      .then((result) => {
+        if (result) resolve();
+        else reject(() => { postStore.setCanLoadMore(false); });
+      });
+  });
+
   const render = () => {
     if (posts?.length > 0) {
       return posts;
@@ -62,28 +70,21 @@ function FeedPostsList() {
       return (<LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={1} />);
     }
     return (
-      <div className="feed-no-data">
+      <EmptyDataMessage>
         <b>Посты не найдены</b>
         <span>Вероятно, вы ни на кого не подписаны</span>
-      </div>
+      </EmptyDataMessage>
     );
   };
 
   return (
-    <div className="posts-list">
+    <PostsList
+      canLoadMore={postStore.canLoadMore}
+      loadMoreAction={loadMoreAction}
+      isSyncing={postStore.syncing}
+    >
       {render()}
-      {postStore.canLoadMore && (
-        <PostLoadMore action={() => new Promise((resolve, reject) => {
-          postStore.loadMorePosts()
-            .then((result) => {
-              if (result) resolve();
-              else reject(() => { postStore.setCanLoadMore(false); });
-            });
-        })}
-        />
-      )}
-      {postStore.syncing && (<div className="syncing-mask" />)}
-    </div>
+    </PostsList>
   );
 }
 

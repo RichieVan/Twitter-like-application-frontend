@@ -1,0 +1,25 @@
+.load-more {
+  position: relative;
+  background: inherit;
+  border-top: 2px solid var(--bc1);
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 46px;
+    font-size: 16px;
+    color: var(--tc1);
+
+    &:hover {
+      background: var(--bhc);
+    }
+  }
+
+  // @TODO УБРАТЬ
+  .loading-content {
+    min-height: 0;
+    padding: 10px 0;
+  }
+}

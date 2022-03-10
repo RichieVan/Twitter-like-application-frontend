@@ -2,7 +2,6 @@ import React, { useContext, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 
-import './style.css';
 import LoadingMask from '../LoadingMask';
 import ActivateAccountPopup from '../popup/ActivateAccount';
 import { Context } from '../..';
@@ -42,15 +41,16 @@ function PostForm({ type = 'post', postId = null }) {
   };
 
   return (
-    <div className={`post-form type-${type}`}>
+    <div className={`post-form post-form_type_${type}`}>
       {isLoading && (<LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={0.6} />)}
       {!userStore.user.isActivated && (
-        <div className="auth-mask">
+        <div className="post-form__auth-mask">
           <b>Вы не можете оставлять посты или комментарии</b>
           <div>
             Сперва необходимо&nbsp;
-            <b
-              className="pseudo-link"
+            <button
+              type="button"
+              className="post-form__auth-link"
               onClick={() => {
                 modalStore.openModal(<ActivateAccountPopup />, {
                   heading: 'Активация аккаунта',
@@ -58,21 +58,21 @@ function PostForm({ type = 'post', postId = null }) {
               }}
             >
               активировать аккаунт
-            </b>
+            </button>
           </div>
         </div>
       )}
-      <div className="avatar-container">
+      <div className="post-form__avatar">
         <Link
           to={`/profile/${userStore.user.login}`}
-          className="avatar"
+          className="post-form__avatar-link"
           style={{ backgroundImage: `url(${userStore.user.avatar.url})` }}
         />
       </div>
-      <div className="post-content">
+      <div className="post-form__content">
         <div
           contentEditable={userStore.user.isActivated}
-          className="content-input"
+          className="post-form__input"
           ref={textInput}
           onInput={(e) => {
             // Фикс двойного переноса только для винды
@@ -130,10 +130,10 @@ function PostForm({ type = 'post', postId = null }) {
             e.preventDefault();
           }}
         />
-        <div className="options-container">
+        <div className="post-form__options">
           <button
             type="submit"
-            className="btn to-right"
+            className="post-form__submit btn to-right"
             disabled={isDisabled}
             onClick={async (e) => buttonClickHandler(e)}
           >

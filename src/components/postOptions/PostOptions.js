@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faLink } from '@fortawesome/free-solid-svg-icons';
 
-import './style.css';
 import ConfirmAction from '../popup/ConfirmAction';
 import { Context } from '../..';
 import { APP_URL } from '../../http';
@@ -26,7 +25,7 @@ function PostOptions({
   const location = useLocation();
 
   const classList = [
-    'list-container',
+    'post-options__list-container',
     show ? ' active' : '',
   ];
 
@@ -85,12 +84,12 @@ function PostOptions({
   };
 
   return (
-    <div className="options">
+    <div className="post-options">
       {showOptions && (
-        <div className="options-wrapper">
+        <div className="post-options__wrapper">
           <button
             type="button"
-            className="open-list"
+            className="post-options__open-button"
             onClick={(e) => {
               e.stopPropagation();
               appStore.setActivePostOptions({ id: postId, type });
@@ -102,15 +101,15 @@ function PostOptions({
             className={classList.join('')}
             onClick={(e) => e.stopPropagation()}
           >
-            <ul className="list">
+            <ul className="post-options__list">
               {optionsList.copyLink && (
-                <li className="option">
+                <li className="post-options__option">
                   <button
                     type="button"
-                    className="option-link"
+                    className="post-options__option-button"
                     onClick={() => copyActionHandler()}
                   >
-                    <i className="icon">
+                    <i className="post-options__option-icon icon">
                       <FontAwesomeIcon icon={faLink} />
                     </i>
                     <span>Скопировать ссылку</span>
@@ -118,13 +117,13 @@ function PostOptions({
                 </li>
               )}
               {optionsList.deletePost && (
-              <li className="option delete">
+              <li className="post-options__option">
                 <button
                   type="button"
-                  className="option-link"
+                  className="post-options__option-button  post-options__option-button_type_delete"
                   onClick={() => deleteActionHandler()}
                 >
-                  <i className="icon">
+                  <i className="post-options__option-icon icon">
                     <FontAwesomeIcon icon={faLink} />
                   </i>
                   <span>Удалить пост</span>

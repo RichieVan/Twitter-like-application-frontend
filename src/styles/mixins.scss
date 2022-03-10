@@ -1,0 +1,19 @@
+@mixin avatarHoverFade {
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--bgmain);
+    opacity: 0;
+    transition: opacity .1s linear;
+  }
+
+  &:hover:after {
+    opacity: .3;
+  }
+}

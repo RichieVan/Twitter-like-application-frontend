@@ -1,0 +1,105 @@
+.post-options {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  color: #cfcfcf;
+
+  &__wrapper {
+    position: relative;
+  }
+
+  &__open-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: inherit;
+    font-size: 16px;
+    border: none;
+    border-radius: 50%;
+
+    & svg {
+      height: 16px;
+      vertical-align: 0;
+      transition: color .1s linear;
+      color: var(--tc1);
+    }
+    
+    &:hover {
+      background: var(--bgshade);
+
+      & svg {
+        color: var(--cblue);
+      }
+    }
+  }
+
+  &__list-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    max-height: 0;
+    background: var(--bgmain);
+    border-radius: 5px;
+    box-shadow: 0 0 5px 0 var(--bscmain);
+    z-index: 3;
+    overflow: hidden;
+
+    &.active {
+      display: flex;
+      max-height: 500px;
+      transition: max-height .4s linear;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+  }
+
+  &__option {
+    position: relative;
+
+    &:not(:last-child):after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 10px;
+      width: calc(100% - 20px);
+      height: 1px;
+      background: var(--bc1);
+    }
+  }
+
+  &__option-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 15px;
+    white-space: nowrap;
+    font-size: 15px;
+    color: var(--tc1);
+
+    &:hover {
+      transition: color .1s linear;
+      background: var(--bhc);
+      color: #fff;
+    }
+
+    &_type_delete {
+      color: var(--cred);
+
+      &:hover {
+        color: var(--cred);
+      }
+    }
+  }
+
+  &__option-icon {
+    margin-right: 6px;
+  }
+}
+

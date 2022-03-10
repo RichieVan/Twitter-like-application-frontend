@@ -1,10 +1,11 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react';
+
 import { Context } from '../../index';
 import FormatPostText from '../../lib/formatPostText';
+import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../LoadingMask';
-import PostComment from './PostComment';
-import './style.css';
+import PostComment from '../postComment/PostComment';
 
 function CommentsList({ postId, postOwner }) {
   const { postStore } = useContext(Context);
@@ -73,10 +74,10 @@ function CommentsList({ postId, postOwner }) {
     if (comments.length > 0) return comments;
 
     return (
-      <div className="feed-no-data">
+      <EmptyDataMessage>
         <b>Здесь нет ни одного комментария :(</b>
         <span>Будьте первыми!</span>
-      </div>
+      </EmptyDataMessage>
     );
   };
 
