@@ -5,7 +5,7 @@ import { Context } from '../../index';
 import FormatPostText from '../../lib/formatPostText';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../LoadingMask';
-import PostComment from '../postComment/PostComment';
+import PostComment from '../PostComment/PostComment';
 
 function CommentsList({ postId, postOwner }) {
   const { postStore } = useContext(Context);

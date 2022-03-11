@@ -6,7 +6,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap-grid.min.css';
 import './styles/style.css';
 import GlobalMask from './components/GlobalMask';
 import NotificationsList from './components/notification/NotificationsList';
-import ModalsList from './components/modal/ModalsList';
+import ModalsList from './components/ModalsList/ModalsList';
 import SidebarRight from './components/sidebar/SidebarRight';
 import SidebarLeft from './components/sidebar/SidebarLeft';
 

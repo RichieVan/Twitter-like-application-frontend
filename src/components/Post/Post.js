@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { Context } from '../..';
-import PostOptions from '../postOptions/PostOptions';
+import PostOptions from '../PostOptions/PostOptions';
 import LikeButton from '../LikeButton/LikeButton';
 import CommentButton from '../CommentButton/CommentButton';
 

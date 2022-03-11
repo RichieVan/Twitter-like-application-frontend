@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
 
-import './style.css';
 import { Context } from '../../index.js';
 import LoadingCircle from '../../assets/img/icons/loading.svg';
 import AddLeadZero from '../../lib/addLeadZero';
@@ -35,14 +34,12 @@ function ActivateAccountPopup() {
         setSendingCooldown(sendingCooldown - 1);
       }, 1000);
       return (
-        <div className="send-new">
+        <div className="activate-account-popup__send">
           <span>Письмо отправлено!</span>
-          <b className="sending-cooldown">
+          <b className="activate-account-popup__cooldown">
             Повторная отправка будет доступна через
             <span>
-              {Math.trunc(sendingCooldown / 60)}
-              :
-              {AddLeadZero(sendingCooldown % 60)}
+              {`${Math.trunc(sendingCooldown / 60)}:${AddLeadZero(sendingCooldown % 60)}`}
             </span>
           </b>
         </div>
@@ -55,9 +52,9 @@ function ActivateAccountPopup() {
 
     if (isSending) {
       return (
-        <div className="send-new">
+        <div className="activate-account-popup__send">
           <span>Не приходит письмо?</span>
-          <b className="sending-message">
+          <b className="activate-account-popup__sending">
             <span>Отправка сообщения...</span>
             <LoadingCircle height={20} height={20} />
           </b>
@@ -66,7 +63,7 @@ function ActivateAccountPopup() {
     }
 
     return (
-      <div className="send-new">
+      <div className="activate-account-popup__send">
         <span>Не приходит письмо?</span>
         <button
           type="button"
@@ -89,8 +86,8 @@ function ActivateAccountPopup() {
   };
 
   return (
-    <div className="actacc-container">
-      <div className="message">{message}</div>
+    <div className="activate-account-popup">
+      <div className="activate-account-popup__message">{message}</div>
       {resendOption()}
       {isFirstLoading.current ? (
         <LoadingMask cHeight={50} cWidth={50} bg="#0f0f0f" opacity={1} />

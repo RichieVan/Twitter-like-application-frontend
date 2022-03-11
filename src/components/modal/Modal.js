@@ -1,30 +1,20 @@
 import { observer } from 'mobx-react-lite';
 import React, { cloneElement, useContext, useState } from 'react';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Context } from '../..';
 
-import './style.css';
+import ModalBase from './base/ModalBase';
 
 function Modal({
   modalName,
   heading,
-  fadingOutTime,
   temporal,
   children,
 }) {
   const { modalStore } = useContext(Context);
-  const [fadingOut, setFadingOut] = useState(false);
 
-  const classList = [
-    'modal',
-    modalStore.active.includes(modalName) ? ' active' : '',
-    fadingOut ? ' fading-out' : '',
-  ];
-
-  const styleList = {
-    transition: `opacity ${fadingOutTime / 1000}s linear`,
-  };
+  const classArray = ['modal'];
+  if (modalStore.active.includes(modalName)) classArray.push('modal_active');
+  const classList = classArray.join(' ');
 
   let closeFunction;
   if (temporal) {
@@ -39,41 +29,20 @@ function Modal({
     };
   }
 
-  const closeModal = () => {
-    if (fadingOutTime) {
-      setFadingOut(true);
-      setTimeout(() => {
-        setFadingOut(false);
-        closeFunction();
-      }, fadingOutTime);
-    } else {
-      closeFunction();
-    }
-  };
-
   return (
     <div
-      className={classList.join('')}
-      style={styleList}
-      onClick={closeModal}
+      className={classList}
+      onClick={() => closeFunction()}
     >
-      <div 
-        className="modal-container" 
-        onClick={(e) => e.stopPropagation()}
+      <ModalBase
+        heading={heading}
+        containerClickHandler={(e) => e.stopPropagation()}
+        closeModalHandler={() => closeFunction()}
       >
-        <h2 className="modal-heading">{heading}</h2>
-        <div className="modal-content">
-          {cloneElement(children, {
-            closeModal,
-          })}
-        </div>
-        <div 
-          className="modal-close" 
-          onClick={closeModal}
-        >
-          <FontAwesomeIcon icon={faTimes} />
-        </div>
-      </div>
+        {cloneElement(children, {
+          closeFunction,
+        })}
+      </ModalBase>
     </div>
   );
 }

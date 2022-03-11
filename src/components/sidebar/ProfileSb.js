@@ -10,8 +10,8 @@ import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { Context } from '../..';
-import ActivateAccountPopup from '../popup/ActivateAccount';
-import ConfirmAction from '../popup/ConfirmAction';
+import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
+import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
 
 function ProfileInfo() {
   const { userStore, modalStore, notificationStore } = useContext(Context);
@@ -23,22 +23,27 @@ function ProfileInfo() {
 
   const optionsHandlers = {
     activateAccount() {
-      modalStore.openModal(<ActivateAccountPopup />, {
-        heading: 'Активация аккаунта',
-      });
+      modalStore.openModal(
+        <ActivateAccountPopup />,
+        {
+          heading: 'Активация аккаунта',
+        },
+      );
     },
     logout() {
       modalStore.openModal(
-        <ConfirmAction
+        <ConfirmActionPopup
           text={['Вы уверены что хотите выйти из аккаунта?']}
           confirmText="Выйти"
           declineText="Отмена"
           confirmButtonStyles="fill error"
           confirmAction={() => new Promise((resolve) => {
-            userStore.logout().then(() => {
-              notificationStore.show('Вы вышли из аккаунта', 2000, 'info');
-              resolve();
-            });
+            userStore
+              .logout()
+              .then(() => {
+                notificationStore.show('Вы вышли из аккаунта', 2000, 'info');
+                resolve();
+              });
           })}
         />,
         {

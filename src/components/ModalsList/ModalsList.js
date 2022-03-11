@@ -1,9 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 
-import './style.css';
 import { Context } from '../..';
-import Modal from './Modal';
+import Modal from '../Modal/Modal';
 
 function ModalsList() {
   const { modalStore } = useContext(Context);

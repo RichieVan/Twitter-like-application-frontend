@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faLink } from '@fortawesome/free-solid-svg-icons';
 
-import ConfirmAction from '../popup/ConfirmAction';
+import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
 import { Context } from '../..';
 import { APP_URL } from '../../http';
 
@@ -13,6 +13,7 @@ function PostOptions({
   owner,
   postId,
   type,
+  mods = [],
 }) {
   const {
     userStore,
@@ -24,11 +25,6 @@ function PostOptions({
   const navigate = useNavigate();
   const location = useLocation();
 
-  const classList = [
-    'post-options__list-container',
-    show ? ' active' : '',
-  ];
-
   const optionsList = {
     deletePost: userStore.user.id === owner,
     copyLink: type === 'postView' || type === 'post',
@@ -39,7 +35,7 @@ function PostOptions({
 
   const deleteActionHandler = () => {
     modalStore.openModal(
-      <ConfirmAction
+      <ConfirmPopup
         text={['Вы уверены что хотите удалить пост?', 'Это действие нельзя отменить.']}
         confirmText="Удалить"
         declineText="Отмена"
@@ -83,13 +79,20 @@ function PostOptions({
       });
   };
 
+  const baseClass = 'post-options';
+  const listContainerClassList = [
+    `${baseClass}__list-container`,
+    show ? `${baseClass}__list-container_active` : '',
+  ].join(' ');
+  const optionsClassList = [baseClass].concat(mods.map((val) => `${baseClass}_${val}`)).join(' ');
+
   return (
-    <div className="post-options">
+    <div className={optionsClassList}>
       {showOptions && (
-        <div className="post-options__wrapper">
+        <div className={`${baseClass}__wrapper`}>
           <button
             type="button"
-            className="post-options__open-button"
+            className={`${baseClass}__open-button`}
             onClick={(e) => {
               e.stopPropagation();
               appStore.setActivePostOptions({ id: postId, type });
@@ -98,18 +101,18 @@ function PostOptions({
             <FontAwesomeIcon icon={faEllipsisV} />
           </button>
           <div
-            className={classList.join('')}
+            className={listContainerClassList}
             onClick={(e) => e.stopPropagation()}
           >
-            <ul className="post-options__list">
+            <ul className={`${baseClass}__list`}>
               {optionsList.copyLink && (
-                <li className="post-options__option">
+                <li className={`${baseClass}__option`}>
                   <button
                     type="button"
-                    className="post-options__option-button"
+                    className={`${baseClass}__option-button`}
                     onClick={() => copyActionHandler()}
                   >
-                    <i className="post-options__option-icon icon">
+                    <i className={`${baseClass}__option-icon icon`}>
                       <FontAwesomeIcon icon={faLink} />
                     </i>
                     <span>Скопировать ссылку</span>
@@ -117,13 +120,13 @@ function PostOptions({
                 </li>
               )}
               {optionsList.deletePost && (
-              <li className="post-options__option">
+              <li className={`${baseClass}__option`}>
                 <button
                   type="button"
-                  className="post-options__option-button  post-options__option-button_type_delete"
+                  className={`${baseClass}__option-button  ${baseClass}__option-button_type_delete`}
                   onClick={() => deleteActionHandler()}
                 >
-                  <i className="post-options__option-icon icon">
+                  <i className={`${baseClass}__option-icon icon`}>
                     <FontAwesomeIcon icon={faLink} />
                   </i>
                   <span>Удалить пост</span>

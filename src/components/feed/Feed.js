@@ -1,11 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import './style.css';
-import PostForm from '../postForm/PostForm';
+import PostForm from '../PostForm/PostForm';
 import FeedPostsList from '../FeedPostsList/FeedPostsList';
 import { Context } from '../..';
-import FeedTypeChange from '../feedTypeChange/FeedTypeChange';
+import FeedTypeChange from '../FeedTypeChange/FeedTypeChange';
 
 function Feed() {
   const { postStore } = useContext(Context);

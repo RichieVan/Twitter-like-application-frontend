@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import LoadingMask from '../LoadingMask';
 
-function ConfirmAction({
+function ConfirmPopup({
   closeModal,
   text,
   confirmText,
@@ -19,7 +19,7 @@ function ConfirmAction({
   }
 
   return (
-    <div className="confirm-action_container">
+    <div className="confirm-popup">
       {isLoading && (
         <LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={0.8} />
       )}
@@ -54,4 +54,4 @@ function ConfirmAction({
   );
 }
 
-export default ConfirmAction;
+export default ConfirmPopup;

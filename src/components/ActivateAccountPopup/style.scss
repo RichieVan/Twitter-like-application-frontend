@@ -1,0 +1,53 @@
+.activate-account-popup {
+  max-width: 620px;
+  color: var(--tc1);
+
+  &__message {
+    margin-bottom: 20px;
+  }
+
+  &__send {
+    display: flex;
+    font-size: 15px;
+
+    button {
+      display: inline-block;
+      padding: 0;
+      margin-left: 10px;
+      color: #fff;
+      line-height: 100%;
+      font-family: inherit;
+      font-size: inherit;
+
+      &:hover {
+        color: var(--cblue);
+      }
+    }
+  }
+
+  &__sending {
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+    color: var(--cblue);
+
+    span {
+      margin-right: 5px;
+    }
+
+    svg path {
+      fill: var(--cblue);
+    }
+  }
+
+  &__cooldown {
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+    color: #fff;
+
+    span {
+      margin-left: 5px;
+    }    
+  }
+}

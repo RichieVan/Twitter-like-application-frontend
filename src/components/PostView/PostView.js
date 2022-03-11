@@ -6,18 +6,17 @@ import {
   useNavigate,
   useParams,
 } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 
-import PostOptions from '../postOptions/PostOptions';
+import PostOptions from '../PostOptions/PostOptions';
 import PostService from '../../services/PostService';
 import LoadingMask from '../LoadingMask';
 import FormatPostText from '../../lib/formatPostText.js';
-import PostForm from '../postForm/PostForm';
+import PostForm from '../PostForm/PostForm';
 import CommentsList from '../CommentsList/CommentsList';
 import LikeButton from '../LikeButton/LikeButton';
 import CommentButton from '../CommentButton/CommentButton';
 import { Context } from '../..';
+import CopyLinkButton from '../CopyLinkButton/CopyLinkButton';
 
 function PostView() {
   const {
@@ -68,35 +67,35 @@ function PostView() {
 
   return (
     <div className="post-view">
-      <article className="post-view_content">
-        <div className="content-wrapper">
-          <div className="heading">
-            <div className="avatar-container">
+      <article className="post-view__wrapper">
+        <div className="post-view__inner-wrapper">
+          <div className="post-view__heading">
+            <div className="post-view__avatar">
               <div
-                className="avatar"
+                className="post-view__avatar-link"
                 style={{ backgroundImage: `url(${avatarUrl})` }}
               />
             </div>
-            <div className="post-info">
-              <div className="d-flex">
+            <div className="post-view__info">
+              <div className="post-view__info-inner">
                 <Link
                   to={`/profile/${postData.user.login}`}
-                  className="profile-name"
+                  className="post-view__profile-link"
                 >
                   {postData.user.username}
                 </Link>
                 <div
-                  className="datetime-created"
+                  className="post-view__datetime"
                   title={postData.createdAt.title}
                 >
                   {postData.createdAt.view}
                 </div>
               </div>
-              <div className="profile-tag">{`@${postData.user.login}`}</div>
+              <div className="post-view__tag">{`@${postData.user.login}`}</div>
             </div>
           </div>
-          <div className="post-contents">
-            <div className="content">
+          <div className="post-view__content-wrapper">
+            <div className="post-view__content">
               {postData.contentArray}
             </div>
           </div>
@@ -106,8 +105,9 @@ function PostView() {
           owner={postData.user.id}
           postId={postData.id}
           type="postView"
+          mods={['big']}
         />
-        <div className="bottom-panel">
+        <div className="post-view__panel">
           <LikeButton
             componentData={postData}
             setComponentData={setPostData}
@@ -116,13 +116,7 @@ function PostView() {
             componentData={postData}
             isNavigate={false}
           />
-          <button
-            type="button"
-            className="repost"
-            title="Скопировать ссылку"
-          >
-            <FontAwesomeIcon icon={faRetweet} />
-          </button>
+          <CopyLinkButton postId={postData.id} />
         </div>
       </article>
       {userStore.isAuth && (

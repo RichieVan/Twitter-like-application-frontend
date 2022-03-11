@@ -10,8 +10,8 @@ import {
 import { Context } from './index';
 import Layout from './Layout';
 import Profile from './components/profile/Profile';
-import Feed from './components/feed/Feed';
-import LocationModal from './components/modal/LocationModal';
+import Feed from './components/Feed/Feed';
+import LocationModal from './components/Modal/LocationModal';
 import ProfileSettings from './components/profile/settings/ProfileSettings';
 import AuthRequired from './components/AuthRequired';
 import Greeting from './components/Greeting';

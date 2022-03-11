@@ -1,0 +1,13 @@
+.confirm-popup {
+  position: relative;
+  background-color: inherit;
+
+  .text {
+    margin-bottom: 5px;
+
+    > * {
+      margin-bottom: 3px;
+      text-align: center;
+    }
+  }
+}

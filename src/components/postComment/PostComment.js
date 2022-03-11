@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import PostOptions from '../postOptions/PostOptions';
+import PostOptions from '../PostOptions/PostOptions';
 import LikeButton from '../LikeButton/LikeButton';
 import { Context } from '../..';
 

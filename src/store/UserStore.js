@@ -4,7 +4,7 @@ import React from 'react';
 
 import UserService from '../services/UserService';
 import { API_URL } from '../http/index';
-import ActivateAccountPopup from '../components/popup/ActivateAccount';
+import ActivateAccountPopup from '../components/ActivateAccountPopup/ActivateAccountPopup';
 
 export default class UserStore {
   user = {};

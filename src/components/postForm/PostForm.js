@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 
 import LoadingMask from '../LoadingMask';
-import ActivateAccountPopup from '../popup/ActivateAccount';
+import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import { Context } from '../..';
 
 function PostForm({ type = 'post', postId = null }) {

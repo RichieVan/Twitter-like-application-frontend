@@ -315,7 +315,7 @@ function ProfileSettings({ setModalHeading, defaultHeading, closeModal }) {
       {goBack && (
         <button
           type="button"
-          className="btn modal-goBack"
+          className="btn pf-settings-goBack"
           onClick={() => {
             handleGoBack();
           }}
