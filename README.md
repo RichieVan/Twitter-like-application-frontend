@@ -6,7 +6,7 @@
 - webpack
 
 Клиент-серверное взаимодействие:
-- REST API на express
+- [REST API на express](https://github.com/RichieVan/Twitter-like-application-backend)
 - Изображения хранятся на Imgur, получение и загрузка через API
 - Авторизация по access и refresh токенам, передача в формате JWT
 - Роутинг происходит на клиенте
