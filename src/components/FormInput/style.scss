@@ -1,0 +1,117 @@
+.form-input {
+  $border-size: 2px;
+
+  display: flex;
+  position: relative;
+  width: 100%;
+  background: $bg-color-1;
+  color: #fff;
+  overflow: hidden;
+
+  input,
+  textarea {
+    min-width: 100%;
+    max-width: 100%;
+    width: inherit;
+    padding: 26px 10px 8px;
+    background: inherit;
+    border: $border-size solid $border-color-light;
+    border-radius: 5px;
+    line-height: 20px;
+    color: inherit;
+    font-family: inherit;
+    font-size: 16px;
+    transition: border-color .1s linear;
+
+    &:focus {
+      border-color: $color-blue;
+    }
+
+    &:focus + label,
+    &[data-empty=false] + label {
+      width: calc(100% - $border-size * 2);
+      padding-top: 7px;
+      padding-bottom: 0;
+      font-size: 14px;
+      line-height: 16px;
+    }
+
+    &:focus + label {
+      color: $color-blue;
+    }
+
+    @include placeholder;
+  }
+
+  textarea {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  label {
+    position: absolute;
+    left: $border-size;
+    top: $border-size;
+    padding: calc(16px - $border-size) 0 calc(16px - $border-size) 10px;
+    background: inherit;
+    line-height: 24px;
+    font-size: 18px;
+    cursor: text;
+    color: $text-color;
+    transition: 
+      padding .05s linear,
+      color .05s linear,
+      font-size .05s linear;
+  }
+
+  &__requirements-list {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 8px;
+    pointer-events: none;
+    z-index: 1;
+
+    & + input {
+      padding-right: 66px;
+    }
+  }
+
+  &__requirement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    padding: 6px 5px;
+    margin-top: 5px;
+    background: $bg-color-1;
+    border: 2px solid $color-blue;
+    border-radius: 5px;
+    line-height: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    pointer-events: all;
+
+    &[data-validated=false] {
+      border-color: $color-red;
+    }
+
+    svg {
+      margin-left: 3px;
+      font-size: 9px;
+    }
+  }
+
+  &_thin {
+    input {
+      padding: 8px 10px 8px;
+    }
+
+    label {
+      display: none;
+    }
+  }
+}

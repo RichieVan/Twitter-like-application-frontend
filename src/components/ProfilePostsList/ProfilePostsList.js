@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { Context } from '../../index';
 import FormatPostText from '../../lib/formatPostText';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
-import LoadingMask from '../LoadingMask';
+import LoadingMask from '../LoadingMask/LoadingMask';
 import Post from '../Post/Post';
 import PostsList from '../PostsList/PostsList';
 

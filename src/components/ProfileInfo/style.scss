@@ -1,0 +1,23 @@
+.profile-info {
+  display: flex;
+  border-top: 2px solid $border-color-light;
+
+  &__wrapper {
+    padding: 10px 15px;
+    flex-grow: 1;
+  }
+
+  &__heading {
+    color: $text-color;
+    font-size: 15px;
+  }
+
+  &__text {
+    margin: 5px 0;
+  }
+
+  &__buttons {
+    padding: 15px;
+    flex-shrink: 0;
+  }
+}

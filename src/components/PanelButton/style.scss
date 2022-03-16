@@ -5,14 +5,14 @@
   flex-grow: 1;
   padding: 10px 0;
   background: inherit;
-  color: var(--tc1);
+  color: $text-color;
 
   &:not(:last-child) {
-    border-right: 1px solid var(--bc2);
+    border-right: 1px solid $border-color-dark;
   }
 
   &:hover {
-    color: var(--cblue);
+    color: $color-blue;
   }
 
   &__wrapper {

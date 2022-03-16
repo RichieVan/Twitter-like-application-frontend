@@ -3,14 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faInfo, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import './style.css';
 import { Context } from '../..';
-
-const iconNames = {
-  info: faInfo,
-  success: faCheck,
-  error: faTimes,
-};
 
 function Notification({
   id,
@@ -21,12 +14,12 @@ function Notification({
   const { notificationStore } = useContext(Context);
   const [fadingOut, setFadingOut] = useState(false);
   const [fadingIn, setFadingIn] = useState(false);
-  const [containerClassList, setClassList] = useState(['nfc-container']);
+  const [containerClassArray, setClassList] = useState(['notification', `notification_type_${type}`]);
 
   useEffect(() => {
     if (!fadingIn) {
       setFadingIn(true);
-      setClassList(containerClassList.concat(['fading-in']));
+      setClassList(containerClassArray.concat(['notification_fading_in']));
 
       setTimeout(() => {
         setTimeout(() => {
@@ -37,7 +30,7 @@ function Notification({
 
     if (fadingOut) {
       setFadingOut(false);
-      setClassList(containerClassList.filter((item) => item !== 'fading-in').concat(['fading-out']));
+      setClassList(containerClassArray.filter((item) => item !== 'notification_fading_in').concat(['notification_fading_out']));
 
       setTimeout(() => {
         notificationStore.clear(id);
@@ -45,11 +38,20 @@ function Notification({
     }
   });
 
+  const iconNames = {
+    info: faInfo,
+    success: faCheck,
+    error: faTimes,
+  };
+  const containerClassList = containerClassArray.join(' ');
+
   return (
-    <div className={containerClassList.join(' ')}>
-      <div className={['content', type].join(' ')}>
-        <FontAwesomeIcon icon={iconNames[type]} />
-        <p className="text">{children}</p>
+    <div className={containerClassList}>
+      <div className="notification__content">
+        <div className="notification__icon">
+          <FontAwesomeIcon icon={iconNames[type]} />
+        </div>
+        <p className="notification__text">{children}</p>
       </div>
     </div>
   );

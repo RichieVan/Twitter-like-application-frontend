@@ -1,0 +1,41 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+
+  // &:not(:last-child) {
+  //   margin-bottom: 20px;
+  // }
+
+  &__heading {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  &__input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    background: $bg-color-1;
+    color: #fff;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &_thin {
+    margin-bottom: 12px;
+  }
+  
+  &_thin &__input-wrapper {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

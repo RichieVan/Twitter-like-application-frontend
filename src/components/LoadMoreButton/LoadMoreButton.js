@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoadingMask from '../LoadingMask';
+import LoadingMask from '../LoadingMask/LoadingMask';
 
 function LoadMoreButton({ action }) {
   const [isLoading, setIsLoading] = useState(false);

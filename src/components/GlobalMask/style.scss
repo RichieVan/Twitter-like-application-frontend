@@ -1,0 +1,24 @@
+.global-mask {
+  display: none;  
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2000;
+
+  &_active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 110px;
+    height: 110px;
+    padding: 20px;
+    background: rgba(120, 120, 120, 0.7);
+    border-radius: 50%;
+  }
+}

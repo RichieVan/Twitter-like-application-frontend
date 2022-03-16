@@ -9,7 +9,7 @@ import {
 
 import PostOptions from '../PostOptions/PostOptions';
 import PostService from '../../services/PostService';
-import LoadingMask from '../LoadingMask';
+import LoadingMask from '../LoadingMask/LoadingMask';
 import FormatPostText from '../../lib/formatPostText.js';
 import PostForm from '../PostForm/PostForm';
 import CommentsList from '../CommentsList/CommentsList';

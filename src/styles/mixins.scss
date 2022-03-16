@@ -8,12 +8,25 @@
     width: 100%;
     height: 100%;
     border-radius: inherit;
-    background: var(--bgmain);
+    background: $main-bg-color;
     opacity: 0;
     transition: opacity .1s linear;
   }
 
   &:hover:after {
     opacity: .3;
+  }
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    color: $text-color;
+  }
+  &:-ms-input-placeholder {
+    color: $text-color;
+  }
+  &::-moz-placeholder {
+    color: $text-color;
+    opacity: 1;
   }
 }

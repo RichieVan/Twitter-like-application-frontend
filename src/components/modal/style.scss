@@ -18,6 +18,7 @@
     flex-direction: column;
     position: relative;
     border-radius: 10px;
+    pointer-events: all;
   }
   
   &__heading {
@@ -29,7 +30,7 @@
     margin: 0;
     font-size: 20px;
     line-height: 20px;
-    background: var(--bc2);
+    background: $border-color-dark;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
     border-bottom: 1px solid #000;
@@ -39,7 +40,7 @@
     display: block;
     position: relative;
     padding: 15px 20px 20px;
-    background: var(--bg1);
+    background: $bg-color-1;
   }
 
   &__close {
@@ -55,12 +56,13 @@
     cursor: pointer;
 
     &:hover {
-      color: var(--cblue);
+      color: $color-blue;
     }
   }
 
   &__fix {
     margin-right: calc(-100vw + 100%);
+    pointer-events: none;
   }
 
   &_align_center {
@@ -79,6 +81,7 @@
     &_type_post {
       min-height: calc(100vh - 60px);
       width: 100vw;
+      pointer-events: none;
     }
 
     &_type_post .modal__content {

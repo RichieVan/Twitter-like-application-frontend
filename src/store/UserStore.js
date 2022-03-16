@@ -123,6 +123,7 @@ export default class UserStore {
   async checkAuthorization() {
     try {
       const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true });
+      console.log(response);
 
       localStorage.setItem('accessToken', response.data.accessToken);
       this.setAuth(true);

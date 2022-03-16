@@ -2,9 +2,10 @@ import React, { useContext, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link } from 'react-router-dom';
 
-import LoadingMask from '../LoadingMask';
+import LoadingMask from '../LoadingMask/LoadingMask';
 import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import { Context } from '../..';
+import Button from '../Button/Button';
 
 function PostForm({ type = 'post', postId = null }) {
   const { userStore, postStore, modalStore } = useContext(Context);
@@ -131,14 +132,14 @@ function PostForm({ type = 'post', postId = null }) {
           }}
         />
         <div className="post-form__options">
-          <button
+          <Button
             type="submit"
-            className="post-form__submit btn to-right"
+            mods={['pull_right']}
             disabled={isDisabled}
-            onClick={async (e) => buttonClickHandler(e)}
+            clickHandler={buttonClickHandler}
           >
             Отправить
-          </button>
+          </Button>
         </div>
       </div>
     </div>

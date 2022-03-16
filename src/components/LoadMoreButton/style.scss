@@ -1,7 +1,7 @@
 .load-more {
   position: relative;
   background: inherit;
-  border-top: 2px solid var(--bc1);
+  border-top: 2px solid $border-color-light;
 
   &__button {
     display: flex;
@@ -10,10 +10,10 @@
     width: 100%;
     height: 46px;
     font-size: 16px;
-    color: var(--tc1);
+    color: $text-color;
 
     &:hover {
-      background: var(--bhc);
+      background: $button-hover-color;
     }
   }
 

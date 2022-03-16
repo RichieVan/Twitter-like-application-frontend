@@ -3,19 +3,16 @@ import { Outlet } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 
 import '../node_modules/bootstrap/dist/css/bootstrap-grid.min.css';
-import './styles/style.css';
-import GlobalMask from './components/GlobalMask';
-import NotificationsList from './components/notification/NotificationsList';
+import GlobalMask from './components/GlobalMask/GlobalMask';
+import NotificationsList from './components/NotificationsList/NotificationsList';
 import ModalsList from './components/ModalsList/ModalsList';
-import SidebarRight from './components/sidebar/SidebarRight';
-import SidebarLeft from './components/sidebar/SidebarLeft';
+import SidebarRight from './components/SidebarRight/SidebarRight';
+import SidebarLeft from './components/SidebarLeft/SidebarLeft';
 
 function Layout({ type = 'default' }) {
   const layoutsList = {
     auth: (
-      <div className="greeting-container">
-        <Outlet />
-      </div>
+      <Outlet />
     ),
     default: (
       <main className="container">

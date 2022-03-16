@@ -10,10 +10,11 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  const updatedConfig = config;
   if (localStorage.getItem('accessToken') !== null) {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
+    updatedConfig.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`;
   }
-  return config;
+  return updatedConfig;
 });
 
 api.interceptors.response.use(
@@ -24,6 +25,7 @@ api.interceptors.response.use(
       originalRequest.isRetry = true;
       try {
         const response = await axios.get(`${API_URL}/refresh`, { withCredentials: true });
+        console.log(response);
         localStorage.setItem('accessToken', response.data.accessToken);
         return api.request(originalRequest);
       } catch (e) {

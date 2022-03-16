@@ -1,0 +1,45 @@
+.profile-settings {
+  &__form {
+    width: 560px;
+  }
+
+  &__back-button {
+    margin-bottom: 20px;
+  }
+}
+
+.avatar-input {
+  flex-shrink: 0;
+  height: 100px;
+  width: 100px;
+  margin-right: 10px;
+  background: center no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+
+  &__upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    border-radius: inherit;
+    cursor: pointer;
+    transition: background-color .2s;
+
+    svg {
+      color: transparent;
+      font-size: 20px;
+      transition: color .2s;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    &:hover svg {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+}

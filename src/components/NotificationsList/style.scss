@@ -1,0 +1,11 @@
+.notifications {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  pointer-events: none;
+  z-index: 1500;
+}

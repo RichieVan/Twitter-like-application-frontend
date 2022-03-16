@@ -1,12 +1,12 @@
 .post-view {
   position: relative;
-  background: var(--bg1);
+  background: $bg-color-1;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 
   &__wrapper {
     position: relative;
-    border-bottom: 2px solid var(--bc1);
+    border-bottom: 2px solid $border-color-light;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     font-size: 18px;
@@ -58,17 +58,17 @@
 
   &__datetime {
     font-size: 15px;
-    color: var(--tc1);
+    color: $text-color;
   }
 
   &__tag {
     padding-top: 4px;
     font-size: 16px;
-    color: var(--tc1);
+    color: $text-color;
   }
 
   &__panel {
     display: flex;
-    border-top: 1px solid var(--bc2);
+    border-top: 1px solid $border-color-dark;
   } 
 }

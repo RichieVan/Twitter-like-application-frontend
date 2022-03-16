@@ -1,6 +1,6 @@
 .activate-account-popup {
   max-width: 620px;
-  color: var(--tc1);
+  color: $text-color;
 
   &__message {
     margin-bottom: 20px;
@@ -20,7 +20,7 @@
       font-size: inherit;
 
       &:hover {
-        color: var(--cblue);
+        color: $color-blue;
       }
     }
   }
@@ -29,14 +29,14 @@
     display: flex;
     justify-content: center;
     margin-left: 10px;
-    color: var(--cblue);
+    color: $color-blue;
 
     span {
       margin-right: 5px;
     }
 
     svg path {
-      fill: var(--cblue);
+      fill: $color-blue;
     }
   }
 

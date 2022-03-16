@@ -1,0 +1,31 @@
+.profile-header {
+  background: #161616;
+  border-bottom: 2px solid $border-color-light;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+
+  &__wrapper {
+    position: relative;
+
+    &:after {
+      display: block;
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 15px;
+      width: calc(100% - 30px);
+      height: 1px;
+      background: $border-color-light;
+    }
+  }
+
+  &__background {
+    padding: calc(100% / 42 * 5) 0;
+    width: 100%;
+    height: 150px;
+    background-color: rgb(173, 173, 173);
+    z-index: 1;
+    transition: background-color .2s linear;
+  }
+}

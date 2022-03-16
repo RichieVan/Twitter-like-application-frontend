@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   padding: 15px 15px 30px;
-  border-bottom: 2px solid var(--bc1);
+  border-bottom: 2px solid $border-color-light;
   background: inherit;
 
   &__avatar {
@@ -51,7 +51,7 @@
     cursor: pointer;
 
     &:hover {
-      color: var(--cblue);
+      color: $color-blue;
     }
   }
 
@@ -66,13 +66,13 @@
     max-width: 100%;
     padding: 10px 0 5px;
     margin-bottom: 10px;
-    border-bottom: 2px solid var(--bc1);
+    border-bottom: 2px solid $border-color-light;
     outline: none;
     font-size: 20px;
     white-space: normal;
 
     &:empty::before {
-      color: var(--tc1);
+      color: $text-color;
       cursor: text;
     }
   }
@@ -88,7 +88,6 @@
 
   &_type_comment {
     background: inherit;
-    // border-top: 2px solid var(--bc1);
     padding-top: 25px;
     padding-bottom: 25px;
   }

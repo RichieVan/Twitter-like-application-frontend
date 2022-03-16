@@ -1,6 +1,6 @@
 .feed-type {
   padding: 15px;
-  border-bottom: 2px solid var(--bc1);
+  border-bottom: 2px solid $border-color-light;
 
   &__wrapper {
     display: flex;
@@ -24,7 +24,7 @@
       margin: 0 10px;
       width: calc($span-size * 2);
       background: #fff; 
-      border: $border-size solid var(--tc1);
+      border: $border-size solid $text-color;
       border-radius: 10px;
       cursor: pointer;
     }
@@ -38,18 +38,18 @@
       height: calc($span-size - ($border-size * 2));
       width: calc($span-size - ($border-size * 2));
       border-radius: 8px;
-      background: var(--bc1);
+      background: $border-color-light;
       box-sizing: border-box;
       transition: all .15s ease-in-out;
     }
 
     input:checked + span {
-      border-color: var(--cblue);
+      border-color: $color-blue;
     }
     
     input:checked + span:after {
       left: calc(100% - calc($span-size - ($border-size * 2)));
-      background: var(--cblue);
+      background: $color-blue;
     }
   }
 }

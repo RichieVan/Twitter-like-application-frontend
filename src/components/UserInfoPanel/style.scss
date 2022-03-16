@@ -1,0 +1,75 @@
+.user-info {
+  &__wrapper {
+    display: flex;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  &__avatar {
+    position: relative;
+    flex-shrink: 0;
+    height: 60px;
+    width: 60px;
+    margin-right: 10px;
+    background: center no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+
+    @include avatarHoverFade;
+  }
+  
+  &__username-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  // &__username {
+
+  // }
+
+  &__tag {
+    color: $text-color;
+  }
+
+  &__activation-notice {
+    display: flex;
+    position: relative;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-top: 1px solid $border-color-light;
+    border-bottom: 1px solid $border-color-light;
+    font-size: 14px;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+  }  
+
+  &__option {
+    display: flex;
+    align-items: center;
+    padding: 8px 0 8px 5px;
+    color: $text-color;
+    transition: color .1s linear;
+    font-size: 16px;
+    font-family: inherit;
+
+    &:hover {
+      background: $button-hover-color;
+      color: #fff;
+    }
+
+    &_logout,
+    &_logout:hover {
+      color: $color-red;
+    }
+    
+    svg {
+      margin-right: 10px;
+      vertical-align: 0;
+      font-size: 20px;
+    }
+  }
+}

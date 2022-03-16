@@ -1,0 +1,85 @@
+:root {
+  --bgmain: #080808;
+  --bg1: #161616;
+  --bc1: #6c6c6c; 
+  --bc2: #323232; 
+  --tc1: #cfcfcf;
+  --bhc: #1d1d1d;
+  --bgshade: rgba(0, 0, 0, .3);
+  --bscmain: rgb(216, 216, 216);
+  --cblue: rgb(110, 209, 255);
+  --cgreen: rgb(115, 255, 110);
+  --cred: rgb(255, 110, 110);
+  --cbgreen: rgb(107, 173, 105);
+  --cbgreenactive: rgb(19, 129, 16);
+  --cbblue: rgb(97, 155, 183);
+  --cbblueactive: rgb(16, 108, 153);
+  --cbredactive: rgb(201, 35, 35);
+}
+
+* {
+  box-sizing: border-box; 
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: 'Segoe UI', 'Arial', sans-serif;
+  background: #080808;
+  color: #fff;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a.link-blue:hover {
+  color: $color-blue;
+}
+
+input, button, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  line-height: 100%;
+  outline: none;
+}
+
+button {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.application-wrapper {
+  align-items: flex-start;
+  padding: 30px 0;
+}

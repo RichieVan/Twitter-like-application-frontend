@@ -1,0 +1,41 @@
+.profile-user-info {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  padding: 0 15px 15px;
+  z-index: 2;
+
+  &__avatar {
+    position: absolute;
+    bottom: 10px;
+    flex-shrink: 0;
+    height: 105px;
+    width: 105px;
+    margin-left: 5px;
+    background: #161616 center no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    border: 5px solid #161616;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 15px;
+    margin-left: 130px;
+  }
+
+  &__username {
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: bold;
+    margin-bottom: 3px;
+    color: #fff;
+  }
+
+  &__profile-tag {
+    font-size: 16px;
+    color: $text-color;
+  }
+}

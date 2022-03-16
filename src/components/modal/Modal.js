@@ -16,15 +16,15 @@ function Modal({
   if (modalStore.active.includes(modalName)) classArray.push('modal_active');
   const classList = classArray.join(' ');
 
-  let closeFunction;
+  let closeModal;
   if (temporal) {
-    closeFunction = () => {
+    closeModal = () => {
       modalStore.setModalActive(modalName, false);
       modalStore.deleteFromModalsList(modalName);
       modalStore.deleteFromNamesList(modalName);
     };
   } else {
-    closeFunction = () => {
+    closeModal = () => {
       modalStore.setModalActive(modalName, false);
     };
   }
@@ -32,15 +32,15 @@ function Modal({
   return (
     <div
       className={classList}
-      onClick={() => closeFunction()}
+      onClick={() => closeModal()}
     >
       <ModalBase
         heading={heading}
         containerClickHandler={(e) => e.stopPropagation()}
-        closeModalHandler={() => closeFunction()}
+        closeModalHandler={() => closeModal()}
       >
         {cloneElement(children, {
-          closeFunction,
+          closeModal,
         })}
       </ModalBase>
     </div>

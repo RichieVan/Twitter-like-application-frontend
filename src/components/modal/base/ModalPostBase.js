@@ -8,10 +8,10 @@ function ModalPostBase({
   children,
 }) {
   return (
-    <div className="modal__fix no-pi">
-      <div className="modal__inner-container modal__inner-container_type_post container no-pi">
+    <div className="modal__fix">
+      <div className="modal__inner-container modal__inner-container_type_post container">
         <div className="row">
-          <div className="col-6 mx-auto pi">
+          <div className="col-6 mx-auto">
             <div
               className="modal__container"
               onClick={(e) => containerClickHandler(e)}

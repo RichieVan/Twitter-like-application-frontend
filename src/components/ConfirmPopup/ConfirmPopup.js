@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import LoadingMask from '../LoadingMask';
+import LoadingMask from '../LoadingMask/LoadingMask';
+import Button from '../Button/Button';
+import getClassList from '../../lib/getClassList';
 
 function ConfirmPopup({
   closeModal,
@@ -7,7 +9,7 @@ function ConfirmPopup({
   confirmText,
   declineText,
   confirmAction,
-  confirmButtonStyles = '',
+  confirmButtonMods = [],
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -18,6 +20,14 @@ function ConfirmPopup({
     renderText = text;
   }
 
+  const confirmClickHandler = () => {
+    setIsLoading(true);
+    confirmAction()
+      .then(() => {
+        closeModal();
+      });
+  };
+
   return (
     <div className="confirm-popup">
       {isLoading && (
@@ -27,28 +37,17 @@ function ConfirmPopup({
         {renderText}
       </div>
       <div className="buttons-container">
-        <button
-          type="button"
-          className="btn"
-          onClick={() => {
-            closeModal();
-          }}
+        <Button
+          clickHandler={closeModal}
         >
           {declineText}
-        </button>
-        <button
-          type="button"
-          className={`btn ${confirmButtonStyles}`}
-          onClick={() => {
-            setIsLoading(true);
-            confirmAction()
-              .then(() => {
-                closeModal();
-              });
-          }}
+        </Button>
+        <Button
+          mods={confirmButtonMods}
+          clickHandler={confirmClickHandler}
         >
           {confirmText}
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,0 +1,65 @@
+.image-clipper {
+  margin: 0 50px;
+
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 320px;
+    width: 400px;
+    background: $bg-color-1;
+    overflow: hidden;
+  }
+
+  &__image {
+    display: block;
+    position: absolute;
+    height: 160px;
+    cursor: move;
+  }
+
+  &__cut-area {
+    height: 160px;
+    width: 160px;
+    border: 2px solid #000;
+    z-index: 10;
+    pointer-events: none;
+    box-shadow: 0 0 500px 500px rgba(0, 0, 0, 0.5);
+  }
+
+  &__range {
+    display: flex;
+    width: 100%;
+    padding: 20px 0 10px;
+  }
+
+  &__range-input {
+    width: 100%;
+    padding: 10px 0;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    overflow: hidden;
+    background: inherit;
+
+    &::-webkit-slider-runnable-track {
+      height: 3px;
+      background: $color-blue;
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-slider-thumb {
+      position: relative;
+      top: -9px;
+      width: 22px;
+      height: 22px;
+      -webkit-appearance: none;
+      cursor: ew-resize;
+      background: #fff;
+      border-radius: 50%;
+      border: 2px solid #434343;
+      box-shadow: 2008px 0 0 2000px rgba(22, 22, 22, 0.5);
+    }
+  }
+}

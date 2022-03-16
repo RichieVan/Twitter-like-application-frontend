@@ -9,13 +9,13 @@ import {
 
 import { Context } from './index';
 import Layout from './Layout';
-import Profile from './components/profile/Profile';
+import Profile from './components/Profile/Profile';
 import Feed from './components/Feed/Feed';
 import LocationModal from './components/Modal/LocationModal';
-import ProfileSettings from './components/profile/settings/ProfileSettings';
 import AuthRequired from './components/AuthRequired';
-import Greeting from './components/Greeting';
+import Greeting from './components/Greeting/Greeting';
 import PostView from './components/PostView/PostView';
+import SettingsForm from './components/SettingsForm/SettingsForm';
 
 function App() {
   const {
@@ -67,7 +67,7 @@ function App() {
             element={(
               <AuthRequired to="/">
                 <LocationModal heading="Настройки пользователя">
-                  <ProfileSettings />
+                  <SettingsForm />
                 </LocationModal>
               </AuthRequired>
             )}
@@ -90,7 +90,7 @@ function App() {
             element={(
               <AuthRequired to="/">
                 <LocationModal heading="Настройки пользователя">
-                  <ProfileSettings />
+                  <SettingsForm />
                 </LocationModal>
               </AuthRequired>
             )}

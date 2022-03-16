@@ -1,0 +1,112 @@
+.btn {
+  $default-color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  margin-right: 5px;
+  background: $bg-color-1;
+  color: $default-color;
+  font-size: 15px;
+  line-height: 20px;
+  appearance: none;
+  outline: none;
+  border: 2px solid $border-color-light;
+  border-radius: 16px;
+  transition: 
+    background-color .1s linear,
+    color .1s linear,
+    border-color .1s linear;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:disabled {
+    background: $border-color-dark !important;
+    color: $border-color-light !important;
+  }
+
+  &:disabled:hover {
+    background-color: $border-color-dark !important;
+    color: $border-color-light !important;
+    border-color: $border-color-light !important;
+  }
+
+  svg {
+    margin-right: 10px;
+  }
+
+  &_fill {
+    border: none;
+    padding: 7px 13px;
+  }
+
+  &:not(.btn_fill):hover {
+    background: $button-hover-color;
+    color: $color-blue;
+    border-color: $color-blue;
+  }
+
+  &:not(.btn_fill).btn_success:hover {
+    color: $color-green;
+    border-color: $button-color-green;
+  }
+
+  &:not(.btn_fill).btn_error:hover {
+    color: $color-red;
+    border-color: $color-red;
+  }
+
+  &:not(.btn_fill).btn_info:hover {
+    color: $color-blue;
+    border-color: $color-blue;
+  }
+
+  &.btn_success.btn_fill {
+    background: $button-color-green;
+
+    &:hover {
+      background: $button-color-green-active; 
+    }
+  }
+
+  &.btn_error.btn_fill {
+    background: $color-red;
+
+    &:hover {
+      background: $button-color-red-active; 
+    }
+  }
+
+  &.btn_info.btn_fill {
+    background: $button-color-blue;
+
+    &:hover {
+      background: $button-color-blue-active; 
+    }
+  }
+
+  &.btn_pull_right {
+    margin-left: auto;
+  }
+
+  &_for_icon {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    svg {
+      font-size: 18px;
+      margin: 1px;
+    }
+  }
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 0 10px;
+}

@@ -1,7 +1,7 @@
 .comment {
   position: relative;
-  border-top: 1px solid var(--bc1);
-  background: var(--bg1);
+  border-top: 1px solid $border-color-light;
+  background: $bg-color-1;
   animation: postAnimation .4s ease-in-out;
 
   &:first-child {
@@ -9,7 +9,7 @@
   }
 
   &:last-child {
-    border-bottom: 1px solid var(--bc1);
+    border-bottom: 1px solid $border-color-light;
   }
 
   &__wrapper {
@@ -60,19 +60,19 @@
 
   &__datetime {
     font-size: 14px;
-    color: var(--tc1);
+    color: $text-color;
   }
 
   &__answer-to {
     font-size: 14px;
     margin-top: 3px;
-    color: var(--tc1);
+    color: $text-color;
 
     & a {
-      color: var(--cblue);
+      color: $color-blue;
       
       &:hover {
-        color: var(--cbblueactive);
+        color: $button-color-blue-active;
       }      
     }
   }

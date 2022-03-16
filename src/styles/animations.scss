@@ -5,10 +5,20 @@
   }
   
   80% {
-    box-shadow: 0 0 13px 10px var(--cblue);
+    box-shadow: 0 0 13px 10px $color-blue;
   }
 
   100% {
     opacity: 0;
+  }
+}
+
+@keyframes authBgOpacity {
+  from { 
+    opacity : 0; 
+  }
+  
+  to { 
+    opacity : 1; 
   }
 }
