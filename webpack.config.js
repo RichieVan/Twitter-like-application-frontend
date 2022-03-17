@@ -1,15 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
-
-dotenv.config();
-
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const modeStatus = (process.env?.BUILD_ENV === 'production') ? 'production' : 'development';
 
+dotenv.config();
 require('dotenv').config({ path: './.env' });
+
+const modeStatus = (process.env?.BUILD_ENV === 'production') ? 'production' : 'development';
 
 module.exports = {
   mode: modeStatus,
