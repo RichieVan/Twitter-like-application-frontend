@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 import LoadingMask from '../LoadingMask/LoadingMask';
 
 function ProfileStats({ userData }) {

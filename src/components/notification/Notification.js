@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faInfo, faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 
 function Notification({
   id,

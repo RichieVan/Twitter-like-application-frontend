@@ -8,7 +8,7 @@ import React, {
 
 import Post from '../Post/Post';
 import LoadingMask from '../LoadingMask/LoadingMask';
-import { Context } from '../../index';
+import { Context } from '../../Context';
 import FormatPostText from '../../lib/formatPostText';
 
 import PostsList from '../PostsList/PostsList';

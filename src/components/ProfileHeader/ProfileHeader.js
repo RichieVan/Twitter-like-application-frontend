@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { observer } from 'mobx-react-lite';
+import React, { useState } from 'react';
 import FastAverageColor from 'fast-average-color';
 
 import ProfileStats from '../ProfileStats/ProfileStats';

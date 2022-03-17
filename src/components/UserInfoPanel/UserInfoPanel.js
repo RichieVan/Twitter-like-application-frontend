@@ -8,7 +8,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
 

@@ -3,13 +3,13 @@ import React, { useContext, useState } from 'react';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Context } from '../../index';
+import { Link } from 'react-router-dom';
+import { Context } from '../../Context';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import FormGroup from '../FormGroup/FormGroup';
 import FormInput from '../FormInput/FormInput';
 import useInput from '../../hooks/useInput';
 import Button from '../Button/Button';
-import { Link } from 'react-router-dom';
 
 function AuthForm() {
   const { userStore } = useContext(Context);

@@ -3,7 +3,7 @@ import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 
 import PanelButton from '../PanelButton/PanelButton';
 import { APP_URL } from '../../http';
-import { Context } from '../..';
+import { Context } from '../../Context';
 
 function CopyLinkButton({ postId }) {
   const { notificationStore } = useContext(Context);

@@ -10,12 +10,12 @@ import {
 import PostOptions from '../PostOptions/PostOptions';
 import PostService from '../../services/PostService';
 import LoadingMask from '../LoadingMask/LoadingMask';
-import FormatPostText from '../../lib/formatPostText.js';
+import FormatPostText from '../../lib/formatPostText';
 import PostForm from '../PostForm/PostForm';
 import CommentsList from '../CommentsList/CommentsList';
 import LikeButton from '../LikeButton/LikeButton';
 import CommentButton from '../CommentButton/CommentButton';
-import { Context } from '../..';
+import { Context } from '../../Context';
 import CopyLinkButton from '../CopyLinkButton/CopyLinkButton';
 
 function PostView() {

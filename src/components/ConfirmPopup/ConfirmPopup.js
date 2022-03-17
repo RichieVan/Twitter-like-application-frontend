@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import Button from '../Button/Button';
-import getClassList from '../../lib/getClassList';
 
 function ConfirmPopup({
   closeModal,

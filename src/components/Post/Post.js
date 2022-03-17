@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 import PostOptions from '../PostOptions/PostOptions';
 import LikeButton from '../LikeButton/LikeButton';
 import CommentButton from '../CommentButton/CommentButton';

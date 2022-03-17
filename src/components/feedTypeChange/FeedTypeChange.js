@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useRef, useState } from 'react';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 
 function FeedTypeChange() {
   const { postStore } = useContext(Context);

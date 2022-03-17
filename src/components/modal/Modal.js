@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
-import React, { cloneElement, useContext, useState } from 'react';
-import { Context } from '../..';
+import React, { cloneElement, useContext } from 'react';
+import { Context } from '../../Context';
 
 import ModalBase from './base/ModalBase';
 

@@ -2,8 +2,9 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Context } from '../..';
+import { useNavigate } from 'react-router-dom';
+
+import { Context } from '../../Context';
 import useInput from '../../hooks/useInput';
 import Button from '../Button/Button';
 import FormGroup from '../FormGroup/FormGroup';

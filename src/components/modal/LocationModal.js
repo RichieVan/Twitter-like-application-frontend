@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 import ModalBase from './base/ModalBase';
 import ModalPostBase from './base/ModalPostBase';
 

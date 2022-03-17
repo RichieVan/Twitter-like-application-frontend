@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 import AuthForm from '../AuthForm/AuthForm';
 import Sidebar from '../Sidebar/Sidebar';
 import UserInfoPanel from '../UserInfoPanel/UserInfoPanel';

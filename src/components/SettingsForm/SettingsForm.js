@@ -11,7 +11,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import UpdateAvatarPopup from '../UpdateAvatarPopup/UpdateAvatarPopup';
-import { Context } from '../..';
+import { Context } from '../../Context';
 import Button from '../Button/Button';
 import FormInput from '../FormInput/FormInput';
 import useValidatedInput from '../../hooks/useValidatedInput';

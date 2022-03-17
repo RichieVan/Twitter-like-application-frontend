@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import getClassList from "../../lib/getClassList";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import getClassList from '../../lib/getClassList';
 
 function FormInput({
   type = 'text',

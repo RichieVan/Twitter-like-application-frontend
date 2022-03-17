@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { makeAutoObservable } from 'mobx';
 import React from 'react';
+import { makeAutoObservable } from 'mobx';
+import axios from 'axios';
 
 import UserService from '../services/UserService';
 import { API_URL } from '../http/index';
-import ActivateAccountPopup from '../components/ActivateAccountPopup/ActivateAccountPopup';
+// import ActivateAccountPopup from '../components/ActivateAccountPopup/ActivateAccountPopup';
 
 export default class UserStore {
   user = {};
@@ -56,9 +56,9 @@ export default class UserStore {
 
       this.notificationStore.show('Вы были успешно авторизованы', 4000, 'success');
 
-      this.modalStore.openModal(<ActivateAccountPopup />, {
-        heading: 'Активация аккаунта',
-      });
+      // this.modalStore.openModal(<ActivateAccountPopup />, {
+      //   heading: 'Активация аккаунта',
+      // });
     } catch (e) {
       let timeout = 0;
       e.response.data.errors.forEach((value) => {

@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 
-import { Context } from '../../index.js';
+import { Context } from '../../Context';
 import LoadingCircle from '../../assets/img/icons/loading.svg';
 import AddLeadZero from '../../lib/addLeadZero';
 import LoadingMask from '../LoadingMask/LoadingMask';
@@ -56,7 +56,7 @@ function ActivateAccountPopup() {
           <span>Не приходит письмо?</span>
           <b className="activate-account-popup__sending">
             <span>Отправка сообщения...</span>
-            <LoadingCircle height={20} height={20} />
+            <LoadingCircle wight={20} height={20} />
           </b>
         </div>
       );

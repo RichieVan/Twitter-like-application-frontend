@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 import FormatPostText from '../../lib/formatPostText';
 import Button from '../Button/Button';
 

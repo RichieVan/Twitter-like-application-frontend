@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import LoadingMask from '../LoadingMask/LoadingMask';
 import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
-import { Context } from '../..';
+import { Context } from '../../Context';
 import Button from '../Button/Button';
 
 function PostForm({ type = 'post', postId = null }) {

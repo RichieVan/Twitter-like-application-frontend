@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { Context } from '..';
+import { Context } from '../Context';
 
 function AuthRequired({ children, to = null, element = null }) {
   const { userStore } = useContext(Context);

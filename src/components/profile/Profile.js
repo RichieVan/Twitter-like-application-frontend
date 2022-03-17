@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 
-import { Context } from '../../index.js';
 import ProfileHeader from '../ProfileHeader/ProfileHeader';
 import ProfilePostsList from '../ProfilePostsList/ProfilePostsList';
 import LoadingMask from '../LoadingMask/LoadingMask';
+import { Context } from '../../Context';
 
 function Profile() {
   const { userStore } = useContext(Context);

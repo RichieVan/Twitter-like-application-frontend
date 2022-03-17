@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Context } from '../../index';
+import { Context } from '../../Context';
 import FormatPostText from '../../lib/formatPostText';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../LoadingMask/LoadingMask';

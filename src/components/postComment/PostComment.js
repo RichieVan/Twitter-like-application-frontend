@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import PostOptions from '../PostOptions/PostOptions';
 import LikeButton from '../LikeButton/LikeButton';
-import { Context } from '../..';
+import { Context } from '../../Context';
 
 function PostComment({ data, contentArray, postOwner }) {
   const { userStore, appStore } = useContext(Context);

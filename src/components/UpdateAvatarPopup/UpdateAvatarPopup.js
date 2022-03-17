@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 import DragAndDrop from '../DragAndDrop/DragAndDrop';
 import cutImageAndGenerateUrl from '../../lib/cutImageAndGenerateUrl';
 import ImageClipper from '../ImageClipper/ImageClipper';

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faLink } from '@fortawesome/free-solid-svg-icons';
 
 import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
-import { Context } from '../..';
+import { Context } from '../../Context';
 import { APP_URL } from '../../http';
 
 function PostOptions({

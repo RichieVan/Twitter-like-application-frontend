@@ -7,7 +7,7 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import { Context } from './index';
+import { Context } from './Context';
 import Layout from './Layout';
 import Profile from './components/Profile/Profile';
 import Feed from './components/Feed/Feed';

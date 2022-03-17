@@ -7,7 +7,7 @@ import React, {
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 
-import { Context } from '../..';
+import { Context } from '../../Context';
 import PanelButton from '../PanelButton/PanelButton';
 
 function LikeButton({ componentData, setComponentData, mods = [] }) {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 
 import cutImageAndGenerateUrl from '../../lib/cutImageAndGenerateUrl';
 import Button from '../Button/Button';

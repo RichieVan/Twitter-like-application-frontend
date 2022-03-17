@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 
 import PostForm from '../PostForm/PostForm';
 import FeedPostsList from '../FeedPostsList/FeedPostsList';
-import { Context } from '../..';
+import { Context } from '../../Context';
 import FeedTypeChange from '../FeedTypeChange/FeedTypeChange';
 
 function Feed() {
