@@ -28,6 +28,11 @@ module.exports = {
         use: 'babel-loader',
       },
       {
+        test: /\.(tsx|ts)$/,
+        exclude: '/node_modules',
+        use: 'ts-loader',
+      },
+      {
         test: /\.(sass|scss)$/,
         use: [
           modeStatus === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
@@ -85,7 +90,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.css'],
     modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
   },
   performance: {
