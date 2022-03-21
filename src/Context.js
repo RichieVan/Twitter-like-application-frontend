@@ -10,7 +10,7 @@ import PostStore from './store/PostStore';
 const modalStore = new ModalStore();
 const notificationStore = new NotificationStore();
 const urlStore = new UrlStore(notificationStore);
-const userStore = new UserStore(modalStore, notificationStore);
+const userStore = new UserStore();
 const appStore = new AppStore(userStore);
 const postStore = new PostStore();
 
