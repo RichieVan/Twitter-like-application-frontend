@@ -29,6 +29,8 @@
     "no-unused-vars": ["error", {
       "varsIgnorePattern" : "React"
     }],
-    "react/function-component-definition" : [2, { "namedComponents": "arrow-function" }]
+    "react/function-component-definition" : [2, { "namedComponents": "arrow-function" }],
+    "react/prop-types": "off",
+    "react/require-default-props": "off"
   }
 }
