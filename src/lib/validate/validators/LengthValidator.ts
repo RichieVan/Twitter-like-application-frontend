@@ -1,21 +1,21 @@
-import { faPenAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPenAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { ILengthValidator, LengthValidatorProps } from '../types';
 
-class LengthValidator {
-  min;
+class LengthValidator implements ILengthValidator {
+  min: number;
 
-  max;
+  max: number;
 
-  icon = faPenAlt;
+  icon: IconDefinition = faPenAlt;
 
   key = 'len';
 
-  constructor(data) {
-    const [min, max] = data;
+  constructor({ min, max }: LengthValidatorProps) {
     this.min = min;
     this.max = max;
   }
 
-  getTitle() {
+  getTitle(): string {
     let result;
     if (this.min > 0 && this.max > 0) {
       result = `От ${this.min} до ${this.max} символов`;
@@ -27,23 +27,23 @@ class LengthValidator {
     return result;
   }
 
-  getIcon() {
+  getIcon(): IconDefinition {
     return this.icon;
   }
 
-  getLetters(value) {
+  getLetters(value: string): number {
     return this.max - this.val(value).length;
   }
 
-  getKey() {
+  getKey(): string {
     return this.key;
   }
 
-  val(value) {
+  val(value: string): string {
     return value;
   }
 
-  validate(value) {
+  validate(value: string): boolean {
     const isHigherOrEqualMin = this.val(value).length >= this.min;
     const isLowerOrEqualMax = this.val(value).length <= this.max;
     const validated = isHigherOrEqualMin && isLowerOrEqualMax;
