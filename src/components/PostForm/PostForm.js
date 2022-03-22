@@ -7,7 +7,7 @@ import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import { Context } from '../../Context';
 import Button from '../Button/Button';
 
-function PostForm({ type = 'post', postId = null }) {
+const PostForm = ({ type = 'post', postId = null }) => {
   const { userStore, postStore, modalStore } = useContext(Context);
   const [textContent, setTextContent] = useState('');
   const [isDisabled, setDisabled] = useState(true);
@@ -136,7 +136,7 @@ function PostForm({ type = 'post', postId = null }) {
             type="submit"
             mods={['pull_right']}
             disabled={isDisabled}
-            clickHandler={buttonClickHandler}
+            onClick={buttonClickHandler}
           >
             Отправить
           </Button>
@@ -144,6 +144,6 @@ function PostForm({ type = 'post', postId = null }) {
       </div>
     </div>
   );
-}
+};
 
 export default observer(PostForm);
