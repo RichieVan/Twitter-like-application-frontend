@@ -3,6 +3,7 @@ import React, {
   useEffect,
   useState,
   useRef,
+  FC,
 } from 'react';
 import {
   faUpload,
@@ -16,21 +17,29 @@ import Button from '../Button/Button';
 import FormInput from '../FormInput/FormInput';
 import useValidatedInput from '../../hooks/useValidatedInput';
 import FormGroup from '../FormGroup/FormGroup';
+import { LocationModalChildProps, UserAvatarData } from '../../types/types';
 
-function SettingsForm({ setModalHeading, defaultHeading, closeModal }) {
+type GoBackFunction = (() => () => void) | null;
+
+const SettingsForm: FC<LocationModalChildProps> = ({
+  defaultHeading = '',
+  setModalHeading,
+  closeModal,
+}) => {
   const { userStore, appStore } = useContext(Context);
   const [isUpdatingAvatar, setIsUpdatingAvatar] = useState(false);
-  const [goBack, setGoBack] = useState(null);
+  const [goBack, setGoBack] = useState<GoBackFunction>(null);
   const [formValidated, setFormValidated] = useState(true);
   const isFirstLoading = useRef(true);
 
-  // value, onInput, validated, validatorsData
-  const username = useValidatedInput(userStore.user.username, { len: [3, 26] });
-  const about = useValidatedInput(userStore.user.about, {
-    len: [0, 200],
+  const username = useValidatedInput(userStore.user!.username, {
+    len: { min: 3, max: 26 },
+  });
+  const about = useValidatedInput(userStore.user!.about, {
+    len: { min: 0, max: 200 },
     linebreaks: 9,
   });
-  const [avatar, setAvatar] = useState(userStore.user.avatar);
+  const [avatar, setAvatar] = useState<UserAvatarData>(userStore.user!.avatar);
 
   useEffect(() => {
     if (isFirstLoading.current) {
@@ -48,20 +57,19 @@ function SettingsForm({ setModalHeading, defaultHeading, closeModal }) {
   };
 
   const handleGoBack = () => {
-    const { f, v } = goBack;
-    f(v);
+    if (goBack) goBack();
     setGoBack(null);
-    setModalHeading(defaultHeading);
+    if (setModalHeading) setModalHeading(defaultHeading);
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const updatedData = {
       username: username.value,
       about: about.value,
+      avatar,
     };
-    if (avatar.data) updatedData.avatar = avatar.data;
 
     appStore.setGlobalLoading(true);
     userStore.updateUser(updatedData)
@@ -77,18 +85,13 @@ function SettingsForm({ setModalHeading, defaultHeading, closeModal }) {
 
   const updateAvatarClickHandler = () => {
     setIsUpdatingAvatar(true);
-    setModalHeading('Обновление аватара');
-    setGoBack({
-      f: setIsUpdatingAvatar,
-      v: false,
-    });
+    if (setModalHeading) setModalHeading('Обновление аватара');
+    setGoBack(() => () => setIsUpdatingAvatar(false));
   };
 
-  const fileUrlHandler = (fileDataUrl) => {
-    setAvatar({
-      data: fileDataUrl,
-    });
-    setModalHeading(defaultHeading);
+  const fileUrlHandler = (fileDataUrl: string) => {
+    setAvatar({ ...avatar, data: fileDataUrl });
+    if (setModalHeading) setModalHeading(defaultHeading);
   };
 
   const avatarStyles = {
@@ -109,7 +112,7 @@ function SettingsForm({ setModalHeading, defaultHeading, closeModal }) {
     return (
       <form
         className="profile-settings__form"
-        onSubmit={(e) => submitHandler(e)}
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => submitHandler(e)}
       >
         <FormGroup heading="Аватар">
           <div className="avatar-input" style={avatarStyles}>
@@ -128,6 +131,7 @@ function SettingsForm({ setModalHeading, defaultHeading, closeModal }) {
             onInput={username.onInput}
             validated={username.validated}
             validatorsData={username.validatorsData}
+            label="Имя пользователя"
           />
           <FormInput
             value={about.value}
@@ -136,6 +140,7 @@ function SettingsForm({ setModalHeading, defaultHeading, closeModal }) {
             onInput={about.onInput}
             validated={about.validated}
             validatorsData={about.validatorsData}
+            label="Обо мне"
           />
         </FormGroup>
         <div className="buttons-container">
@@ -156,7 +161,7 @@ function SettingsForm({ setModalHeading, defaultHeading, closeModal }) {
       {goBack !== null && (
         <div className="profile-settings__back-button">
           <Button
-            clickHandler={() => handleGoBack()}
+            onClick={handleGoBack}
           >
             <FontAwesomeIcon icon={faArrowLeft} />
             <span>К настройкам</span>
@@ -166,6 +171,6 @@ function SettingsForm({ setModalHeading, defaultHeading, closeModal }) {
       {render()}
     </div>
   );
-}
+};
 
 export default SettingsForm;
