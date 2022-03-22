@@ -1,31 +1,49 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { FC, FormEventHandler } from 'react';
 import getClassList from '../../lib/getClassList';
+import { ValidationData } from '../../lib/validate/types';
 
-function FormInput({
+// interface FormInputProps extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>
+interface FormInputProps {
+  type?: 'text' | 'number' | 'password' | 'email';
+  name?: string;
+  id?: string;
+  value?: string;
+  label?: string;
+  disabled?: boolean;
+  placeholder?: string;
+  required?: boolean;
+  onInput: FormEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  validated?: boolean;
+  validatorsData?: ValidationData[];
+  textarea?: boolean;
+  textareaRows?: number;
+  mods?: string[];
+}
+
+const FormInput: FC<FormInputProps> = ({
   type = 'text',
-  name = '',
-  id = null,
+  name,
+  id,
   value = '',
-  labelText = '123',
-  disabled = false,
-  placeholder = null,
-  required = false,
-  inputValidated = true,
-  validatorsData = null,
+  label = '',
+  disabled,
+  placeholder,
+  required,
   onInput,
+  validated = true,
+  validatorsData = [],
   textarea = false,
   textareaRows = 3,
   mods = [],
-}) {
+}) => {
   const classList = getClassList('form-input', mods);
 
   const renderInput = () => {
-    if (validatorsData) {
+    if (validatorsData.length) {
       const validatorsList = validatorsData.map((data) => {
         const {
           key,
-          validated,
           title,
           letters,
           icon,
@@ -36,7 +54,7 @@ function FormInput({
             key={`${name}_${key}`}
             className="form-input__requirement"
             data-validator={key}
-            data-validated={validated}
+            data-validated={data.validated}
             title={title}
           >
             {letters}
@@ -58,9 +76,9 @@ function FormInput({
               disabled={disabled}
               value={value}
               rows={textareaRows}
-              data-validated={inputValidated}
+              data-validated={validated}
               data-empty={value.length === 0}
-              onInput={(e) => onInput(e)}
+              onInput={onInput}
             />
           </>
         );
@@ -78,9 +96,9 @@ function FormInput({
             id={id}
             disabled={disabled}
             value={value}
-            data-validated={inputValidated}
+            data-validated={validated}
             data-empty={value.length === 0}
-            onInput={(e) => onInput(e)}
+            onInput={onInput}
           />
         </>
       );
@@ -96,7 +114,7 @@ function FormInput({
           value={value}
           rows={textareaRows}
           data-empty={value.length === 0}
-          onInput={(e) => onInput(e)}
+          onInput={onInput}
         />
       );
     }
@@ -112,7 +130,7 @@ function FormInput({
         placeholder={placeholder}
         required={required}
         data-empty={value.length === 0}
-        onInput={(e) => onInput(e)}
+        onInput={onInput}
       />
     );
   };
@@ -120,9 +138,9 @@ function FormInput({
   return (
     <div className={classList}>
       {renderInput()}
-      <label htmlFor={id}>{labelText}</label>
+      <label htmlFor={id}>{label}</label>
     </div>
   );
-}
+};
 
 export default FormInput;
