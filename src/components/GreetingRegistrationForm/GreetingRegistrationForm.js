@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { Context } from '../../Context';
 import useInput from '../../hooks/useInput';
+import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import Button from '../Button/Button';
 import FormGroup from '../FormGroup/FormGroup';
 import FormInput from '../FormInput/FormInput';
 import LoadingMask from '../LoadingMask/LoadingMask';
 
-function GreetingAuthForm() {
-  const { userStore } = useContext(Context);
+const GreetingAuthForm = () => {
+  const { userStore, modalStore, notificationStore } = useContext(Context);
   const [isLoading, setisLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -32,6 +33,10 @@ function GreetingAuthForm() {
         passwordRepeat: passwordRepeat.value,
       })
       .then(() => {
+        notificationStore.show('Вы были успешно авторизованы', 4000, 'success');
+        modalStore.openModal(<ActivateAccountPopup />, {
+          heading: 'Активация аккаунта',
+        });
         navigate('/feed');
       })
       .catch(() => {
@@ -94,6 +99,6 @@ function GreetingAuthForm() {
       </Button>
     </form>
   );
-}
+};
 
 export default observer(GreetingAuthForm);
