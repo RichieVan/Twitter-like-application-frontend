@@ -11,7 +11,7 @@ import FormGroup from '../FormGroup/FormGroup';
 import FormInput from '../FormInput/FormInput';
 import LoadingMask from '../LoadingMask/LoadingMask';
 
-function GreetingAuthForm() {
+const GreetingAuthForm = () => {
   const { userStore } = useContext(Context);
   const [isLoading, setisLoading] = useState(false);
   const loginOrEmail = useInput();
@@ -22,7 +22,10 @@ function GreetingAuthForm() {
     e.preventDefault();
     setisLoading(true);
     userStore
-      .login(loginOrEmail.value, password.value)
+      .login({
+        loginOrEmail: loginOrEmail.value,
+        password: password.value,
+      })
       .then(() => navigate('/feed'))
       .catch(() => setisLoading(false));
   };
@@ -64,6 +67,6 @@ function GreetingAuthForm() {
       </Button>
     </form>
   );
-}
+};
 
 export default observer(GreetingAuthForm);
