@@ -1,8 +1,11 @@
-import { ButtonHTMLAttributes } from 'react';
+import { MouseEventHandler } from 'react';
 
-interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  mods?: string[],
-  type?: 'button' | 'submit'
+// interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButtonProps {
+  mods?: string[];
+  type?: 'button' | 'submit';
+  disabled?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export default IButtonProps;
