@@ -5,7 +5,7 @@ import { Context } from '../../Context';
 import FormatPostText from '../../lib/formatPostText';
 import Button from '../Button/Button';
 
-function ProfileInfo({ userData }) {
+const ProfileInfo = ({ userData }) => {
   const { userStore, notificationStore } = useContext(Context);
   const [subscribed, setSubscribed] = useState(userData.currentUserSubscribed);
 
@@ -36,7 +36,7 @@ function ProfileInfo({ userData }) {
       return (
         <Button
           mods={['error']}
-          clickHandler={unsubscribeHandler}
+          onClick={unsubscribeHandler}
         >
           Отписаться
         </Button>
@@ -46,7 +46,7 @@ function ProfileInfo({ userData }) {
     return (
       <Button
         mods={['info']}
-        clickHandler={subscribeHandler}
+        onClick={subscribeHandler}
       >
         Подписаться
       </Button>
@@ -68,6 +68,6 @@ function ProfileInfo({ userData }) {
       </div>
     </div>
   );
-}
+};
 
 export default observer(ProfileInfo);

@@ -196,13 +196,13 @@ class ImageClipper extends React.Component {
         <div className="buttons-container">
           <Button
             mods={['error']}
-            clickHandler={this.cancelButtonClickHandler}
+            onClick={this.cancelButtonClickHandler}
           >
             Отменить
           </Button>
           <Button
             mods={['fill', 'success']}
-            clickHandler={this.saveButtonClickHandler}
+            onClick={this.saveButtonClickHandler}
           >
             Сохранить
           </Button>

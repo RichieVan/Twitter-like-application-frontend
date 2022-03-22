@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import Button from '../Button/Button';
 
-function ConfirmPopup({
+const ConfirmPopup = ({
   closeModal,
   text,
   confirmText,
   declineText,
   confirmAction,
   confirmButtonMods = [],
-}) {
+}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   let renderText;
@@ -37,19 +37,19 @@ function ConfirmPopup({
       </div>
       <div className="buttons-container">
         <Button
-          clickHandler={closeModal}
+          onClick={closeModal}
         >
           {declineText}
         </Button>
         <Button
           mods={confirmButtonMods}
-          clickHandler={confirmClickHandler}
+          onClick={confirmClickHandler}
         >
           {confirmText}
         </Button>
       </div>
     </div>
   );
-}
+};
 
 export default ConfirmPopup;
