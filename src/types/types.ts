@@ -8,6 +8,12 @@ interface LocationModalChildProps {
   closeModal: () => void;
 }
 
+export type UserAvatarData = {
+  name: string;
+  url: string;
+  data?: string;
+};
+
 type UserData = {
   id: number;
   email: string;
@@ -15,11 +21,7 @@ type UserData = {
   username: string;
   isActivated: boolean;
   about: string;
-  avatar: {
-    name: string;
-    url: string;
-    data?: string;
-  };
+  avatar: UserAvatarData;
   role: {
     loc_ru: string;
     val: string;
@@ -35,11 +37,7 @@ type ExtendedUserData = UserData & OtherUserProps;
 type UserUpdateData = {
   username: string;
   about: string;
-  avatar: {
-    name: string;
-    url: string;
-    data?: string;
-  };
+  avatar: UserAvatarData;
 };
 
 type ProfileStats = {
@@ -70,16 +68,16 @@ interface IUserStore {
   isAuth: boolean;
   login(loginData: UserLoginData): Promise<void>;
   registration(data: UserRegistrationData): Promise<void>;
-  logout(): void;
-  updateUser(data: object): void;
+  logout(): Promise<void>;
+  updateUser(data: object): Promise<void>;
   // updateAvatar(avatarData: string): void;
   sendNewActivationMail(): Promise<Date>;
-  getActivationMailCooldown(): Promise<Date>;
-  checkAuthorization(): void;
-  subscribeToUser(id: number): void;
-  unsubscribeFromUser(id: number): void;
-  getUserData(login: string): void;
-  getProfileStats(userId: number): void;
+  getActivationMailCooldown(): Promise<Date | null>;
+  checkAuthorization(): Promise<void>;
+  subscribeToUser(id: number): Promise<SubsCountObject | undefined>;
+  unsubscribeFromUser(id: number): Promise<SubsCountObject | undefined>;
+  getUserData(login: string): Promise<ExtendedUserData | undefined>;
+  getProfileStats(userId: number): Promise<ProfileStats | undefined>;
 }
 
 type UserDataWithTokens = {
