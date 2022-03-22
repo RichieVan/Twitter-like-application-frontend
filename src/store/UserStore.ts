@@ -4,7 +4,10 @@ import axios, { AxiosResponse } from 'axios';
 import UserService from '../services/UserService';
 import { API_URL } from '../http/index';
 import {
+  ExtendedUserData,
   IUserStore,
+  ProfileStats,
+  SubsCountObject,
   UserData,
   UserDataWithTokens,
   UserLoginData,
@@ -109,7 +112,7 @@ export default class UserStore implements IUserStore {
     return data;
   }
 
-  async checkAuthorization() {
+  async checkAuthorization(): Promise<void> {
     try {
       const { data } = await axios.get(
         `${API_URL}/refresh`,
@@ -124,39 +127,39 @@ export default class UserStore implements IUserStore {
     }
   }
 
-  async subscribeToUser(id: number) {
+  async subscribeToUser(id: number): Promise<SubsCountObject | undefined> {
     try {
       const { data } = await UserService.subscribeToUser(id);
       return data;
     } catch (e) {
-      return e;
+      // return e;
     }
   }
 
-  async unsubscribeFromUser(id: number) {
+  async unsubscribeFromUser(id: number): Promise<SubsCountObject | undefined> {
     try {
       const { data } = await UserService.unsubscribeFromUser(id);
       return data;
     } catch (e) {
-      return e;
+      // return e;
     }
   }
 
-  async getUserData(login: string) {
+  async getUserData(login: string): Promise<ExtendedUserData | undefined> {
     try {
       const { data } = await UserService.getUserData(login);
       return data;
     } catch (e) {
-      return e;
+      // return e;
     }
   }
 
-  async getProfileStats(userId: number) {
+  async getProfileStats(userId: number): Promise<ProfileStats | undefined> {
     try {
       const { data } = await UserService.getProfileStats(userId);
       return data;
     } catch (e) {
-      return e;
+      // return e;
     }
   }
 }
