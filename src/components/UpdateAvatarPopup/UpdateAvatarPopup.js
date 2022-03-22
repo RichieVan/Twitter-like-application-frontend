@@ -80,19 +80,19 @@ function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
   const saveButtonClickHandler = () => {
     if (directly) {
       setIsLoading(true);
-      userStore.updateAvatar(newAvatarLink)
-        .then(() => {
-          setNewAvatar(null);
-          setNewAvatarLink(null);
-          setInitialAvatarLink(null);
-          setIsLoading(false);
-          closeModal();
+      // userStore.updateAvatar(newAvatarLink)
+      //   .then(() => {
+      //     setNewAvatar(null);
+      //     setNewAvatarLink(null);
+      //     setInitialAvatarLink(null);
+      //     setIsLoading(false);
+      //     closeModal();
 
-          notificationStore.show('Аватар успешно обновлен', 3000, 'success');
-        })
-        .catch(() => {
-          notificationStore.show('Произошла неизвестная ошибка', 3000, 'error');
-        });
+      //     notificationStore.show('Аватар успешно обновлен', 3000, 'success');
+      //   })
+      //   .catch(() => {
+      //     notificationStore.show('Произошла неизвестная ошибка', 3000, 'error');
+      //   });
     } else {
       fileUrlHandler(newAvatarLink);
       closeModal();
@@ -136,18 +136,18 @@ function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
           </div>
           <div className="buttons-container">
             <Button
-              clickHandler={loadAnotherHandler}
+              onClick={loadAnotherHandler}
             >
               Загрузить другой
             </Button>
             <Button
-              clickHandler={changeAreaHandler}
+              onClick={changeAreaHandler}
             >
               Изменить область
             </Button>
             <Button
               mods={['fill', 'success']}
-              clickHandler={saveButtonClickHandler}
+              onClick={saveButtonClickHandler}
             >
               Сохранить
             </Button>
