@@ -1,22 +1,21 @@
 import { observer } from 'mobx-react-lite';
-import React, { cloneElement, useContext } from 'react';
+import React, { cloneElement, useContext, FC } from 'react';
+
 import { Context } from '../../Context';
-
+import getClassList from '../../lib/getClassList';
 import ModalBase from './base/ModalBase';
+import { IModalProps, ModalCloseFunction } from './types';
 
-function Modal({
+const Modal: FC<IModalProps> = ({
   modalName,
-  heading,
-  temporal,
+  heading = '',
+  temporal = false,
   children,
-}) {
+}) => {
   const { modalStore } = useContext(Context);
+  const classList = getClassList('modal', modalStore.active.includes(modalName) ? ['active'] : []);
 
-  const classArray = ['modal'];
-  if (modalStore.active.includes(modalName)) classArray.push('modal_active');
-  const classList = classArray.join(' ');
-
-  let closeModal;
+  let closeModal: ModalCloseFunction;
   if (temporal) {
     closeModal = () => {
       modalStore.setModalActive(modalName, false);
@@ -32,6 +31,7 @@ function Modal({
   return (
     <div
       className={classList}
+      role="presentation"
       onClick={() => closeModal()}
     >
       <ModalBase
@@ -39,12 +39,17 @@ function Modal({
         containerClickHandler={(e) => e.stopPropagation()}
         closeModalHandler={() => closeModal()}
       >
-        {cloneElement(children, {
-          closeModal,
-        })}
+        {React.isValidElement(children) && (
+          cloneElement(
+            children,
+            {
+              closeModal,
+            },
+          )
+        )}
       </ModalBase>
     </div>
   );
-}
+};
 
 export default observer(Modal);
