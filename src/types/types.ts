@@ -1,8 +1,8 @@
-type LocationStateProps = {
+export type LocationStateProps = {
   backgroundLocation?: string;
 };
 
-interface LocationModalChildProps {
+export interface LocationModalChildProps {
   setModalHeading?: (heading: string) => void;
   defaultHeading?: string;
   closeModal: () => void;
@@ -14,7 +14,7 @@ export type UserAvatarData = {
   data?: string;
 };
 
-type UserData = {
+export type UserData = {
   id: number;
   email: string;
   login: string;
@@ -32,15 +32,15 @@ type OtherUserProps = {
   currentUserSubscribed?: boolean;
 };
 
-type ExtendedUserData = UserData & OtherUserProps;
+export type ExtendedUserData = UserData & OtherUserProps;
 
-type UserUpdateData = {
+export type UserUpdateData = {
   username: string;
   about: string;
   avatar: UserAvatarData;
 };
 
-type ProfileStats = {
+export type ProfileStats = {
   subsToCount: number,
   subsFromCount: number,
   postsCount: number,
@@ -51,19 +51,19 @@ export type UserLoginData = {
   password: string;
 };
 
-type UserRegistrationData = {
+export type UserRegistrationData = {
   login: string;
   email: string;
   password: string;
   passwordRepeat: string;
 };
 
-type SubsCountObject = {
+export type SubsCountObject = {
   userSubsCount: number;
   targetSubsCount: number;
 };
 
-interface IUserStore {
+export interface IUserStore {
   user: UserData | null;
   isAuth: boolean;
   login(loginData: UserLoginData): Promise<void>;
@@ -80,21 +80,8 @@ interface IUserStore {
   getProfileStats(userId: number): Promise<ProfileStats | undefined>;
 }
 
-type UserDataWithTokens = {
+export type UserDataWithTokens = {
   accessToken: string;
   refreshToken: string;
   user: UserData;
-};
-
-export {
-  LocationStateProps,
-  LocationModalChildProps,
-  IUserStore,
-  UserRegistrationData,
-  UserDataWithTokens,
-  ExtendedUserData,
-  ProfileStats,
-  SubsCountObject,
-  UserUpdateData,
-  UserData,
 };
