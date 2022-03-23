@@ -1,27 +1,31 @@
-import React, { useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
+import { DragAndDropProps } from './types';
 
-function DragAndDrop({ filesHandler, multiple }) {
-  const fileInput = useRef(null);
+const DragAndDrop: FC<DragAndDropProps> = ({
+  filesHandler,
+  multiple = false,
+}) => {
+  const fileInput = useRef<HTMLInputElement>(null);
   const [dropping, setDropping] = useState(false);
 
-  const dragoverHandler = (e) => {
+  const dragoverHandler = (e: React.DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
   };
 
-  const dragenterHandler = (e) => {
+  const dragenterHandler = (e: React.DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
     setDropping(true);
   };
 
-  const dragleaveHandler = (e) => {
+  const dragleaveHandler = (e: React.DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
     setDropping(false);
   };
 
-  const dropHandler = (e) => {
+  const dropHandler = (e: React.DragEvent) => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -51,7 +55,9 @@ function DragAndDrop({ filesHandler, multiple }) {
           <input
             type="file"
             ref={fileInput}
-            onChange={() => filesHandler(fileInput.current.files)}
+            onChange={() => {
+              if (fileInput.current?.files) filesHandler(fileInput.current.files);
+            }}
             disabled={dropping}
             multiple={multiple}
           />
@@ -59,6 +65,6 @@ function DragAndDrop({ filesHandler, multiple }) {
       </div>
     </div>
   );
-}
+};
 
 export default DragAndDrop;
