@@ -5,7 +5,7 @@ import React, {
   useState,
 } from 'react';
 
-import cutImageAndGenerateUrl from '../../lib/cutImageAndGenerateUrl';
+import cutImageAndGenerateUrl from '../../lib/cutImageAndGenerateUrl/cutImageAndGenerateUrl';
 import Button from '../Button/Button';
 import {
   BordersObject,

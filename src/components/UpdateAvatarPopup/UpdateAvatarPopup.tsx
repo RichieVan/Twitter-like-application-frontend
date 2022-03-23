@@ -8,7 +8,7 @@ import React, {
 
 import { Context } from '../../Context';
 import DragAndDrop from '../DragAndDrop/DragAndDrop';
-import cutImageAndGenerateUrl from '../../lib/cutImageAndGenerateUrl';
+import cutImageAndGenerateUrl from '../../lib/cutImageAndGenerateUrl/cutImageAndGenerateUrl';
 import ImageClipper from '../ImageClipper/ImageClipper';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import Button from '../Button/Button';
