@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  FC,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { Context } from '../../Context';
 import DragAndDrop from '../DragAndDrop/DragAndDrop';
@@ -6,23 +12,26 @@ import cutImageAndGenerateUrl from '../../lib/cutImageAndGenerateUrl';
 import ImageClipper from '../ImageClipper/ImageClipper';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import Button from '../Button/Button';
+import { UpdateAvatarProps } from './types';
 
-function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
+const UpdateAvatarPopup: FC<UpdateAvatarProps> = ({
+  fileUrlHandler,
+  directly,
+  closeModal,
+}) => {
   const { userStore, notificationStore } = useContext(Context);
 
-  const [newAvatar, setNewAvatar] = useState(null);
-  const [initialAvatarLink, setInitialAvatarLink] = useState(null);
-  const [newAvatarLink, setNewAvatarLink] = useState(null);
+  const [newAvatar, setNewAvatar] = useState<File | null>(null);
+  const [initialAvatarLink, setInitialAvatarLink] = useState<string>('');
+  const [newAvatarLink, setNewAvatarLink] = useState<string>('');
   const [isModifying, setIsModifying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isHandlingAvatar, setIsHandlingAvatar] = useState(false);
+  const newAvatarPreview = useRef<HTMLImageElement>(null);
 
-  useEffect(() => {
-    if (newAvatar && !newAvatarLink) {
-      handleAvatar(newAvatar);
-    }
-  });
+  const handleAvatar = (avatar: File) => {
+    setIsHandlingAvatar(true);
 
-  const handleAvatar = (avatar) => {
     if (avatar.size > 1024 * 1024 * 2) {
       setNewAvatar(null);
       notificationStore.show('Размер загружаемого изображения первышает лимит в 2 мб', 5000, 'error');
@@ -36,39 +45,50 @@ function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
     }
 
     setIsLoading(true);
+
     const reader = new FileReader();
-    reader.onload = (e) => {
-      setInitialAvatarLink(e.target.result);
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      const renderResult = e?.target?.result as string;
+      if (renderResult) {
+        setInitialAvatarLink(renderResult as string);
 
-      const initialImage = document.createElement('img');
-      initialImage.onload = () => {
-        const previewCoordinates = document.getElementById('newAvatarPreview').getBoundingClientRect();
+        const initialImage = document.createElement('img');
+        initialImage.onload = () => {
+          const previewCoordinates = newAvatarPreview.current!.getBoundingClientRect();
 
-        const ratio = initialImage.naturalWidth / initialImage.naturalHeight;
-        if (ratio > 1) {
-          initialImage.height = previewCoordinates.height;
-          initialImage.width = previewCoordinates.width * ratio;
-        } else {
-          initialImage.width = previewCoordinates.width;
-          initialImage.height = previewCoordinates.height / ratio;
-        }
+          const ratio = initialImage.naturalWidth / initialImage.naturalHeight;
+          if (ratio > 1) {
+            initialImage.height = previewCoordinates.height;
+            initialImage.width = previewCoordinates.width * ratio;
+          } else {
+            initialImage.width = previewCoordinates.width;
+            initialImage.height = previewCoordinates.height / ratio;
+          }
 
-        const imageUrl = cutImageAndGenerateUrl({
-          image: initialImage,
-          sWidth: initialImage.width,
-          sHeight: initialImage.height,
-          dx: -(initialImage.width - previewCoordinates.width) / 2,
-          dy: -(initialImage.height - previewCoordinates.height) / 2,
-          dWidth: previewCoordinates.width,
-          dHeight: previewCoordinates.height,
-        });
-        setNewAvatarLink(imageUrl);
-        setIsLoading(false);
-      };
-      initialImage.src = e.target.result;
+          const imageUrl = cutImageAndGenerateUrl({
+            image: initialImage,
+            sWidth: initialImage.width,
+            sHeight: initialImage.height,
+            dx: -(initialImage.width - previewCoordinates.width) / 2,
+            dy: -(initialImage.height - previewCoordinates.height) / 2,
+            dWidth: previewCoordinates.width,
+            dHeight: previewCoordinates.height,
+          });
+          setNewAvatarLink(imageUrl);
+          setIsLoading(false);
+          setIsHandlingAvatar(false);
+        };
+        initialImage.src = renderResult;
+      }
     };
     reader.readAsDataURL(avatar);
   };
+
+  useEffect(() => {
+    if (newAvatar && !newAvatarLink && !isHandlingAvatar) {
+      handleAvatar(newAvatar);
+    }
+  });
 
   const loadAnotherHandler = () => {
     setNewAvatar(null);
@@ -104,7 +124,7 @@ function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
       return (
         <ImageClipper
           link={initialAvatarLink}
-          fileUrlHandler={(fileUrl) => {
+          fileUrlHandler={(fileUrl: string | null) => {
             setIsModifying(false);
             if (fileUrl) setNewAvatarLink(fileUrl);
           }}
@@ -120,7 +140,7 @@ function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
               <span>Новый</span>
               <img
                 className="update-avatar__preview-image"
-                id="newAvatarPreview"
+                ref={newAvatarPreview}
                 alt="Текущее изображение профиля"
                 src={newAvatarLink}
               />
@@ -130,19 +150,15 @@ function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
               <img
                 className="update-avatar__preview-image"
                 alt="Текущее изображение профиля"
-                src={userStore.user.avatar.url}
+                src={userStore.user!.avatar.url}
               />
             </div>
           </div>
           <div className="buttons-container">
-            <Button
-              onClick={loadAnotherHandler}
-            >
+            <Button onClick={loadAnotherHandler}>
               Загрузить другой
             </Button>
-            <Button
-              onClick={changeAreaHandler}
-            >
+            <Button onClick={changeAreaHandler}>
               Изменить область
             </Button>
             <Button
@@ -159,7 +175,7 @@ function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
     return (
       <DragAndDrop
         multiple={false}
-        filesHandler={(files) => {
+        filesHandler={(files: FileList) => {
           setNewAvatar(files[0]);
         }}
       />
@@ -174,6 +190,6 @@ function UpdateAvatarPopup({ closeModal, fileUrlHandler, directly }) {
       ) : ''}
     </div>
   );
-}
+};
 
 export default UpdateAvatarPopup;
