@@ -1,3 +1,7 @@
+export interface ModalChildProps {
+  closeModal: () => void;
+}
+
 export type LocationStateProps = {
   backgroundLocation?: string;
 };
