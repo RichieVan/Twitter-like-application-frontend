@@ -17,7 +17,7 @@ import Greeting from './components/Greeting/Greeting';
 import PostView from './components/PostView/PostView';
 import SettingsForm from './components/SettingsForm/SettingsForm';
 
-function App() {
+const App = () => {
   const {
     appStore,
     userStore,
@@ -49,7 +49,7 @@ function App() {
           <Route
             path="/"
             element={(
-              <AuthRequired element={<Greeting />}>
+              <AuthRequired notAuthElement={<Greeting />}>
                 <Navigate to="/feed" />
               </AuthRequired>
             )}
@@ -57,7 +57,7 @@ function App() {
           <Route
             path="feed"
             element={(
-              <AuthRequired to="/">
+              <AuthRequired notAuthRedirect="/">
                 <Feed />
               </AuthRequired>
             )}
@@ -65,11 +65,14 @@ function App() {
           <Route
             path="profile/settings"
             element={(
-              <AuthRequired to="/">
-                <LocationModal heading="Настройки пользователя">
-                  <SettingsForm />
-                </LocationModal>
-              </AuthRequired>
+              <AuthRequired
+                notAuthRedirect="/"
+                render={(userData) => (
+                  <LocationModal heading="Настройки пользователя">
+                    <SettingsForm userData={userData} />
+                  </LocationModal>
+                )}
+              />
             )}
           />
           <Route
@@ -88,11 +91,14 @@ function App() {
           <Route
             path="profile/settings"
             element={(
-              <AuthRequired to="/">
-                <LocationModal heading="Настройки пользователя">
-                  <SettingsForm />
-                </LocationModal>
-              </AuthRequired>
+              <AuthRequired
+                notAuthRedirect="/"
+                render={(userData) => (
+                  <LocationModal heading="Настройки пользователя">
+                    <SettingsForm userData={userData} />
+                  </LocationModal>
+                )}
+              />
             )}
           />
           <Route
@@ -113,6 +119,6 @@ function App() {
       ) : ''}
     </div>
   );
-}
+};
 
 export default observer(App);
