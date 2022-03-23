@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { FC, FormEventHandler } from 'react';
-import getClassList from '../../lib/getClassList';
+import getClassList from '../../lib/getClassList/getClassList';
 import { ValidationData } from '../../lib/validate/types';
 
 // interface FormInputProps extends InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>

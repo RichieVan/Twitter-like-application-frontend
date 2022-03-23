@@ -1,5 +1,5 @@
 import React from 'react';
-import getRandomInt from '../../lib/getRandomInt';
+import getRandomInt from '../../lib/getRandomInt/getRandomInt';
 import { STATIC_URL } from '../../http/index';
 import GreetingAuthForm from '../GreetingAuthForm/GreetingAuthForm';
 import GreetingRegistrationForm from '../GreetingRegistrationForm/GreetingRegistrationForm';

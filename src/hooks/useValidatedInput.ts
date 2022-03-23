@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import entriesOf from '../lib/entriesOf';
+import entriesOf from '../lib/entriesOf/entriesOf';
 import {
   InputValidationProps,
   LengthValidatorProps,

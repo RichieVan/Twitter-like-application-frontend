@@ -2,7 +2,7 @@ import React, { useContext, useRef, useState } from 'react';
 
 import { Context } from '../../Context';
 import LoadingCircle from '../../assets/img/icons/loading.svg';
-import AddLeadZero from '../../lib/addLeadZero';
+import AddLeadZero from '../../lib/addLeadZero/addLeadZero';
 import LoadingMask from '../LoadingMask/LoadingMask';
 
 function ActivateAccountPopup() {

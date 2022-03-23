@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { Context } from '../../Context';
-import FormatPostText from '../../lib/formatPostText';
+import formatPostText from '../../lib/formatPostText/formatPostText';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import PostComment from '../PostComment/PostComment';
@@ -23,7 +23,7 @@ function CommentsList({ postId, postOwner }) {
 
           setComments(
             result.map((val) => {
-              const contentArray = FormatPostText(val.textContent);
+              const contentArray = formatPostText(val.textContent);
               return (
                 <PostComment
                   key={val.id}
@@ -46,7 +46,7 @@ function CommentsList({ postId, postOwner }) {
   if (postStore.currentCommentsList.length !== comments.length) {
     setComments(
       postStore.currentCommentsList.map((val) => {
-        const contentArray = FormatPostText(val.textContent);
+        const contentArray = formatPostText(val.textContent);
         return (
           <PostComment
             key={val.id}

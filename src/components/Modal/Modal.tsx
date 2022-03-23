@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { cloneElement, useContext, FC } from 'react';
 
 import { Context } from '../../Context';
-import getClassList from '../../lib/getClassList';
+import getClassList from '../../lib/getClassList/getClassList';
 import ModalBase from './base/ModalBase';
 import { IModalProps, ModalCloseFunction } from './types';
 

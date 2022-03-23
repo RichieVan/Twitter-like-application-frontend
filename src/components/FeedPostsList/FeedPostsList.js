@@ -9,7 +9,7 @@ import React, {
 import Post from '../Post/Post';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import { Context } from '../../Context';
-import FormatPostText from '../../lib/formatPostText';
+import formatPostText from '../../lib/formatPostText/formatPostText';
 
 import PostsList from '../PostsList/PostsList';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
@@ -45,7 +45,7 @@ function FeedPostsList() {
     } else {
       setPosts(
         postStore.feedPostsList.map((val) => {
-          const contentArray = FormatPostText(val.textContent);
+          const contentArray = formatPostText(val.textContent);
           return (<Post key={val.id} id={val.id} options={val} contentArray={contentArray} />);
         }),
       );

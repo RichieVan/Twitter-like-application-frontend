@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useState } from 'react';
 
 import { Context } from '../../Context';
-import FormatPostText from '../../lib/formatPostText';
+import formatPostText from '../../lib/formatPostText/formatPostText';
 import Button from '../Button/Button';
 
 const ProfileInfo = ({ userData }) => {
@@ -54,7 +54,7 @@ const ProfileInfo = ({ userData }) => {
   };
 
   const noInfoMessage = 'Пользователь не оставил информации о себе';
-  const aboutText = userData.about ? FormatPostText(userData.about) : noInfoMessage;
+  const aboutText = userData.about ? formatPostText(userData.about) : noInfoMessage;
   const showSubscribeButton = userStore?.user.id && (userData.id !== userStore.user.id);
 
   return (

@@ -8,7 +8,7 @@ import React, {
 import { useLocation } from 'react-router-dom';
 
 import { Context } from '../../Context';
-import FormatPostText from '../../lib/formatPostText';
+import formatPostText from '../../lib/formatPostText/formatPostText';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import Post from '../Post/Post';
@@ -30,7 +30,7 @@ function ProfilePostsList({ userData }) {
           setPosts(
             data.posts.map((val, i, arr) => {
               if (i === arr.length - 1) lastPost.current = val;
-              const contentArray = FormatPostText(val.textContent);
+              const contentArray = formatPostText(val.textContent);
               return (<Post key={val.id} id={val.id} options={val} contentArray={contentArray} />);
             }),
           );
@@ -42,7 +42,7 @@ function ProfilePostsList({ userData }) {
           setPosts(
             data.map((val, i, arr) => {
               if (i === arr.length - 1) lastPost.current = val;
-              const contentArray = FormatPostText(val.textContent);
+              const contentArray = formatPostText(val.textContent);
               return (<Post key={val.id} id={val.id} options={val} contentArray={contentArray} />);
             }),
           );
@@ -57,7 +57,7 @@ function ProfilePostsList({ userData }) {
           posts.concat(
             data.posts.map((val, i, arr) => {
               if (i === arr.length - 1) lastPost.current = val;
-              const contentArray = FormatPostText(val.textContent);
+              const contentArray = formatPostText(val.textContent);
               return (
                 <Post
                   key={val.id}

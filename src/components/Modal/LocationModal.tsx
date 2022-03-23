@@ -12,7 +12,7 @@ import { Context } from '../../Context';
 import ModalBase from './base/ModalBase';
 import ModalPostBase from './base/ModalPostBase';
 import { ILocationModalProps } from './types';
-import getClassList from '../../lib/getClassList';
+import getClassList from '../../lib/getClassList/getClassList';
 import { LocationStateProps, LocationModalChildProps } from '../../types/types';
 
 const LocationModal: FC<ILocationModalProps> = ({

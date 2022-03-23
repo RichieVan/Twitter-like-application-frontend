@@ -10,7 +10,7 @@ import {
 import PostOptions from '../PostOptions/PostOptions';
 import PostService from '../../services/PostService';
 import LoadingMask from '../LoadingMask/LoadingMask';
-import FormatPostText from '../../lib/formatPostText';
+import formatPostText from '../../lib/formatPostText/formatPostText';
 import PostForm from '../PostForm/PostForm';
 import CommentsList from '../CommentsList/CommentsList';
 import LikeButton from '../LikeButton/LikeButton';
@@ -42,7 +42,7 @@ function PostView() {
             Object.assign(
               result.data,
               {
-                contentArray: FormatPostText(result.data.textContent),
+                contentArray: formatPostText(result.data.textContent),
               },
             ),
           );

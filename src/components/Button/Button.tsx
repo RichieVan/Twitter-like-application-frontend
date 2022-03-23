@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import getClassList from '../../lib/getClassList';
+import getClassList from '../../lib/getClassList/getClassList';
 import IButtonProps from './types';
 
 const Button: FC<IButtonProps> = ({
