@@ -17,11 +17,15 @@ import Button from '../Button/Button';
 import FormInput from '../FormInput/FormInput';
 import useValidatedInput from '../../hooks/useValidatedInput';
 import FormGroup from '../FormGroup/FormGroup';
-import { LocationModalChildProps, UserAvatarData } from '../../types/types';
+import { LocationModalChildProps, UserAvatarData, UserData } from '../../types/types';
 
 type GoBackFunction = (() => () => void) | null;
+interface SettingsFormProps extends LocationModalChildProps {
+  userData: UserData;
+}
 
-const SettingsForm: FC<LocationModalChildProps> = ({
+const SettingsForm: FC<SettingsFormProps> = ({
+  userData,
   defaultHeading = '',
   setModalHeading,
   closeModal,
@@ -32,14 +36,14 @@ const SettingsForm: FC<LocationModalChildProps> = ({
   const [formValidated, setFormValidated] = useState(true);
   const isFirstLoading = useRef(true);
 
-  const username = useValidatedInput(userStore.user!.username, {
+  const username = useValidatedInput(userData.username, {
     len: { min: 3, max: 26 },
   });
-  const about = useValidatedInput(userStore.user!.about, {
+  const about = useValidatedInput(userData.about, {
     len: { min: 0, max: 200 },
     linebreaks: 9,
   });
-  const [avatar, setAvatar] = useState<UserAvatarData>(userStore.user!.avatar);
+  const [avatar, setAvatar] = useState<UserAvatarData>(userData.avatar);
 
   useEffect(() => {
     if (isFirstLoading.current) {
@@ -72,7 +76,8 @@ const SettingsForm: FC<LocationModalChildProps> = ({
     };
 
     appStore.setGlobalLoading(true);
-    userStore.updateUser(updatedData)
+    userStore
+      .updateUser(updatedData)
       .then(() => {
         closeModal();
       })
