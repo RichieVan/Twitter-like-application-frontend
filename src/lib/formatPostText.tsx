@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
-export default function FormatPostText(textContent) {
+export default function formatPostText(textContent: string) {
   let textExludeLineBreaks = textContent.split(/\r\n/);
 
   if (textExludeLineBreaks.length === 1) {
@@ -10,14 +10,16 @@ export default function FormatPostText(textContent) {
     textExludeLineBreaks = textContent.split(/\r/);
   }
 
-  const contentArray = [];
+  const contentArray: ReactElement[] = [];
   textExludeLineBreaks.forEach((val, index) => {
     if (index !== 0) {
       const linebreakKey = index * 2 - 1;
-      contentArray.push(<br key={linebreakKey} />);
+      const linebreakElement = (<br key={linebreakKey} />);
+      contentArray.push(linebreakElement);
     }
     const spanKey = index * 2;
-    contentArray.push(<span key={spanKey}>{val}</span>);
+    const spanElement = (<span key={spanKey}>{val}</span>);
+    contentArray.push(spanElement);
   });
 
   return contentArray;
