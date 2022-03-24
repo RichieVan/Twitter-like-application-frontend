@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import api from '../http';
 import {
   UserRegistrationData,
@@ -8,9 +7,8 @@ import {
   SubsCountObject,
   UserUpdateData,
   UserLoginData,
+  RequestPromise,
 } from '../types/types';
-
-type RequestPromise<T> = Promise<AxiosResponse<T>>;
 
 class UserService {
   static async login(loginData: UserLoginData): RequestPromise<UserDataWithTokens> {
