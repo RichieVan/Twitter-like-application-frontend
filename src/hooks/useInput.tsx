@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 function useInput(initialValue = '') {
   const [value, setValue] = useState(initialValue);
 
-  const onInput = (e) => {
-    const inputValue = e.target.value;
+  const onInput = (e: React.FormEvent<HTMLInputElement>) => {
+    const inputValue = e.currentTarget.value;
     setValue(inputValue);
   };
 
