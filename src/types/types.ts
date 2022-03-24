@@ -1,3 +1,7 @@
+import { AxiosResponse } from 'axios';
+
+export type RequestPromise<T> = Promise<AxiosResponse<T>>;
+
 export interface ModalChildProps {
   closeModal: () => void;
 }
@@ -88,4 +92,42 @@ export type UserDataWithTokens = {
   accessToken: string;
   refreshToken: string;
   user: UserData;
+};
+
+export type PostRequestParams = {
+  fromTimestamp?: Date;
+  fromId?: number;
+  forSubs?: boolean;
+};
+
+export type BaseNewPostData = {
+  textContent: string;
+  userId: number;
+};
+
+export type NewPostData = BaseNewPostData & PostRequestParams;
+
+export type BaseNewCommentData = {
+  textContent: string;
+  userId: number;
+};
+
+export type NewCommentData = BaseNewCommentData & PostRequestParams;
+
+type PostUserData = {
+  id: number;
+  login: string;
+  username: string;
+  avatar: string;
+};
+
+export type PostData = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  textContent: string;
+  user: PostUserData;
+  commentsCount: number;
+  likesCount: number;
+  currentUserLiked: boolean;
 };
