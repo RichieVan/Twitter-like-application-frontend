@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import { faComment as faCommentRegular } from '@fortawesome/free-regular-svg-icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PanelButton from '../PanelButton/PanelButton';
+import { CommentDataProps } from './types';
 
-function CommentButton({ componentData, isNavigate = true }) {
+const CommentButton: FC<CommentDataProps> = ({
+  postData,
+  isNavigate = true,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const mods = ['type_comment'];
   const clickHandler = () => {
     if (isNavigate) {
-      navigate(`/post/${componentData.id}`, {
+      navigate(`/post/${postData.id}`, {
         state: { backgroundLocation: location.pathname },
       });
     }
@@ -20,12 +24,12 @@ function CommentButton({ componentData, isNavigate = true }) {
   return (
     <PanelButton
       mods={mods}
-      handler={clickHandler}
+      clickHandler={clickHandler}
       icon={faCommentRegular}
     >
-      {componentData.commentsCount > 0 ? componentData.commentsCount : ''}
+      {postData.commentsCount > 0 ? postData.commentsCount : ''}
     </PanelButton>
   );
-}
+};
 
 export default CommentButton;

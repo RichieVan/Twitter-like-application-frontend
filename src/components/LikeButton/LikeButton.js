@@ -58,7 +58,7 @@ function LikeButton({ componentData, setComponentData, mods = [] }) {
   return (
     <PanelButton
       mods={classMods}
-      handler={clickHandler}
+      clickHandler={clickHandler}
       icon={likedByUser ? faHeart : faHeartRegular}
     >
       {getLikesCount()}

@@ -19,7 +19,7 @@ function CopyLinkButton({ postId }) {
   return (
     <PanelButton
       mods={mods}
-      handler={clickHandler}
+      clickHandler={clickHandler}
       icon={faRetweet}
     />
   );
