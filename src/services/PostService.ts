@@ -5,6 +5,7 @@ import {
   PostData,
   RequestPromise,
   NewCommentData,
+  FetchedPostsData,
 } from '../types/types';
 
 export default class PostService {
@@ -18,7 +19,7 @@ export default class PostService {
   //   });
   // }
 
-  static async getFeed(params: PostRequestParams): RequestPromise<PostData[]> {
+  static async getFeed(params: PostRequestParams): RequestPromise<FetchedPostsData> {
     return api.get('/posts', { params });
   }
 
@@ -30,11 +31,11 @@ export default class PostService {
     return api.get(`/posts/one/${id}`);
   }
 
-  static async loadMore(params: PostRequestParams): RequestPromise<PostData[]> {
+  static async loadMore(params: PostRequestParams): RequestPromise<FetchedPostsData> {
     return api.get('/posts/loadmore', { params });
   }
 
-  static async loadMoreUserPosts(userId: number, params: PostRequestParams): RequestPromise<PostData[]> {
+  static async loadMoreUserPosts(userId: number, params: PostRequestParams): RequestPromise<FetchedPostsData> {
     return api.get(`/posts/user/${userId}/loadmore`, { params });
   }
 
