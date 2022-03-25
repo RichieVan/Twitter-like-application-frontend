@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import getClassList from '../../lib/getClassList/getClassList';
+import { PanelButtonProps } from './types';
 
-function PanelButton({
-  mods,
-  handler,
+const PanelButton: FC<PanelButtonProps> = ({
+  clickHandler,
   icon,
+  mods,
   children,
-}) {
-  const baseClass = 'panel-button';
-  const classList = [baseClass].concat(mods.map((val) => `${baseClass}_${val}`)).join(' ');
+}) => {
+  const classList = getClassList('panel-button', mods);
 
   return (
     <button
       type="button"
       className={classList}
-      onClick={() => handler()}
+      onClick={clickHandler}
     >
       <div className="panel-button__wrapper">
         <FontAwesomeIcon icon={icon} />
@@ -22,6 +23,6 @@ function PanelButton({
       </div>
     </button>
   );
-}
+};
 
 export default PanelButton;
