@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -11,7 +11,7 @@ import FormInput from '../FormInput/FormInput';
 import useInput from '../../hooks/useInput';
 import Button from '../Button/Button';
 
-const AuthForm = () => {
+const AuthForm: FC = () => {
   const { userStore } = useContext(Context);
   const [isLoading, setisLoading] = useState(false);
   const loginOrEmail = useInput();
