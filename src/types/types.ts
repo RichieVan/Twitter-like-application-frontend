@@ -95,7 +95,7 @@ export type UserDataWithTokens = {
 };
 
 export type PostRequestParams = {
-  fromTimestamp?: Date;
+  fromTimestamp?: string;
   fromId?: number;
   forSubs?: boolean;
 };
@@ -105,14 +105,18 @@ export type BaseNewPostData = {
   userId: number;
 };
 
-export type NewPostData = BaseNewPostData & PostRequestParams;
+export type NewPostData = BaseNewPostData & {
+  params: PostRequestParams;
+};
 
 export type BaseNewCommentData = {
   textContent: string;
   userId: number;
 };
 
-export type NewCommentData = BaseNewCommentData & PostRequestParams;
+export type NewCommentData = BaseNewCommentData & {
+  params: PostRequestParams;
+};
 
 type PostUserData = {
   id: number;
@@ -121,13 +125,63 @@ type PostUserData = {
   avatar: string;
 };
 
+type PostTimestampObject = {
+  timestamp: string;
+  title: string;
+  view: string;
+};
+
 export type PostData = {
   id: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: PostTimestampObject;
+  updatedAt: PostTimestampObject;
   textContent: string;
   user: PostUserData;
   commentsCount: number;
   likesCount: number;
   currentUserLiked: boolean;
 };
+
+export type FetchedPostsData = {
+  posts: PostData[];
+  canLoadMore: boolean;
+};
+
+export type CurrentList = {
+  type: 'feed' | null;
+};
+
+export interface IPostStore {
+  feedPostsList: PostData[] | null;
+  currentCommentsList: PostData[];
+  firstLoaded: PostData | null;
+  lastLoaded: PostData | null;
+  canLoadMore: boolean;
+  syncing: boolean;
+  currentList: CurrentList;
+  feedType: 'subs' | 'all';
+  canChangeFeedType: boolean;
+  setSyncing(state: boolean): void;
+  setCurrentList(state: CurrentList): void;
+  setCanLoadMore(state: boolean): void;
+  setFeedPostsList(state: PostData[] | null): void;
+  setCurrentCommentsList(comments: PostData[], clear: boolean): void;
+  setFeedType(state: 'subs' | 'all'): void;
+  setCanChangeFeedType(state: boolean): void;
+  deleteFromFeedPostsList(id: number): void;
+  deleteFromCurrentCommentsList(id: number): void;
+  createPost(postData: BaseNewPostData): Promise<void>;
+  createComment(postData: NewCommentData): Promise<void>;
+  fetchPosts(): Promise<PostData[] | null>;
+  loadMorePosts(): Promise<boolean>;
+  syncPosts(force: boolean): Promise<PostData[] | void>;
+  fetchComments(postId: number): Promise<PostData[]>;
+  // loadNewPosts(): Promise<void>;
+  deletePost(id: number): Promise<void>;
+  deleteComment(id: number): Promise<void>;
+  likePost(id: number): Promise<number>;
+  unlikePost(id: number): Promise<number>;
+  getUserPosts(id: number): Promise<PostData[]>;
+  loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData | void>;
+  syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[] | void>;
+}
