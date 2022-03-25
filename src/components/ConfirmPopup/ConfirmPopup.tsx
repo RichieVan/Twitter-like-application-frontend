@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import Button from '../Button/Button';
+import { ConfirmPopupProps } from './types';
 
-const ConfirmPopup = ({
+const ConfirmPopup: FC<ConfirmPopupProps> = ({
   closeModal,
   text,
   confirmText,
