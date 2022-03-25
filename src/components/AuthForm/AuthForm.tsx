@@ -11,17 +11,20 @@ import FormInput from '../FormInput/FormInput';
 import useInput from '../../hooks/useInput';
 import Button from '../Button/Button';
 
-function AuthForm() {
+const AuthForm = () => {
   const { userStore } = useContext(Context);
   const [isLoading, setisLoading] = useState(false);
   const loginOrEmail = useInput();
   const password = useInput();
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setisLoading(true);
     userStore
-      .login(loginOrEmail.value, password.value)
+      .login({
+        loginOrEmail: loginOrEmail.value,
+        password: password.value,
+      })
       .catch(() => {
         setisLoading(false);
       });
@@ -32,7 +35,7 @@ function AuthForm() {
       className="auth-form"
       method="post"
       autoComplete="off"
-      onSubmit={(e) => submitHandler(e)}
+      onSubmit={submitHandler}
     >
       {isLoading && (
         <LoadingMask cHeight={50} cWidth={50} bg="var(--bg1)" opacity={0.8} />
@@ -73,6 +76,6 @@ function AuthForm() {
       </div>
     </form>
   );
-}
+};
 
 export default observer(AuthForm);
