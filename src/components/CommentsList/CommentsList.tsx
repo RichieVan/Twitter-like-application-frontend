@@ -1,15 +1,19 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { FC, ReactElement, useContext, useEffect, useState } from 'react';
 
 import { Context } from '../../Context';
 import formatPostText from '../../lib/formatPostText/formatPostText';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import PostComment from '../PostComment/PostComment';
+import { CommentsListProps } from './types';
 
-function CommentsList({ postId, postOwner }) {
+const CommentsList: FC<CommentsListProps> = ({
+  postId,
+  postOwner,
+}) => {
   const { postStore } = useContext(Context);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<ReactElement[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -27,7 +31,6 @@ function CommentsList({ postId, postOwner }) {
               return (
                 <PostComment
                   key={val.id}
-                  postId={postId}
                   postOwner={postOwner}
                   data={val}
                   contentArray={contentArray}
@@ -50,7 +53,6 @@ function CommentsList({ postId, postOwner }) {
         return (
           <PostComment
             key={val.id}
-            postId={postId}
             postOwner={postOwner}
             data={val}
             contentArray={contentArray}
@@ -86,6 +88,6 @@ function CommentsList({ postId, postOwner }) {
       {render()}
     </div>
   );
-}
+};
 
 export default observer(CommentsList);
