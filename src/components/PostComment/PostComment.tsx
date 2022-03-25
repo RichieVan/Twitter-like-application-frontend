@@ -1,14 +1,19 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import PostOptions from '../PostOptions/PostOptions';
 import LikeButton from '../LikeButton/LikeButton';
 import { Context } from '../../Context';
+import { PostCommentProps } from './types';
 
-function PostComment({ data, contentArray, postOwner }) {
+const PostComment: FC<PostCommentProps> = ({
+  data,
+  contentArray,
+  postOwner,
+}) => {
   const { userStore, appStore } = useContext(Context);
-  const [commentData, setCommentData] = useState({ ...data });
+  const [commentData, setCommentData] = useState(data);
 
   return (
     <div className="comment">
@@ -16,7 +21,7 @@ function PostComment({ data, contentArray, postOwner }) {
         <div className="comment__avatar">
           <Link
             className="comment__avatar-link"
-            style={{ backgroundImage: `url(${commentData.user.id === userStore.user.id ? userStore.user.avatar.url : commentData.user.avatar.url})` }}
+            style={{ backgroundImage: `url(${commentData.user.id === userStore.user?.id ? userStore.user.avatar.url : commentData.user.avatar.url})` }}
             to={`/profile/${commentData.user.login}`}
           />
         </div>
@@ -61,6 +66,6 @@ function PostComment({ data, contentArray, postOwner }) {
       </div>
     </div>
   );
-}
+};
 
 export default observer(PostComment);
