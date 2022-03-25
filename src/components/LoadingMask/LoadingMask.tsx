@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import LoadingCircle from '../../assets/img/icons/loading.svg';
+import { LoadingMaskProps } from './types';
 
-function LoadingMask({
+const LoadingMask: FC<LoadingMaskProps> = ({
   cHeight,
   cWidth,
   bg,
   opacity,
-}) {
+}) => {
   const styles = {
     backgroundColor: bg,
     opacity,
@@ -17,6 +18,6 @@ function LoadingMask({
       <LoadingCircle height={cHeight} width={cWidth} />
     </div>
   );
-}
+};
 
 export default LoadingMask;
