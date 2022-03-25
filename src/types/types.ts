@@ -122,7 +122,7 @@ type PostUserData = {
   id: number;
   login: string;
   username: string;
-  avatar: string;
+  avatar: UserAvatarData;
 };
 
 type PostTimestampObject = {
@@ -184,4 +184,27 @@ export interface IPostStore {
   getUserPosts(id: number): Promise<PostData[]>;
   loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData | void>;
   syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[] | void>;
+}
+
+export type AppStoreAliases = {
+  [name: string]: string;
+};
+
+export type PostType = 'post' | 'postView' | 'comment';
+
+export type ActivePostOptions = {
+  id: number;
+  type: PostType;
+};
+
+export interface IAppStore {
+  isFirstLoading: boolean;
+  isGlobalLoading: boolean;
+  activePostOptions: ActivePostOptions | null;
+  userStore: IUserStore;
+  aliases: AppStoreAliases;
+  setFirstLoading(state: boolean): void;
+  setGlobalLoading(state: boolean): void;
+  setActivePostOptions(state: ActivePostOptions | null): void;
+  preloader(): Promise<void>;
 }
