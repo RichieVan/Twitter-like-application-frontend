@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-export default function formatPostText(textContent: string) {
+export default function formatPostText(textContent: string): ReactElement[] {
   let textExludeLineBreaks = textContent.split(/\r\n/);
 
   if (textExludeLineBreaks.length === 1) {
