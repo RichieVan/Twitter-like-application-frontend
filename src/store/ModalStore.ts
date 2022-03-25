@@ -5,15 +5,14 @@ import {
   toJS,
   runInAction,
 } from 'mobx';
+import { IModalStore, ModalData, ModalOptions } from '../types/types';
 
-export default class ModalStore {
-  namesList = [];
+class ModalStore implements IModalStore {
+  namesList: string[] = [];
 
-  active = [];
+  active: string[] = [];
 
-  fading = [];
-
-  modals = [];
+  modals: ModalData[] = [];
 
   constructor() {
     makeObservable(
@@ -30,7 +29,7 @@ export default class ModalStore {
     );
   }
 
-  openModal(element, options = {}) {
+  openModal(element: JSX.Element, options: ModalOptions): void {
     const modalName = element.type.name;
     if (!this.namesList.includes(modalName)) {
       this.addModal(element, options);
@@ -42,7 +41,7 @@ export default class ModalStore {
     }
   }
 
-  addModal(element, options) {
+  addModal(element: JSX.Element, options: ModalOptions): void {
     const modalName = element.type.name;
 
     this.active = this.active.concat([modalName]);
@@ -50,36 +49,38 @@ export default class ModalStore {
       element,
       props: {
         modalName,
-        heading: (options?.heading || ''),
-        fadingOutTime: (options?.fadingOutTime || null),
-        temporal: (options?.temporal || false),
+        heading: options?.heading || '',
+        temporal: options?.temporal || false,
+        // fadingOutTime: (options?.fadingOutTime || null),
       },
     }]);
     this.namesList.push(element.type.name);
   }
 
-  deleteFromModalsList(modalName) {
+  deleteFromModalsList(modalName: string): void {
     runInAction(() => {
       this.modals = toJS(this.modals).filter((value) => value.props.modalName !== modalName);
     });
   }
 
-  deleteFromNamesList(modalName) {
+  deleteFromNamesList(modalName: string): void {
     this.namesList.splice(this.namesList.indexOf(modalName), 1);
   }
 
-  setModalActive(modalName, value) {
+  setModalActive(modalName: string, value: boolean): void {
     if (value) this.active = this.active.concat([modalName]);
     else this.active.splice(this.active.indexOf(modalName), 1);
   }
 
-  setModalFading(modalName, value) {
-    if (value) this.fading = this.fading.concat([modalName]);
-    else this.fading.splice(this.fading.indexOf(modalName), 1);
-  }
+  // setModalFading(modalName, value) {
+  //   if (value) this.fading = this.fading.concat([modalName]);
+  //   else this.fading.splice(this.fading.indexOf(modalName), 1);
+  // }
 
-  setBodyUnscrollable(value) {
+  setBodyUnscrollable(value: boolean): void {
     if (value) document.body.classList.add('no-scroll');
     else document.body.classList.remove('no-scroll');
   }
 }
+
+export default ModalStore;

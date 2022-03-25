@@ -1,4 +1,5 @@
 import { AxiosResponse } from 'axios';
+import { ReactElement } from 'react';
 
 export type RequestPromise<T> = Promise<AxiosResponse<T>>;
 
@@ -207,4 +208,32 @@ export interface IAppStore {
   setGlobalLoading(state: boolean): void;
   setActivePostOptions(state: ActivePostOptions | null): void;
   preloader(): Promise<void>;
+}
+
+export type ModalOptions = {
+  heading?: string;
+  temporal?: boolean;
+};
+
+type ModalDataProps = {
+  modalName: string;
+  heading: string;
+  temporal: boolean;
+};
+
+export type ModalData = {
+  element: ReactElement;
+  props: ModalDataProps;
+};
+
+export interface IModalStore {
+  namesList: string[];
+  active: string[];
+  modals: ModalData[];
+  openModal(element: JSX.Element, options: ModalOptions): void;
+  addModal(element: JSX.Element, options: ModalOptions): void;
+  deleteFromModalsList(modalName: string): void;
+  deleteFromNamesList(modalName: string): void;
+  setModalActive(modalName: string, value: boolean): void;
+  setBodyUnscrollable(value: boolean): void;
 }
