@@ -113,7 +113,7 @@ function PostView() {
             setComponentData={setPostData}
           />
           <CommentButton
-            componentData={postData}
+            postData={postData}
             isNavigate={false}
           />
           <CopyLinkButton postId={postData.id} />

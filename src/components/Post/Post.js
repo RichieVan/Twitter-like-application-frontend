@@ -68,7 +68,7 @@ function Post({ id, options, contentArray }) {
       />
       <div className="post__panel">
         <LikeButton componentData={postData} setComponentData={setPostData} />
-        <CommentButton componentData={postData} />
+        <CommentButton postData={postData} />
       </div>
     </article>
   );
