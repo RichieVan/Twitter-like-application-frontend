@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { Context } from '../../Context';
 
-function GlobalMask() {
+const GlobalMask: FC = () => {
   const { appStore } = useContext(Context);
 
   return (
@@ -15,6 +15,6 @@ function GlobalMask() {
       />
     </div>
   );
-}
+};
 
 export default observer(GlobalMask);
