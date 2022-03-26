@@ -31,7 +31,7 @@ function ProfilePostsList({ userData }) {
             data.posts.map((val, i, arr) => {
               if (i === arr.length - 1) lastPost.current = val;
               const contentArray = formatPostText(val.textContent);
-              return (<Post key={val.id} id={val.id} options={val} contentArray={contentArray} />);
+              return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
             }),
           );
           setIsLoading(false);
@@ -43,7 +43,7 @@ function ProfilePostsList({ userData }) {
             data.map((val, i, arr) => {
               if (i === arr.length - 1) lastPost.current = val;
               const contentArray = formatPostText(val.textContent);
-              return (<Post key={val.id} id={val.id} options={val} contentArray={contentArray} />);
+              return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
             }),
           );
         });

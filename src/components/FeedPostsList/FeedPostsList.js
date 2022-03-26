@@ -14,7 +14,7 @@ import formatPostText from '../../lib/formatPostText/formatPostText';
 import PostsList from '../PostsList/PostsList';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 
-function FeedPostsList() {
+const FeedPostsList = () => {
   const { postStore } = useContext(Context);
   const [posts, setPosts] = useState([]);
   const [isFirstLoading, setIsFirstLoading] = useState(true);
@@ -46,7 +46,7 @@ function FeedPostsList() {
       setPosts(
         postStore.feedPostsList.map((val) => {
           const contentArray = formatPostText(val.textContent);
-          return (<Post key={val.id} id={val.id} options={val} contentArray={contentArray} />);
+          return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
         }),
       );
       postStore.setCanChangeFeedType(true);
@@ -86,6 +86,6 @@ function FeedPostsList() {
       {render()}
     </PostsList>
   );
-}
+};
 
 export default observer(FeedPostsList);
