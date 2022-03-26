@@ -1,15 +1,17 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useRef, useState } from 'react';
+import React, {
+  FC, useContext, useRef, useState,
+} from 'react';
 
 import { Context } from '../../Context';
 
-function FeedTypeChange() {
+const FeedTypeChange: FC = () => {
   const { postStore } = useContext(Context);
   const [isChecked, setChecked] = useState(postStore.feedType === 'subs');
-  const inputElement = useRef(null);
+  const inputElement = useRef<HTMLInputElement>(null);
 
   const showAllClickHandler = () => {
-    if (inputElement.current.checked && postStore.canChangeFeedType) {
+    if (inputElement.current && inputElement.current.checked && postStore.canChangeFeedType) {
       postStore.setCanChangeFeedType(false);
       setChecked(false);
       postStore.setFeedType('all');
@@ -17,11 +19,20 @@ function FeedTypeChange() {
   };
 
   const showSubsClickHandler = () => {
-    if (!inputElement.current.checked && postStore.canChangeFeedType) {
+    if (inputElement.current && !inputElement.current.checked && postStore.canChangeFeedType) {
       postStore.setCanChangeFeedType(false);
       setChecked(true);
       postStore.setFeedType('subs');
     }
+  };
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    postStore.setCanChangeFeedType(false);
+
+    if (e.target.checked) postStore.setFeedType('subs');
+    else postStore.setFeedType('all');
+
+    setChecked(e.target.checked);
   };
 
   return (
@@ -30,7 +41,7 @@ function FeedTypeChange() {
         <button
           type="button"
           className="feed-type__option"
-          onClick={() => showAllClickHandler()}
+          onClick={showAllClickHandler}
         >
           Все
         </button>
@@ -46,27 +57,20 @@ function FeedTypeChange() {
             name="feedTypeChange"
             checked={isChecked}
             disabled={!postStore.canChangeFeedType}
-            onChange={(e) => {
-              postStore.setCanChangeFeedType(false);
-
-              if (e.target.checked) postStore.setFeedType('subs');
-              else postStore.setFeedType('all');
-
-              setChecked(e.target.checked);
-            }}
+            onChange={(e) => onChangeHandler(e)}
           />
           <span />
         </label>
         <button
           type="button"
           className="feed-type__option"
-          onClick={() => showSubsClickHandler()}
+          onClick={showSubsClickHandler}
         >
           Подписки
         </button>
       </div>
     </div>
   );
-}
+};
 
 export default observer(FeedTypeChange);
