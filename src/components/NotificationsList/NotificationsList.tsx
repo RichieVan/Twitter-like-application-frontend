@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 
 import { Context } from '../../Context';
 import Notification from '../Notification/Notification';
 
-function NotificationsList() {
+const NotificationsList: FC = () => {
   const { notificationStore } = useContext(Context);
 
   const notifications = notificationStore.notifications.map((value) => {
@@ -32,6 +32,6 @@ function NotificationsList() {
       {notifications}
     </div>
   );
-}
+};
 
 export default observer(NotificationsList);
