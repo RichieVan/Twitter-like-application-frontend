@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  FC, useContext, useEffect, useState,
+} from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -6,20 +8,24 @@ import { Context } from '../../Context';
 import PostOptions from '../PostOptions/PostOptions';
 import LikeButton from '../LikeButton/LikeButton';
 import CommentButton from '../CommentButton/CommentButton';
+import { PostProps } from './types';
 
-function Post({ id, options, contentArray }) {
+const Post: FC<PostProps> = ({
+  id,
+  data,
+  contentArray,
+}) => {
   const { userStore, appStore, postStore } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
-  const [postData, setPostData] = useState({ ...options });
+  const [postData, setPostData] = useState(data);
 
-  console.log(postData);
   useEffect(() => {
-    setPostData({ ...options });
-  }, [options]);
+    setPostData(data);
+  }, [data]);
 
-  const postClickHandler = (e) => {
-    if (!(e.target.localName in ['a', 'button'])) {
+  const postClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!(e.currentTarget.localName in ['a', 'button'])) {
       postStore.setCurrentCommentsList([], true);
       navigate(`/post/${postData.id}`, {
         state: { backgroundLocation: location.pathname },
@@ -31,13 +37,14 @@ function Post({ id, options, contentArray }) {
     <article className="post post_type_feed">
       <div
         className="post__wrapper"
+        role="presentation"
         onClick={(e) => postClickHandler(e)}
       >
         <div className="post__avatar">
           <Link
             to={`/profile/${postData.user.login}`}
             className="post__avatar-link"
-            style={{ backgroundImage: `url(${postData.user.id === userStore.user.id ? userStore.user.avatar.url : postData.user.avatar.url})` }}
+            style={{ backgroundImage: `url(${postData.user.id === userStore.user?.id ? userStore.user.avatar.url : postData.user.avatar.url})` }}
             onClick={(e) => {
               e.stopPropagation();
             }}
@@ -73,6 +80,6 @@ function Post({ id, options, contentArray }) {
       </div>
     </article>
   );
-}
+};
 
 export default observer(Post);
