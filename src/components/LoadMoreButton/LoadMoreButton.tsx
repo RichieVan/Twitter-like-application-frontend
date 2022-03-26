@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import LoadingMask from '../LoadingMask/LoadingMask';
+import { LoadMoreButtonProps } from './types';
 
-function LoadMoreButton({ action }) {
+const LoadMoreButton: FC<LoadMoreButtonProps> = ({
+  action,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const clickHandler = () => {
@@ -16,7 +19,7 @@ function LoadMoreButton({ action }) {
       <button
         type="button"
         className="load-more__button"
-        onClick={() => clickHandler()}
+        onClick={clickHandler}
       >
         Загрузить еще
       </button>
@@ -25,6 +28,6 @@ function LoadMoreButton({ action }) {
       )}
     </div>
   );
-}
+};
 
 export default LoadMoreButton;
