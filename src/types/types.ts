@@ -113,6 +113,7 @@ export type NewPostData = BaseNewPostData & {
 export type BaseNewCommentData = {
   textContent: string;
   userId: number;
+  postId: number;
 };
 
 export type NewCommentData = BaseNewCommentData & {
