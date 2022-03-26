@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import getRandomInt from '../../lib/getRandomInt/getRandomInt';
 import { STATIC_URL } from '../../http/index';
 import GreetingAuthForm from '../GreetingAuthForm/GreetingAuthForm';
 import GreetingRegistrationForm from '../GreetingRegistrationForm/GreetingRegistrationForm';
 
-function Greeting() {
+const Greeting: FC = () => {
   const bgImage = `${getRandomInt(3) + 1}.png`;
   const styles = {
     backgroundImage: `url(${STATIC_URL}/uploads/authbg/${bgImage})`,
@@ -43,6 +43,6 @@ function Greeting() {
       </div>
     </div>
   );
-}
+};
 
 export default Greeting;
