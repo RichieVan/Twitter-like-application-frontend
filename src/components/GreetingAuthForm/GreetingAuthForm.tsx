@@ -1,7 +1,7 @@
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Context } from '../../Context';
@@ -11,14 +11,14 @@ import FormGroup from '../FormGroup/FormGroup';
 import FormInput from '../FormInput/FormInput';
 import LoadingMask from '../LoadingMask/LoadingMask';
 
-const GreetingAuthForm = () => {
+const GreetingAuthForm: FC = () => {
   const { userStore } = useContext(Context);
   const [isLoading, setisLoading] = useState(false);
   const loginOrEmail = useInput();
   const password = useInput();
   const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setisLoading(true);
     userStore
