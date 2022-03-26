@@ -237,3 +237,20 @@ export interface IModalStore {
   setModalActive(modalName: string, value: boolean): void;
   setBodyUnscrollable(value: boolean): void;
 }
+
+export type NotificationType = 'info' | 'success' | 'error';
+
+export type Notification = {
+  id: number;
+  content: string;
+  timeout: number;
+  type: NotificationType;
+};
+
+export interface INotificationInterface {
+  notifications: Notification[];
+  idCounter: number;
+  show(content: string, timeout: number, type: NotificationType): void;
+  clear(id: number): void;
+  incrementCounter(): number;
+}

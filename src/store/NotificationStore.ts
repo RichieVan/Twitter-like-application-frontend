@@ -3,11 +3,12 @@ import {
   observable,
   action,
 } from 'mobx';
+import { INotificationInterface, Notification, NotificationType } from '../types/types';
 
-export default class NotificationStore {
-  notifications = [];
+export default class NotificationStore implements INotificationInterface {
+  notifications: Notification[] = [];
 
-  idCounter = 0;
+  idCounter: number = 0;
 
   constructor() {
     makeObservable(
@@ -23,7 +24,7 @@ export default class NotificationStore {
     );
   }
 
-  show(content, timeout, type = 'info') {
+  show(content: string, timeout: number, type: NotificationType = 'info'): void {
     const notificationId = this.idCounter;
     this.incrementCounter();
 
@@ -35,11 +36,11 @@ export default class NotificationStore {
     }]);
   }
 
-  clear(id) {
+  clear(id: number): void {
     this.notifications = this.notifications.filter((item) => item.id !== id);
   }
 
-  incrementCounter() {
+  incrementCounter(): number {
     this.idCounter += 1;
     return this.idCounter;
   }
