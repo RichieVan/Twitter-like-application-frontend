@@ -1,25 +1,29 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  FC, useContext, useEffect, useState,
+} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faInfo, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import { Context } from '../../Context';
+import { NotificationProps } from './types';
+import getClassList from '../../lib/getClassList/getClassList';
 
-function Notification({
+const Notification: FC<NotificationProps> = ({
   id,
-  type,
   timeout,
+  type = 'info',
   children,
-}) {
+}) => {
   const { notificationStore } = useContext(Context);
   const [fadingOut, setFadingOut] = useState(false);
   const [fadingIn, setFadingIn] = useState(false);
-  const [containerClassArray, setClassList] = useState(['notification', `notification_type_${type}`]);
+  const [mods, setMods] = useState<string[]>([`type_${type}`]);
 
   useEffect(() => {
     if (!fadingIn) {
       setFadingIn(true);
-      setClassList(containerClassArray.concat(['notification_fading_in']));
+      setMods(mods.concat(['fading_in']));
 
       setTimeout(() => {
         setTimeout(() => {
@@ -30,7 +34,7 @@ function Notification({
 
     if (fadingOut) {
       setFadingOut(false);
-      setClassList(containerClassArray.filter((item) => item !== 'notification_fading_in').concat(['notification_fading_out']));
+      setMods(mods.filter((item) => item !== 'fading_in').concat(['fading_out']));
 
       setTimeout(() => {
         notificationStore.clear(id);
@@ -43,10 +47,10 @@ function Notification({
     success: faCheck,
     error: faTimes,
   };
-  const containerClassList = containerClassArray.join(' ');
+  const classList = getClassList('notification', mods);
 
   return (
-    <div className={containerClassList}>
+    <div className={classList}>
       <div className="notification__content">
         <div className="notification__icon">
           <FontAwesomeIcon icon={iconNames[type]} />
@@ -55,6 +59,6 @@ function Notification({
       </div>
     </div>
   );
-}
+};
 
 export default observer(Notification);
