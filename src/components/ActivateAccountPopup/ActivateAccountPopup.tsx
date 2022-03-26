@@ -1,33 +1,38 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, {
+  FC, useContext, useEffect, useState,
+} from 'react';
 
 import { Context } from '../../Context';
 import LoadingCircle from '../../assets/img/icons/loading.svg';
 import AddLeadZero from '../../lib/addLeadZero/addLeadZero';
 import LoadingMask from '../LoadingMask/LoadingMask';
 
-function ActivateAccountPopup() {
+const ActivateAccountPopup: FC = () => {
   const { userStore } = useContext(Context);
   const [isSending, setIsSending] = useState(false);
-  const [sendingCooldown, setSendingCooldown] = useState(null);
-  const isFirstLoading = useRef(true);
+  const [sendingCooldown, setSendingCooldown] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
 
-  if (isFirstLoading.current) {
-    userStore.getActivationMailCooldown().then((dateAfterCooldown) => {
-      isFirstLoading.current = false;
+  useEffect(() => {
+    if (loading) {
+      userStore
+        .getActivationMailCooldown()
+        .then((dateAfterCooldown) => {
+          if (dateAfterCooldown) {
+            const cooldownTimestamp = new Date(dateAfterCooldown).getTime() - Date.now();
+            setSendingCooldown(Math.trunc(cooldownTimestamp / 1000) + 1);
+            setIsSending(false);
+          } else {
+            setSendingCooldown(0);
+          }
+          setLoading(false);
+        });
+    }
+  });
 
-      if (dateAfterCooldown) {
-        const cooldownTimestamp = new Date(new Date(dateAfterCooldown).getTime() - Date.now());
-        setSendingCooldown(Math.trunc(cooldownTimestamp / 1000) + 1);
-        setIsSending(false);
-      } else {
-        setSendingCooldown(0);
-      }
-    });
-  }
+  const message = `На ваш почтовый адрес ${userStore.user!.email} отправлено письмо с ссылкой для активации аккаунта. Перейдите по ней для завершения регистрации.`;
 
-  const message = `На ваш почтовый адрес ${userStore.user.email} отправлено письмо с ссылкой для активации аккаунта. Перейдите по ней для завершения регистрации.`;
-
-  let sendingTimeout;
+  let sendingTimeout: NodeJS.Timeout;
   const resendOption = () => {
     if (sendingCooldown > 0) {
       sendingTimeout = setTimeout(() => {
@@ -56,7 +61,7 @@ function ActivateAccountPopup() {
           <span>Не приходит письмо?</span>
           <b className="activate-account-popup__sending">
             <span>Отправка сообщения...</span>
-            <LoadingCircle wight={20} height={20} />
+            <LoadingCircle width={20} height={20} />
           </b>
         </div>
       );
@@ -73,7 +78,7 @@ function ActivateAccountPopup() {
               .sendNewActivationMail()
               .then((dateAfterCooldown) => {
                 const timestampAfterCooldown = new Date(dateAfterCooldown).getTime();
-                const cooldownTimestamp = new Date(timestampAfterCooldown - Date.now());
+                const cooldownTimestamp = timestampAfterCooldown - Date.now();
                 setSendingCooldown(Math.trunc(cooldownTimestamp / 1000) + 1);
                 setIsSending(false);
               });
@@ -89,11 +94,11 @@ function ActivateAccountPopup() {
     <div className="activate-account-popup">
       <div className="activate-account-popup__message">{message}</div>
       {resendOption()}
-      {isFirstLoading.current ? (
+      {loading ? (
         <LoadingMask cHeight={50} cWidth={50} bg="#0f0f0f" opacity={1} />
       ) : ''}
     </div>
   );
-}
+};
 
 export default ActivateAccountPopup;
