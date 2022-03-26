@@ -109,8 +109,7 @@ function PostView() {
         />
         <div className="post-view__panel">
           <LikeButton
-            componentData={postData}
-            setComponentData={setPostData}
+            postData={postData}
           />
           <CommentButton
             postData={postData}

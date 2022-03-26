@@ -59,8 +59,7 @@ const PostComment: FC<PostCommentProps> = ({
       />
       <div className="comment__panel">
         <LikeButton
-          componentData={commentData}
-          setComponentData={setCommentData}
+          postData={commentData}
           mods={['for_comment']}
         />
       </div>

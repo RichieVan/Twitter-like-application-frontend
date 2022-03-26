@@ -13,6 +13,7 @@ function Post({ id, options, contentArray }) {
   const location = useLocation();
   const [postData, setPostData] = useState({ ...options });
 
+  console.log(postData);
   useEffect(() => {
     setPostData({ ...options });
   }, [options]);
@@ -67,7 +68,7 @@ function Post({ id, options, contentArray }) {
         type="post"
       />
       <div className="post__panel">
-        <LikeButton componentData={postData} setComponentData={setPostData} />
+        <LikeButton postData={postData} />
         <CommentButton postData={postData} />
       </div>
     </article>
