@@ -1,5 +1,5 @@
 export interface ConfirmPopupProps {
-  closeModal: () => void;
+  closeModal?: () => void;
   text: string | string[];
   confirmText: string;
   declineText: string;

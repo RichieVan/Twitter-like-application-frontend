@@ -24,7 +24,7 @@ const ConfirmPopup: FC<ConfirmPopupProps> = ({
     setIsLoading(true);
     confirmAction()
       .then(() => {
-        closeModal();
+        if (closeModal) closeModal();
       });
   };
 
@@ -38,7 +38,9 @@ const ConfirmPopup: FC<ConfirmPopupProps> = ({
       </div>
       <div className="buttons-container">
         <Button
-          onClick={closeModal}
+          onClick={() => {
+            if (closeModal) closeModal();
+          }}
         >
           {declineText}
         </Button>
