@@ -13,22 +13,24 @@ const ProfileInfo: FC<ProfileInfoProps> = ({
   const [subscribed, setSubscribed] = useState(userData.currentUserSubscribed);
 
   const subscribeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.disabled = true;
+    const target = e.currentTarget;
+    target.disabled = true;
     userStore.subscribeToUser(userData.id)
       .then(() => {
         setSubscribed(true);
-        e.currentTarget.disabled = false;
+        target.disabled = false;
         const notificationMessage = `Вы подписались на пользователя ${userData.username}`;
         notificationStore.show(notificationMessage, 2000, 'success');
       });
   };
 
   const unsubscribeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.currentTarget.disabled = true;
+    const target = e.currentTarget;
+    target.disabled = true;
     userStore.unsubscribeFromUser(userData.id)
       .then(() => {
         setSubscribed(false);
-        e.currentTarget.disabled = false;
+        target.disabled = false;
         const notificationMessage = `Вы отписались от пользователя ${userData.username}`;
         notificationStore.show(notificationMessage, 2000, 'info');
       });
