@@ -1,31 +1,34 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 
 import { Context } from '../../Context';
 import formatPostText from '../../lib/formatPostText/formatPostText';
 import Button from '../Button/Button';
+import { ProfileInfoProps } from './types';
 
-const ProfileInfo = ({ userData }) => {
+const ProfileInfo: FC<ProfileInfoProps> = ({
+  userData,
+}) => {
   const { userStore, notificationStore } = useContext(Context);
   const [subscribed, setSubscribed] = useState(userData.currentUserSubscribed);
 
-  const subscribeHandler = (e) => {
-    e.target.disabled = true;
+  const subscribeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.disabled = true;
     userStore.subscribeToUser(userData.id)
       .then(() => {
         setSubscribed(true);
-        e.target.disabled = false;
+        e.currentTarget.disabled = false;
         const notificationMessage = `Вы подписались на пользователя ${userData.username}`;
         notificationStore.show(notificationMessage, 2000, 'success');
       });
   };
 
-  const unsubscribeHandler = (e) => {
-    e.target.disabled = true;
+  const unsubscribeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.disabled = true;
     userStore.unsubscribeFromUser(userData.id)
       .then(() => {
         setSubscribed(false);
-        e.target.disabled = false;
+        e.currentTarget.disabled = false;
         const notificationMessage = `Вы отписались от пользователя ${userData.username}`;
         notificationStore.show(notificationMessage, 2000, 'info');
       });
@@ -55,7 +58,7 @@ const ProfileInfo = ({ userData }) => {
 
   const noInfoMessage = 'Пользователь не оставил информации о себе';
   const aboutText = userData.about ? formatPostText(userData.about) : noInfoMessage;
-  const showSubscribeButton = userStore?.user.id && (userData.id !== userStore.user.id);
+  const showSubscribeButton = userStore.user?.id && (userData.id !== userStore.user.id);
 
   return (
     <div className="profile-info">
