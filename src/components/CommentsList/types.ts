@@ -1,6 +1,6 @@
-import { UserData } from '../../types/types';
+import { PostUserData } from '../../types/types';
 
 export interface CommentsListProps {
   postId: number;
-  postOwner: UserData;
+  postOwner: PostUserData;
 }

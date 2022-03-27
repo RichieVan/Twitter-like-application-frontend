@@ -120,7 +120,7 @@ export type NewCommentData = BaseNewCommentData & {
   params: PostRequestParams;
 };
 
-type PostUserData = {
+export type PostUserData = {
   id: number;
   login: string;
   username: string;
@@ -142,6 +142,7 @@ export type PostData = {
   commentsCount: number;
   likesCount: number;
   currentUserLiked: boolean;
+  contentArray?: ReactElement[];
 };
 
 export type FetchedPostsData = {
@@ -255,3 +256,7 @@ export interface INotificationInterface {
   clear(id: number): void;
   incrementCounter(): number;
 }
+
+export type PostViewParams = {
+  id: string;
+};

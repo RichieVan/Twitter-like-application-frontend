@@ -7,7 +7,7 @@ import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import { Context } from '../../Context';
 import Button from '../Button/Button';
 
-const PostForm = ({ type = 'post', postId = null }) => {
+const PostForm = ({ type = 'post', postId = 0 }) => {
   const { userStore, postStore, modalStore } = useContext(Context);
   const [textContent, setTextContent] = useState('');
   const [isDisabled, setDisabled] = useState(true);
