@@ -17,12 +17,8 @@ import Button from '../Button/Button';
 import FormInput from '../FormInput/FormInput';
 import useValidatedInput from '../../hooks/useValidatedInput';
 import FormGroup from '../FormGroup/FormGroup';
-import { LocationModalChildProps, UserAvatarData, UserData } from '../../types/types';
-
-type GoBackFunction = (() => () => void) | null;
-interface SettingsFormProps extends LocationModalChildProps {
-  userData: UserData;
-}
+import { UserAvatarData } from '../../types/types';
+import { GoBackFunction, SettingsFormProps } from './types';
 
 const SettingsForm: FC<SettingsFormProps> = ({
   userData,
