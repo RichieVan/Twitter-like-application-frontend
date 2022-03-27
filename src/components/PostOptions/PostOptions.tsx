@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faLink } from '@fortawesome/free-solid-svg-icons';
@@ -7,14 +7,17 @@ import { faEllipsisV, faLink } from '@fortawesome/free-solid-svg-icons';
 import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
 import { Context } from '../../Context';
 import { APP_URL } from '../../http';
+import { OptionsListProps, PostOptionsProps } from './types';
+import keysOf from '../../lib/keysOf/keysOf';
+import { LocationStateProps } from '../../types/types';
 
-function PostOptions({
+const PostOptions: FC<PostOptionsProps> = ({
   show,
   owner,
   postId,
   type,
   mods = [],
-}) {
+}) => {
   const {
     userStore,
     postStore,
@@ -25,12 +28,12 @@ function PostOptions({
   const navigate = useNavigate();
   const location = useLocation();
 
-  const optionsList = {
-    deletePost: userStore.user.id === owner,
+  const optionsList: OptionsListProps = {
+    deletePost: userStore.user?.id === owner,
     copyLink: type === 'postView' || type === 'post',
   };
 
-  const availableOptions = Object.keys(optionsList).filter((key) => optionsList[key] !== false);
+  const availableOptions = keysOf(optionsList).filter((key) => optionsList[key] !== false);
   const showOptions = availableOptions.length > 0;
 
   const deleteActionHandler = () => {
@@ -39,27 +42,34 @@ function PostOptions({
         text={['Вы уверены что хотите удалить пост?', 'Это действие нельзя отменить.']}
         confirmText="Удалить"
         declineText="Отмена"
-        confirmButtonStyles="fill error"
+        confirmButtonMods={['fill', 'error']}
         confirmAction={() => {
-          const promise = new Promise((resolve) => {
+          const promise = new Promise<void>((resolve) => {
             if (type === 'comment') {
-              postStore.deleteComment(postId).then(() => {
-                notificationStore.show('Комментарий удален', 2500, 'success');
-                resolve();
-              });
+              postStore
+                .deleteComment(postId)
+                .then(() => {
+                  notificationStore.show('Комментарий удален', 2500, 'success');
+                  resolve();
+                });
             }
             if (type === 'post') {
-              postStore.deletePost(postId).then(() => {
-                notificationStore.show('Пост удален', 2500, 'success');
-                resolve();
-              });
+              postStore
+                .deletePost(postId)
+                .then(() => {
+                  notificationStore.show('Пост удален', 2500, 'success');
+                  resolve();
+                });
             }
             if (type === 'postView') {
-              postStore.deletePost(postId).then(() => {
-                notificationStore.show('Пост удален', 2500, 'success');
-                navigate(location.state.backgroundLocation);
-                resolve();
-              });
+              postStore
+                .deletePost(postId)
+                .then(() => {
+                  notificationStore.show('Пост удален', 2500, 'success');
+                  const state = location.state as LocationStateProps;
+                  navigate(state?.backgroundLocation || '/feed');
+                  resolve();
+                });
             }
           });
           return promise;
@@ -102,6 +112,7 @@ function PostOptions({
           </button>
           <div
             className={listContainerClassList}
+            role="presentation"
             onClick={(e) => e.stopPropagation()}
           >
             <ul className={`${baseClass}__list`}>
@@ -139,6 +150,6 @@ function PostOptions({
       )}
     </div>
   );
-}
+};
 
 export default observer(PostOptions);
