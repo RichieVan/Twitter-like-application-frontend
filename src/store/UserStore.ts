@@ -145,13 +145,10 @@ export default class UserStore implements IUserStore {
     }
   }
 
-  async getUserData(login: string): Promise<ExtendedUserData | undefined> {
-    try {
-      const { data } = await UserService.getUserData(login);
-      return data;
-    } catch (e) {
-      // return e;
-    }
+  async getUserData(login: string): Promise<ExtendedUserData> {
+    const { data } = await UserService.getUserData(login);
+    console.log(data);
+    return data;
   }
 
   async getProfileStats(userId: number): Promise<ProfileStatsData> {
