@@ -1,12 +1,12 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 
 import { Context } from '../../Context';
 import AuthForm from '../AuthForm/AuthForm';
 import Sidebar from '../Sidebar/Sidebar';
 import UserInfoPanel from '../UserInfoPanel/UserInfoPanel';
 
-function SidebarRight() {
+const SidebarRight: FC = () => {
   const { userStore } = useContext(Context);
 
   return (
@@ -14,6 +14,6 @@ function SidebarRight() {
       {userStore.isAuth ? <UserInfoPanel /> : <AuthForm />}
     </Sidebar>
   );
-}
+};
 
 export default observer(SidebarRight);
