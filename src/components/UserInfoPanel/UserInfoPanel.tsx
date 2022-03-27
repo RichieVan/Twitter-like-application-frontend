@@ -5,16 +5,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { Context } from '../../Context';
 import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
 
-function UserInfoPanel() {
+const UserInfoPanel: FC = () => {
   const { userStore, modalStore, notificationStore } = useContext(Context);
   const location = useLocation();
+
+  // Пофиксить после изменения AuthRequired
+  if (!userStore.user) return null;
 
   const avatarStyles = {
     backgroundImage: `url(${userStore.user.avatar.url})`,
@@ -108,6 +111,6 @@ function UserInfoPanel() {
       </div>
     </div>
   );
-}
+};
 
 export default observer(UserInfoPanel);
