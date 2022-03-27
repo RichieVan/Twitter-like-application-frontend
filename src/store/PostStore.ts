@@ -2,11 +2,11 @@ import { makeAutoObservable, toJS } from 'mobx';
 
 import PostService from '../services/PostService';
 import {
+  BaseNewCommentData,
   BaseNewPostData,
   CurrentList,
   FetchedPostsData,
   IPostStore,
-  NewCommentData,
   PostData,
 } from '../types/types';
 
@@ -111,7 +111,7 @@ export default class PostStore implements IPostStore {
     }
   }
 
-  async createComment(postData: NewCommentData): Promise<void> {
+  async createComment(postData: BaseNewCommentData): Promise<void> {
     try {
       const fromPost = toJS(this.currentCommentsList)[0];
       const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
