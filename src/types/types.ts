@@ -49,7 +49,7 @@ export type UserUpdateData = {
   avatar: UserAvatarData;
 };
 
-export type ProfileStats = {
+export type ProfileStatsData = {
   subsToCount: number,
   subsFromCount: number,
   postsCount: number,
@@ -86,7 +86,7 @@ export interface IUserStore {
   subscribeToUser(id: number): Promise<SubsCountObject | undefined>;
   unsubscribeFromUser(id: number): Promise<SubsCountObject | undefined>;
   getUserData(login: string): Promise<ExtendedUserData | undefined>;
-  getProfileStats(userId: number): Promise<ProfileStats | undefined>;
+  getProfileStats(userId: number): Promise<ProfileStatsData | undefined>;
 }
 
 export type UserDataWithTokens = {

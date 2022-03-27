@@ -6,7 +6,7 @@ import { API_URL } from '../http/index';
 import {
   ExtendedUserData,
   IUserStore,
-  ProfileStats,
+  ProfileStatsData,
   SubsCountObject,
   UserData,
   UserDataWithTokens,
@@ -154,12 +154,8 @@ export default class UserStore implements IUserStore {
     }
   }
 
-  async getProfileStats(userId: number): Promise<ProfileStats | undefined> {
-    try {
-      const { data } = await UserService.getProfileStats(userId);
-      return data;
-    } catch (e) {
-      // return e;
-    }
+  async getProfileStats(userId: number): Promise<ProfileStatsData> {
+    const { data } = await UserService.getProfileStats(userId);
+    return data;
   }
 }

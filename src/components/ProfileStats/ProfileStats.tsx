@@ -1,16 +1,26 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  FC,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 
 import { Context } from '../../Context';
+import { ProfileStatsData } from '../../types/types';
 import LoadingMask from '../LoadingMask/LoadingMask';
+import { ProfileStatsProps } from './types';
 
-function ProfileStats({ userData }) {
+const ProfileStats: FC<ProfileStatsProps> = ({
+  userData,
+}) => {
   const { userStore } = useContext(Context);
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState<ProfileStatsData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
-    userStore.getProfileStats(userData.id)
+    userStore
+      .getProfileStats(userData.id)
       .then((res) => {
         setStats(res);
         setLoading(false);
@@ -42,6 +52,6 @@ function ProfileStats({ userData }) {
       {loading && <LoadingMask cHeight={40} cWidth={40} bg="var(--bg1)" opacity={1} />}
     </div>
   );
-}
+};
 
 export default ProfileStats;

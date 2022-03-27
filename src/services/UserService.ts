@@ -3,11 +3,11 @@ import {
   UserRegistrationData,
   UserDataWithTokens,
   ExtendedUserData,
-  ProfileStats,
   SubsCountObject,
   UserUpdateData,
   UserLoginData,
   RequestPromise,
+  ProfileStatsData,
 } from '../types/types';
 
 class UserService {
@@ -55,7 +55,7 @@ class UserService {
     });
   }
 
-  static async getProfileStats(id: number): RequestPromise<ProfileStats> {
+  static async getProfileStats(id: number): RequestPromise<ProfileStatsData> {
     return api.get(`/user/${id}/stats`);
   }
 }
