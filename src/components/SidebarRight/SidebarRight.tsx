@@ -11,7 +11,7 @@ const SidebarRight: FC = () => {
 
   return (
     <Sidebar>
-      {userStore.isAuth ? <UserInfoPanel /> : <AuthForm />}
+      {userStore.user ? <UserInfoPanel /> : <AuthForm />}
     </Sidebar>
   );
 };
