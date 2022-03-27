@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import FastAverageColor from 'fast-average-color';
 
 import ProfileStats from '../ProfileStats/ProfileStats';
 import ProfileInfo from '../ProfileInfo/ProfileInfo';
 import ProfileUserInfo from '../ProfileUserInfo/ProfileUserInfo';
+import { ProfileHeaderProps } from './types';
 
 const fac = new FastAverageColor();
 
-function ProfileHeader({ userData }) {
-  const [bgColor, setBgColor] = useState(null);
+const ProfileHeader: FC<ProfileHeaderProps> = ({
+  userData,
+}) => {
+  const [bgColor, setBgColor] = useState('');
 
-  fac.getColorAsync(userData.avatar.url)
+  fac
+    .getColorAsync(userData.avatar.url)
     .then((color) => {
       setBgColor(color.hex);
     });
@@ -29,6 +33,6 @@ function ProfileHeader({ userData }) {
       <ProfileInfo userData={userData} />
     </div>
   );
-}
+};
 
 export default ProfileHeader;
