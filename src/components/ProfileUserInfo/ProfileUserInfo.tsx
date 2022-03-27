@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { ProfileUserInfoProps } from './types';
 
-function ProfileUserInfo({ userData }) {
+const ProfileUserInfo: FC<ProfileUserInfoProps> = ({
+  userData,
+}) => {
   const avatarStyles = {
     backgroundImage: `url(${userData.avatar.url})`,
   };
@@ -14,6 +17,6 @@ function ProfileUserInfo({ userData }) {
       </div>
     </div>
   );
-}
+};
 
 export default ProfileUserInfo;
