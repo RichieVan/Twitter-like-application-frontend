@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, {
+  FC,
   useContext,
   useEffect,
   useRef,
@@ -14,9 +15,9 @@ import formatPostText from '../../lib/formatPostText/formatPostText';
 import PostsList from '../PostsList/PostsList';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 
-const FeedPostsList = () => {
+const FeedPostsList: FC = () => {
   const { postStore } = useContext(Context);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<JSX.Element[] | null>([]);
   const [isFirstLoading, setIsFirstLoading] = useState(true);
   const showLoading = useRef(true);
 
@@ -37,10 +38,13 @@ const FeedPostsList = () => {
           setIsFirstLoading(false);
         });
     } else if (isFirstLoading) {
-      postStore.syncPosts()
+      postStore
+        .syncPosts()
         .then((data) => {
-          postStore.setFeedPostsList(data);
-          setIsFirstLoading(false);
+          if (data) {
+            postStore.setFeedPostsList(data);
+            setIsFirstLoading(false);
+          }
         });
     } else {
       setPosts(
@@ -54,7 +58,7 @@ const FeedPostsList = () => {
     }
   }, [postStore.feedPostsList]);
 
-  const loadMoreAction = () => new Promise((resolve, reject) => {
+  const loadMoreAction = () => new Promise<void>((resolve, reject) => {
     postStore.loadMorePosts()
       .then((result) => {
         if (result) resolve();
@@ -63,7 +67,7 @@ const FeedPostsList = () => {
   });
 
   const render = () => {
-    if (posts?.length > 0) {
+    if (posts && posts.length > 0) {
       return posts;
     }
     if (showLoading.current) {
