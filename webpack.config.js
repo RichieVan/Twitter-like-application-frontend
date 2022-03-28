@@ -13,7 +13,7 @@ const modeStatus = (process.env?.BUILD_ENV === 'production') ? 'production' : 'd
 module.exports = {
   mode: modeStatus,
   entry: [
-    './src/index.js',
+    './src/index.tsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
