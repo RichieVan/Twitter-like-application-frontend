@@ -177,7 +177,7 @@ export interface IPostStore {
   createComment(postData: NewCommentData): Promise<void>;
   fetchPosts(): Promise<PostData[] | null>;
   loadMorePosts(): Promise<boolean>;
-  syncPosts(force: boolean): Promise<PostData[] | void>;
+  syncPosts(force?: boolean): Promise<PostData[] | void>;
   fetchComments(postId: number): Promise<PostData[]>;
   // loadNewPosts(): Promise<void>;
   deletePost(id: number): Promise<void>;

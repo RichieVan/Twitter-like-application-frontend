@@ -153,7 +153,7 @@ export default class PostStore implements IPostStore {
     return data.canLoadMore;
   }
 
-  async syncPosts(force: boolean): Promise<void | PostData[]> {
+  async syncPosts(force?: boolean): Promise<void | PostData[]> {
     if (this.feedPostsList && this.feedPostsList.length > 0) {
       this.setSyncing(true);
       const fromPost = toJS(this.firstLoaded);
