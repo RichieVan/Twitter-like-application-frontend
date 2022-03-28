@@ -14,16 +14,14 @@ import {
   UserRegistrationData,
   UserUpdateData,
 } from '../types/types';
+import ErrorHelper from '../helpers/ErrorHelper';
 
 export default class UserStore implements IUserStore {
   user: UserData | null = null;
 
   isAuth: boolean = false;
 
-  // notificationStore;
-
   constructor() {
-    // this.notificationStore = notificationStore;
     makeAutoObservable(this);
   }
 
@@ -45,11 +43,8 @@ export default class UserStore implements IUserStore {
     try {
       const { data } = await UserService.login(loginData);
       this.setTokensAndUser(data);
-
-      // this.notificationStore.show('Вы были успешно авторизованы', 4000, 'success');
     } catch (e) {
-      // this.notificationStore.show(e.response.data.message, 8000, 'error');
-      // throw Error(e.response.data.message);
+      ErrorHelper.handleApiError(e);
     }
   }
 
@@ -60,14 +55,7 @@ export default class UserStore implements IUserStore {
       this.setAuth(true);
       this.setUser(data.user);
     } catch (e) {
-      // let timeout = 0;
-      // e.response.data.errors.forEach((value) => {
-      //   setTimeout(() => {
-      //     // this.notificationStore.show(value, 8000, 'error');
-      //   }, timeout);
-      //   timeout += 200;
-      // });
-      // throw Error('Ошибка валидации');
+      ErrorHelper.handleApiError(e);
     }
   }
 
@@ -78,7 +66,7 @@ export default class UserStore implements IUserStore {
       this.setAuth(false);
       this.setUser(null);
     } catch (e) {
-      // console.log(e.response.data.message);
+      ErrorHelper.handleUnexpectedError();
     }
   }
 
@@ -86,10 +74,8 @@ export default class UserStore implements IUserStore {
     try {
       const { data } = await UserService.updateUser(updatedData);
       this.setTokensAndUser(data);
-
-      // this.notificationStore.show('Информация обновлена', 4000, 'success');
     } catch (e) {
-      // this.notificationStore.show(e.response.data.message, 4000, 'error');
+      ErrorHelper.handleApiError(e);
     }
   }
 
@@ -128,26 +114,17 @@ export default class UserStore implements IUserStore {
   }
 
   async subscribeToUser(id: number): Promise<SubsCountObject | undefined> {
-    try {
-      const { data } = await UserService.subscribeToUser(id);
-      return data;
-    } catch (e) {
-      // return e;
-    }
+    const { data } = await UserService.subscribeToUser(id);
+    return data;
   }
 
   async unsubscribeFromUser(id: number): Promise<SubsCountObject | undefined> {
-    try {
-      const { data } = await UserService.unsubscribeFromUser(id);
-      return data;
-    } catch (e) {
-      // return e;
-    }
+    const { data } = await UserService.unsubscribeFromUser(id);
+    return data;
   }
 
   async getUserData(login: string): Promise<ExtendedUserData> {
     const { data } = await UserService.getUserData(login);
-    console.log(data);
     return data;
   }
 

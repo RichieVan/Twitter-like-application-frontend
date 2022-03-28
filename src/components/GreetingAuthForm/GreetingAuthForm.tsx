@@ -12,7 +12,7 @@ import FormInput from '../FormInput/FormInput';
 import LoadingMask from '../LoadingMask/LoadingMask';
 
 const GreetingAuthForm: FC = () => {
-  const { userStore } = useContext(Context);
+  const { userStore, notificationStore } = useContext(Context);
   const [isLoading, setisLoading] = useState(false);
   const loginOrEmail = useInput();
   const password = useInput();
@@ -26,8 +26,14 @@ const GreetingAuthForm: FC = () => {
         loginOrEmail: loginOrEmail.value,
         password: password.value,
       })
-      .then(() => navigate('/feed'))
-      .catch(() => setisLoading(false));
+      .then(() => {
+        notificationStore.show('Вы успешно авторизовались', 2000, 'success');
+        navigate('/feed');
+      })
+      .catch((err: Error) => {
+        notificationStore.show(err.message, 2000, 'error');
+        setisLoading(false);
+      });
   };
 
   return (

@@ -5,6 +5,7 @@ import React, { FC, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Context } from '../../Context';
+import ApiError from '../../exceptions/ApiError';
 import useInput from '../../hooks/useInput';
 import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import Button from '../Button/Button';
@@ -39,7 +40,14 @@ const GreetingAuthForm: FC = () => {
         });
         navigate('/feed');
       })
-      .catch(() => {
+      .catch((err: ApiError) => {
+        let timeout = 0;
+        err.errors.forEach((value) => {
+          setTimeout(() => {
+            notificationStore.show(value, 4000, 'error');
+          }, timeout);
+          timeout += 200;
+        });
         setisLoading(false);
       });
   };

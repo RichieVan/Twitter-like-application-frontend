@@ -26,7 +26,7 @@ const SettingsForm: FC<SettingsFormProps> = ({
   setModalHeading,
   closeModal,
 }) => {
-  const { userStore, appStore } = useContext(Context);
+  const { userStore, appStore, notificationStore } = useContext(Context);
   const [isUpdatingAvatar, setIsUpdatingAvatar] = useState(false);
   const [goBack, setGoBack] = useState<GoBackFunction>(null);
   const [formValidated, setFormValidated] = useState(true);
@@ -75,7 +75,11 @@ const SettingsForm: FC<SettingsFormProps> = ({
     userStore
       .updateUser(updatedData)
       .then(() => {
+        notificationStore.show('Информация обновлена', 2000, 'success');
         if (closeModal) closeModal();
+      })
+      .catch((err: Error) => {
+        notificationStore.show(err.message, 3000, 'error');
       })
       .finally(() => {
         appStore.setGlobalLoading(false);

@@ -1,4 +1,5 @@
 import { makeAutoObservable, toJS } from 'mobx';
+import ErrorHelper from '../helpers/ErrorHelper';
 
 import PostService from '../services/PostService';
 import {
@@ -107,7 +108,7 @@ export default class PostStore implements IPostStore {
       this.setSyncing(false);
     } catch (e) {
       this.setSyncing(false);
-      // throw Error(e.response.data.message);
+      ErrorHelper.handleUnexpectedError();
     }
   }
 
@@ -124,7 +125,7 @@ export default class PostStore implements IPostStore {
       });
       this.setCurrentCommentsList(data);
     } catch (e) {
-      // throw Error(e.response.data.message);
+      ErrorHelper.handleUnexpectedError();
     }
   }
 
@@ -191,7 +192,7 @@ export default class PostStore implements IPostStore {
       const { data } = await PostService.deletePost(id);
       this.deleteFromFeedPostsList(data);
     } catch (e) {
-      // throw Error(e.response.data.message);
+      ErrorHelper.handleUnexpectedError();
     }
   }
 
@@ -200,7 +201,7 @@ export default class PostStore implements IPostStore {
       const { data } = await PostService.deletePost(id);
       this.deleteFromCurrentCommentsList(data);
     } catch (e) {
-      // throw Error(e.response.data.message);
+      ErrorHelper.handleUnexpectedError();
     }
   }
 
@@ -249,7 +250,7 @@ export default class PostStore implements IPostStore {
       posts = data;
     } catch (e) {
       this.setSyncing(false);
-      // console.log(e);
+      ErrorHelper.handleUnexpectedError();
     }
 
     return posts;
