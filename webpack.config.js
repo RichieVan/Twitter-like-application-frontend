@@ -1,11 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
-const dotenv = require('dotenv');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-dotenv.config();
 require('dotenv').config({ path: './.env' });
 
 const modeStatus = (process.env?.BUILD_ENV === 'production') ? 'production' : 'development';
@@ -13,7 +11,7 @@ const modeStatus = (process.env?.BUILD_ENV === 'production') ? 'production' : 'd
 module.exports = {
   mode: modeStatus,
   entry: [
-    './src/index.js',
+    './src/index.tsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -26,6 +24,11 @@ module.exports = {
         test: /\.(jsx|js)$/,
         exclude: '/node_modules',
         use: 'babel-loader',
+      },
+      {
+        test: /\.(tsx|ts)$/,
+        exclude: '/node_modules',
+        use: 'ts-loader',
       },
       {
         test: /\.(sass|scss)$/,
@@ -85,7 +88,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.css'],
     modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
   },
   performance: {

@@ -9,23 +9,34 @@
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
     "plugin:import/recommended",
+    "plugin:react/jsx-runtime",
     "airbnb",
-    "plugin:react/jsx-runtime"
+    "airbnb-typescript"
   ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
   },
   "plugins": ["react"],
   "rules": {
     // "func-names": "off",
     "linebreak-style": ["error", "windows"],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "no-unused-vars": ["error", {
       "varsIgnorePattern" : "React"
-    }]
+    }],
+    "react/function-component-definition" : [2, { "namedComponents": "arrow-function" }],
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "jsx-a11y/label-has-associated-control": ["error", {
+      "required": {
+        "some": ["nesting", "id"]
+      }
+    }],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": true, "peerDependencies": true}]
   }
 }
