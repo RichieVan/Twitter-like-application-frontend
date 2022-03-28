@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import {
   Navigate,
@@ -16,8 +16,9 @@ import AuthRequired from './components/AuthRequired';
 import Greeting from './components/Greeting/Greeting';
 import PostView from './components/PostView/PostView';
 import SettingsForm from './components/SettingsForm/SettingsForm';
+import { LocationStateProps } from './types/types';
 
-const App = () => {
+const App: FC = () => {
   const {
     appStore,
     userStore,
@@ -26,7 +27,7 @@ const App = () => {
   } = useContext(Context);
   const location = useLocation();
 
-  const locationState = location.state;
+  const locationState = location.state as LocationStateProps;
 
   useEffect(() => {
     appStore.preloader();
