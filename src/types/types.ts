@@ -260,3 +260,9 @@ export interface INotificationInterface {
 export type PostViewParams = {
   id: string;
 };
+
+type LayoutVariants = 'default' | 'auth';
+
+export interface LayoutProps {
+  type: LayoutVariants;
+}
