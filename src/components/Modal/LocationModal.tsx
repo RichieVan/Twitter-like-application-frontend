@@ -16,10 +16,10 @@ import getClassList from '../../lib/getClassList/getClassList';
 import { LocationStateProps, LocationModalChildProps } from '../../types/types';
 
 const LocationModal: FC<ILocationModalProps> = ({
-  heading,
+  heading = '',
   type = 'default',
   position = 'center',
-  onClose = null,
+  onClose,
   children,
 }) => {
   const { appStore, modalStore } = useContext(Context);

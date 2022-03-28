@@ -16,10 +16,10 @@ interface IModalProps {
 }
 
 interface ILocationModalProps {
-  type: 'default' | 'post';
-  heading: string;
-  position: 'center' | 'start';
-  onClose: (() => void) | null;
+  type?: 'default' | 'post';
+  heading?: string;
+  position?: 'center' | 'start';
+  onClose?: () => void;
 }
 
 type ModalCloseFunction = () => void;
