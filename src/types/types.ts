@@ -9,12 +9,13 @@ export interface ModalChildProps {
 
 export type LocationStateProps = {
   backgroundLocation?: string;
+  authRedirected?: string;
 };
 
 export interface LocationModalChildProps {
   setModalHeading?: (heading: string) => void;
   defaultHeading?: string;
-  closeModal: () => void;
+  closeModal?: () => void;
 }
 
 export type UserAvatarData = {

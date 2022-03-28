@@ -75,7 +75,7 @@ const SettingsForm: FC<SettingsFormProps> = ({
     userStore
       .updateUser(updatedData)
       .then(() => {
-        closeModal();
+        if (closeModal) closeModal();
       })
       .finally(() => {
         appStore.setGlobalLoading(false);
