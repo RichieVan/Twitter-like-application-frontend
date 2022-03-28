@@ -267,3 +267,17 @@ type LayoutVariants = 'default' | 'auth';
 export interface LayoutProps {
   type: LayoutVariants;
 }
+
+export type ApiErrorData = {
+  message?: string;
+  errors?: string[];
+};
+
+export type ApiErrorProps = {
+  message?: string;
+  errors?: string[];
+};
+
+export interface IApiError {
+  errors: string[];
+}
