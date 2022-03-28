@@ -214,28 +214,26 @@ export default class PostStore implements IPostStore {
     return data;
   }
 
-  async getUserPosts(id: number): Promise<PostData[]> {
+  async getUserPosts(id: number): Promise<FetchedPostsData> {
     const { data } = await PostService.getUserPosts(id);
     return data;
   }
 
-  async loadMoreUserPosts(userId: number, fromPost: PostData): Promise<void | FetchedPostsData> {
-    try {
-      const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
-      const { data } = await PostService.loadMoreUserPosts(
-        userId,
-        {
-          fromTimestamp,
-          fromId: fromPost?.id || 0,
-        },
-      );
-      return data;
-    } catch (e) {
-      // console.log(e);
-    }
+  async loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData> {
+    const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
+    const { data } = await PostService.loadMoreUserPosts(
+      userId,
+      {
+        fromTimestamp,
+        fromId: fromPost?.id || 0,
+      },
+    );
+    return data;
   }
 
-  async syncUserPosts(userId: number, fromPost: PostData): Promise<void | PostData[]> {
+  async syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[]> {
+    let posts: PostData[] = [];
+
     try {
       this.setSyncing(true);
       const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
@@ -248,10 +246,12 @@ export default class PostStore implements IPostStore {
       );
 
       this.setSyncing(false);
-      return data;
+      posts = data;
     } catch (e) {
       this.setSyncing(false);
       // console.log(e);
     }
+
+    return posts;
   }
 }

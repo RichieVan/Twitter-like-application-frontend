@@ -23,7 +23,7 @@ export default class PostService {
     return api.get('/posts', { params });
   }
 
-  static async getUserPosts(id: number): RequestPromise<PostData[]> {
+  static async getUserPosts(id: number): RequestPromise<FetchedPostsData> {
     return api.get(`/posts/user/${id}`);
   }
 

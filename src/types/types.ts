@@ -184,9 +184,9 @@ export interface IPostStore {
   deleteComment(id: number): Promise<void>;
   likePost(id: number): Promise<number>;
   unlikePost(id: number): Promise<number>;
-  getUserPosts(id: number): Promise<PostData[]>;
-  loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData | void>;
-  syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[] | void>;
+  getUserPosts(id: number): Promise<FetchedPostsData>;
+  loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData>;
+  syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[]>;
 }
 
 export type AppStoreAliases = {
