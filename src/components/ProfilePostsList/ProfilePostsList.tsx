@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, {
+  FC,
   useContext,
   useEffect,
   useRef,
@@ -9,22 +10,27 @@ import { useLocation } from 'react-router-dom';
 
 import { Context } from '../../Context';
 import formatPostText from '../../lib/formatPostText/formatPostText';
+import { PostData } from '../../types/types';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import Post from '../Post/Post';
 import PostsList from '../PostsList/PostsList';
+import { ProfilePostsListProps } from './types';
 
-function ProfilePostsList({ userData }) {
+const ProfilePostsList: FC<ProfilePostsListProps> = ({
+  userData,
+}) => {
   const { postStore } = useContext(Context);
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<JSX.Element[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [canLoadMore, setCanLoadMore] = useState(false);
-  const lastPost = useRef(null);
+  const lastPost = useRef<PostData | null>(null);
   const location = useLocation();
 
   useEffect(() => {
     if (posts.length === 0) {
-      postStore.getUserPosts(userData.id)
+      postStore
+        .getUserPosts(userData.id)
         .then((data) => {
           setCanLoadMore(data.canLoadMore);
           setPosts(
@@ -37,7 +43,8 @@ function ProfilePostsList({ userData }) {
           setIsLoading(false);
         });
     } else if (location.pathname === `/profile/${userData.login}`) {
-      postStore.syncUserPosts(userData.id, lastPost.current)
+      postStore
+        .syncUserPosts(userData.id, lastPost.current!)
         .then((data) => {
           setPosts(
             data.map((val, i, arr) => {
@@ -50,8 +57,9 @@ function ProfilePostsList({ userData }) {
     }
   }, [location.pathname]);
 
-  const loadMoreAction = () => new Promise((resolve, reject) => {
-    postStore.loadMoreUserPosts(userData.id, lastPost.current)
+  const loadMoreAction = () => new Promise<void>((resolve, reject) => {
+    postStore
+      .loadMoreUserPosts(userData.id, lastPost.current!)
       .then((data) => {
         setPosts(
           posts.concat(
@@ -62,7 +70,7 @@ function ProfilePostsList({ userData }) {
                 <Post
                   key={val.id}
                   id={val.id}
-                  options={val}
+                  data={val}
                   contentArray={contentArray}
                 />
               );
@@ -98,6 +106,6 @@ function ProfilePostsList({ userData }) {
       {render()}
     </PostsList>
   );
-}
+};
 
 export default observer(ProfilePostsList);
