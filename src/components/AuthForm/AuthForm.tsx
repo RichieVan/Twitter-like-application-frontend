@@ -12,7 +12,7 @@ import useInput from '../../hooks/useInput';
 import Button from '../Button/Button';
 
 const AuthForm: FC = () => {
-  const { userStore } = useContext(Context);
+  const { userStore, notificationStore } = useContext(Context);
   const [isLoading, setisLoading] = useState(false);
   const loginOrEmail = useInput();
   const password = useInput();
@@ -25,7 +25,11 @@ const AuthForm: FC = () => {
         loginOrEmail: loginOrEmail.value,
         password: password.value,
       })
-      .catch(() => {
+      .then(() => {
+        notificationStore.show('Вы успешно авторизовались', 2000, 'success');
+      })
+      .catch((err: Error) => {
+        notificationStore.show(err.message, 2000, 'error');
         setisLoading(false);
       });
   };
