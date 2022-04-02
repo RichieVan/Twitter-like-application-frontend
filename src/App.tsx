@@ -16,7 +16,7 @@ import AuthRequired from './components/AuthRequired';
 import Greeting from './components/Greeting/Greeting';
 import PostView from './components/PostView/PostView';
 import SettingsForm from './components/SettingsForm/SettingsForm';
-import { LocationStateProps } from './types/types';
+import { LocationStateProps, UserData } from './types/types';
 
 const App: FC = () => {
   const {
@@ -50,25 +50,27 @@ const App: FC = () => {
           <Route
             path="/"
             element={(
-              <AuthRequired notAuthElement={<Greeting />}>
-                <Navigate to="/feed" />
-              </AuthRequired>
+              <AuthRequired
+                renderOnNotAuth={() => (<Greeting />)}
+                renderOnAuth={() => (<Navigate to="/feed" />)}
+              />
             )}
           />
           <Route
             path="feed"
             element={(
-              <AuthRequired notAuthRedirect="/">
-                <Feed />
-              </AuthRequired>
+              <AuthRequired
+                renderOnNotAuth={() => (<Navigate to="/" />)}
+                renderOnAuth={() => (<Feed />)}
+              />
             )}
           />
           <Route
             path="profile/settings"
             element={(
               <AuthRequired
-                notAuthRedirect="/"
-                render={(userData) => (
+                renderOnNotAuth={() => (<Navigate to="/" />)}
+                renderOnAuth={(userData: UserData) => (
                   <LocationModal heading="Настройки пользователя">
                     <SettingsForm userData={userData} />
                   </LocationModal>
@@ -93,8 +95,8 @@ const App: FC = () => {
             path="profile/settings"
             element={(
               <AuthRequired
-                notAuthRedirect="/"
-                render={(userData) => (
+                renderOnNotAuth={() => (<Navigate to="/" />)}
+                renderOnAuth={(userData: UserData) => (
                   <LocationModal heading="Настройки пользователя">
                     <SettingsForm userData={userData} />
                   </LocationModal>

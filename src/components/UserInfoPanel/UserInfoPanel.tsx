@@ -11,16 +11,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { Context } from '../../Context';
 import ActivateAccountPopup from '../ActivateAccountPopup/ActivateAccountPopup';
 import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
+import UserInfoPanelProps from './types';
 
-const UserInfoPanel: FC = () => {
+const UserInfoPanel: FC<UserInfoPanelProps> = ({ userData }) => {
   const { userStore, modalStore, notificationStore } = useContext(Context);
   const location = useLocation();
 
   // Пофиксить после изменения AuthRequired
-  if (!userStore.user) return null;
-
   const avatarStyles = {
-    backgroundImage: `url(${userStore.user.avatar.url})`,
+    backgroundImage: `url(${userData.avatar.url})`,
   };
 
   const optionsHandlers = {
@@ -60,29 +59,29 @@ const UserInfoPanel: FC = () => {
     <div className="user-info">
       <div className="user-info__wrapper">
         <Link
-          to={`/profile/${userStore.user.login}`}
+          to={`/profile/${userData.login}`}
           className="user-info__avatar"
           style={avatarStyles}
         />
         <div className="user-info__username-wrapper">
           <Link
             className="user-info__username"
-            to={`/profile/${userStore.user.login}`}
+            to={`/profile/${userData.login}`}
           >
             <b>
-              {userStore.user.username}
+              {userData.username}
             </b>
           </Link>
-          <span className="user-info__tag">{`@${userStore.user.login}`}</span>
+          <span className="user-info__tag">{`@${userData.login}`}</span>
         </div>
       </div>
-      {!userStore.user.isActivated && (
+      {!userData.isActivated && (
         <div className="user-info__activation-notice">
           Активируйте аккаунт для получения доступа к возможностям приложения
         </div>
       )}
       <div className="user-info__options">
-        {!userStore.user.isActivated && (
+        {!userData.isActivated && (
           <button
             type="button"
             className="user-info__option"
