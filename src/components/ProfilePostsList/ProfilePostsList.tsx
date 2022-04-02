@@ -87,7 +87,13 @@ const ProfilePostsList: FC<ProfilePostsListProps> = ({
       return posts;
     }
     if (isLoading) {
-      return (<LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={1} />);
+      return (
+        <LoadingMask
+          size={50}
+          bg="inherit"
+          opacity={1}
+        />
+      );
     }
     return (
       <EmptyDataMessage>

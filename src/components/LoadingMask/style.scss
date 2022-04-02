@@ -11,6 +11,28 @@
   padding: 20px 0;
   z-index: 50;
 
+  &_bg_transparent {
+    background: transparent;
+  }
+
+  &_bg_inherit {
+    background: inherit;
+  }
+
+  &_bg_main {
+    background: $bg-color-1;
+  }
+
+  &_weight_thin {
+    min-height: 0;
+    padding: 10px 0;
+  }
+
+  &_weight_clear {
+    min-height: 0;
+    padding: 0;
+  }
+
   svg path {
     fill: #d3d3d3;
   }

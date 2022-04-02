@@ -59,7 +59,11 @@ const PostView: FC = () => {
 
       return (
         <div className="post-view">
-          <LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={1} />
+          <LoadingMask
+            size={50}
+            bg="inherit"
+            opacity={1}
+          />
         </div>
       );
     }

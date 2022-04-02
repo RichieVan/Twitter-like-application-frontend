@@ -42,7 +42,11 @@ const AuthForm: FC = () => {
       onSubmit={submitHandler}
     >
       {isLoading && (
-        <LoadingMask cHeight={50} cWidth={50} bg="var(--bg1)" opacity={0.8} />
+        <LoadingMask
+          size={50}
+          bg="main"
+          opacity={0.8}
+        />
       )}
       <h2 className="auth-form__heading">Авторизация</h2>
       <FormGroup mods={['thin']}>

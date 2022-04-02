@@ -66,8 +66,7 @@ const CommentsList: FC<CommentsListProps> = ({
     if (isLoading) {
       return (
         <LoadingMask
-          cHeight={50}
-          cWidth={50}
+          size={50}
           bg="inherit"
           opacity={1}
         />

@@ -49,7 +49,14 @@ const ProfileStats: FC<ProfileStatsProps> = ({
           </div>
         </div>
       </div>
-      {loading && <LoadingMask cHeight={40} cWidth={40} bg="var(--bg1)" opacity={1} />}
+      {loading && (
+        <LoadingMask
+          size={40}
+          bg="main"
+          weight="clear"
+          opacity={1}
+        />
+      )}
     </div>
   );
 };

@@ -31,7 +31,11 @@ const ConfirmPopup: FC<ConfirmPopupProps> = ({
   return (
     <div className="confirm-popup">
       {isLoading && (
-        <LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={0.8} />
+        <LoadingMask
+          size={50}
+          bg="inherit"
+          opacity={0.8}
+        />
       )}
       <div className="text">
         {renderText}

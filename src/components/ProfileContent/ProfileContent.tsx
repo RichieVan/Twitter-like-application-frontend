@@ -33,7 +33,11 @@ const ProfileContent: FC<ProfileContentProps> = ({
   if (!userData) {
     return (
       <div className="profile">
-        <LoadingMask cHeight={70} cWidth={70} bg="#0f0f0f" opacity={0.8} />
+        <LoadingMask
+          size={70}
+          bg="main"
+          opacity={1}
+        />
       </div>
     );
   }
