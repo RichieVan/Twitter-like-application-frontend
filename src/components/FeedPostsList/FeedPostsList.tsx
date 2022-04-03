@@ -1,101 +1,57 @@
-import { observer } from 'mobx-react-lite';
-import React, {
-  FC,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-
-import Post from '../Post/Post';
-import LoadingMask from '../LoadingMask/LoadingMask';
-import { Context } from '../../Context';
+import React, { FC } from 'react';
 import formatPostText from '../../lib/formatPostText/formatPostText';
-
-import PostsList from '../PostsList/PostsList';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
+import LoadingMask from '../LoadingMask/LoadingMask';
+import Post from '../Post/Post';
+import PostsList from '../PostsList/PostsList';
+import { FeedPostsListProps } from './types';
 
-const FeedPostsList: FC = () => {
-  const { postStore } = useContext(Context);
-  const [posts, setPosts] = useState<JSX.Element[] | null>([]);
-  const [isFirstLoading, setIsFirstLoading] = useState(true);
-  const showLoading = useRef(true);
-
-  useEffect(() => {
-    if (postStore.feedPostsList === null) {
-      setPosts(null);
-      showLoading.current = false;
-      postStore.setCanChangeFeedType(true);
-      return;
-    }
-    if (postStore.feedPostsList.length === 0) {
-      postStore.fetchPosts()
-        .then((data) => {
-          postStore.setCurrentList({
-            type: 'feed',
-          });
-          postStore.setFeedPostsList(data);
-          setIsFirstLoading(false);
-        });
-    } else if (isFirstLoading) {
-      postStore
-        .syncPosts()
-        .then((data) => {
-          if (data) {
-            postStore.setFeedPostsList(data);
-            setIsFirstLoading(false);
-          }
-        });
-    } else {
-      setPosts(
-        postStore.feedPostsList.map((val) => {
-          const contentArray = formatPostText(val.textContent);
-          return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
-        }),
-      );
-      postStore.setCanChangeFeedType(true);
-      showLoading.current = false;
-    }
-  }, [postStore.feedPostsList]);
-
-  const loadMoreAction = () => new Promise<void>((resolve, reject) => {
-    postStore.loadMorePosts()
-      .then((result) => {
-        if (result) resolve();
-        else reject(() => { postStore.setCanLoadMore(false); });
-      });
-  });
+const FeedPostsList: FC<FeedPostsListProps> = ({
+  canLoadMore,
+  loadMoreAction,
+  postsData,
+  isSyncing,
+}) => {
+  let posts: JSX.Element[] | null = null;
+  if (postsData) {
+    posts = postsData.map((val) => {
+      const contentArray = formatPostText(val.textContent);
+      return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
+    });
+  }
 
   const render = () => {
     if (posts && posts.length > 0) {
       return posts;
     }
-    if (showLoading.current) {
+
+    if (posts && posts.length === 0) {
       return (
-        <LoadingMask
-          size={50}
-          bg="inherit"
-          opacity={1}
-        />
+        <EmptyDataMessage>
+          <b>Посты не найдены</b>
+          <span>Вероятно, вы ни на кого не подписаны</span>
+        </EmptyDataMessage>
       );
     }
+
     return (
-      <EmptyDataMessage>
-        <b>Посты не найдены</b>
-        <span>Вероятно, вы ни на кого не подписаны</span>
-      </EmptyDataMessage>
+      <LoadingMask
+        size={50}
+        bg="inherit"
+        opacity={1}
+      />
     );
   };
 
   return (
     <PostsList
-      canLoadMore={postStore.canLoadMore}
+      canLoadMore={canLoadMore}
       loadMoreAction={loadMoreAction}
-      isSyncing={postStore.syncing}
+      isSyncing={isSyncing}
     >
       {render()}
     </PostsList>
   );
 };
 
-export default observer(FeedPostsList);
+export default FeedPostsList;

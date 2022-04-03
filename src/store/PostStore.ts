@@ -12,7 +12,7 @@ import {
 } from '../types/types';
 
 export default class PostStore implements IPostStore {
-  feedPostsList: PostData[] | null = [];
+  feedPostsList: PostData[] | null = null;
 
   currentCommentsList: PostData[] = [];
 
@@ -70,7 +70,7 @@ export default class PostStore implements IPostStore {
   }
 
   setFeedType(state: 'subs' | 'all'): void {
-    this.setFeedPostsList([]);
+    this.setFeedPostsList(null);
     this.feedType = state;
     localStorage.setItem('feedType', state);
   }
@@ -129,13 +129,16 @@ export default class PostStore implements IPostStore {
     }
   }
 
-  async fetchPosts(): Promise<PostData[] | null> {
+  async fetchPosts(): Promise<PostData[]> {
     const { data } = await PostService.getFeed({
       forSubs: (this.feedType === 'subs'),
     });
 
+    this.setCurrentList({ type: 'feed' });
+    this.setFeedPostsList(data.posts);
     this.setCanLoadMore(data.canLoadMore);
-    return data.posts.length > 0 ? data.posts : null;
+    this.setCanChangeFeedType(true);
+    return data.posts;
   }
 
   async loadMorePosts(): Promise<boolean> {
@@ -146,6 +149,7 @@ export default class PostStore implements IPostStore {
       fromId: fromPost?.id || 0,
       forSubs: (this.feedType === 'subs'),
     });
+
     if (this.feedPostsList) {
       this.setFeedPostsList(toJS<PostData[]>(this.feedPostsList).concat(data.posts));
     } else {
@@ -154,7 +158,7 @@ export default class PostStore implements IPostStore {
     return data.canLoadMore;
   }
 
-  async syncPosts(force?: boolean): Promise<void | PostData[]> {
+  async syncPosts(): Promise<void> {
     if (this.feedPostsList && this.feedPostsList.length > 0) {
       this.setSyncing(true);
       const fromPost = toJS(this.firstLoaded);
@@ -166,8 +170,7 @@ export default class PostStore implements IPostStore {
       });
 
       this.setSyncing(false);
-      if (force) this.setFeedPostsList(data);
-      else return data;
+      this.setFeedPostsList(data);
     }
     this.setSyncing(false);
   }

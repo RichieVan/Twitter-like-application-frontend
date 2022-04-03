@@ -176,9 +176,9 @@ export interface IPostStore {
   deleteFromCurrentCommentsList(id: number): void;
   createPost(postData: BaseNewPostData): Promise<void>;
   createComment(postData: NewCommentData): Promise<void>;
-  fetchPosts(): Promise<PostData[] | null>;
+  fetchPosts(): Promise<PostData[]>;
   loadMorePosts(): Promise<boolean>;
-  syncPosts(force?: boolean): Promise<PostData[] | void>;
+  syncPosts(): Promise<void>;
   fetchComments(postId: number): Promise<PostData[]>;
   // loadNewPosts(): Promise<void>;
   deletePost(id: number): Promise<void>;
