@@ -10,6 +10,7 @@ import { APP_URL } from '../../http';
 import { OptionsListProps, PostOptionsProps } from './types';
 import keysOf from '../../lib/keysOf/keysOf';
 import { LocationStateProps } from '../../types/types';
+import getClassList from '../../lib/getClassList/getClassList';
 
 const PostOptions: FC<PostOptionsProps> = ({
   show,
@@ -89,20 +90,17 @@ const PostOptions: FC<PostOptionsProps> = ({
       });
   };
 
-  const baseClass = 'post-options';
-  const listContainerClassList = [
-    `${baseClass}__list-container`,
-    show ? `${baseClass}__list-container_active` : '',
-  ].join(' ');
-  const optionsClassList = [baseClass].concat(mods.map((val) => `${baseClass}_${val}`)).join(' ');
+  const containerClassList = getClassList('post-options', mods);
+  const listContainerMods = show ? ['active'] : [];
+  const listContainerClassList = getClassList('post-options__list-container', listContainerMods);
 
   return (
-    <div className={optionsClassList}>
+    <div className={containerClassList}>
       {showOptions && (
-        <div className={`${baseClass}__wrapper`}>
+        <div className="post-options__wrapper">
           <button
             type="button"
-            className={`${baseClass}__open-button`}
+            className="post-options__open"
             onClick={(e) => {
               e.stopPropagation();
               appStore.setActivePostOptions({ id: postId, type });
@@ -115,15 +113,15 @@ const PostOptions: FC<PostOptionsProps> = ({
             role="presentation"
             onClick={(e) => e.stopPropagation()}
           >
-            <ul className={`${baseClass}__list`}>
+            <ul className="post-options__list">
               {optionsList.copyLink && (
-                <li className={`${baseClass}__option`}>
+                <li className="post-options__option">
                   <button
                     type="button"
-                    className={`${baseClass}__option-button`}
+                    className="post-options__button"
                     onClick={() => copyActionHandler()}
                   >
-                    <i className={`${baseClass}__option-icon icon`}>
+                    <i className="post-options__option-icon icon">
                       <FontAwesomeIcon icon={faLink} />
                     </i>
                     <span>Скопировать ссылку</span>
@@ -131,13 +129,13 @@ const PostOptions: FC<PostOptionsProps> = ({
                 </li>
               )}
               {optionsList.deletePost && (
-              <li className={`${baseClass}__option`}>
+              <li className="post-options__option">
                 <button
                   type="button"
-                  className={`${baseClass}__option-button  ${baseClass}__option-button_type_delete`}
+                  className="post-options__button  post-options__button_type_delete"
                   onClick={() => deleteActionHandler()}
                 >
-                  <i className={`${baseClass}__option-icon icon`}>
+                  <i className="post-options__option-icon icon">
                     <FontAwesomeIcon icon={faLink} />
                   </i>
                   <span>Удалить пост</span>
