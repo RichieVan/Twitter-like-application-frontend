@@ -17,6 +17,7 @@ import Greeting from './components/Greeting/Greeting';
 import PostView from './components/PostView/PostView';
 import SettingsForm from './components/SettingsForm/SettingsForm';
 import { LocationStateProps, UserData } from './types/types';
+import GlobalMask from './components/GlobalMask/GlobalMask';
 
 const App: FC = () => {
   const {
@@ -34,7 +35,7 @@ const App: FC = () => {
   }, []);
 
   if (appStore.isFirstLoading) {
-    return (<p>Загрузка...</p>);
+    return (<GlobalMask />);
   }
 
   if (locationState?.backgroundLocation) modalStore.setBodyUnscrollable(true);
@@ -44,7 +45,7 @@ const App: FC = () => {
   const layoutType = (locationState?.authRedirected || unauthorizedOnIndex) ? 'auth' : 'default';
 
   return (
-    <div>
+    <>
       <Routes location={locationState?.backgroundLocation || location}>
         <Route path="/" element={<Layout type={layoutType} />}>
           <Route
@@ -120,7 +121,7 @@ const App: FC = () => {
           />
         </Routes>
       ) : ''}
-    </div>
+    </>
   );
 };
 
