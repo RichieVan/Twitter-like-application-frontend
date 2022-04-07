@@ -11,7 +11,12 @@ import FeedPostsList from '../FeedPostsList/FeedPostsList';
 const FeedPosts: FC = () => {
   const { postStore } = useContext(Context);
 
+  const syncFunction = () => {
+    postStore.syncPosts();
+  };
+
   useEffect(() => {
+    postStore.setSyncFunction(syncFunction);
     if (!postStore.feedPostsList) {
       postStore.fetchPosts();
     }

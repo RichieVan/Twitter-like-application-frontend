@@ -24,6 +24,8 @@ export default class PostStore implements IPostStore {
 
   syncing: boolean = false;
 
+  syncFunction: (() => void) | null = null;
+
   currentList: CurrentList = {
     type: null,
   };
@@ -38,6 +40,10 @@ export default class PostStore implements IPostStore {
 
   setSyncing(state: boolean): void {
     this.syncing = state;
+  }
+
+  setSyncFunction(state: () => void): void {
+    this.syncFunction = state;
   }
 
   setCurrentList(state: { type: 'feed' | null; }): void {
@@ -218,10 +224,10 @@ export default class PostStore implements IPostStore {
     return data;
   }
 
-  async getUserPosts(id: number): Promise<FetchedPostsData> {
-    const { data } = await PostService.getUserPosts(id);
-    return data;
-  }
+  // async getUserPosts(id: number): Promise<FetchedPostsData> {
+  //   const { data } = await PostService.getUserPosts(id);
+  //   return data;
+  // }
 
   async loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData> {
     const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
@@ -235,27 +241,27 @@ export default class PostStore implements IPostStore {
     return data;
   }
 
-  async syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[]> {
-    let posts: PostData[] = [];
+  // async syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[]> {
+  //   let posts: PostData[] = [];
 
-    try {
-      this.setSyncing(true);
-      const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
-      const { data } = await PostService.syncUserPosts(
-        userId,
-        {
-          fromTimestamp,
-          fromId: fromPost?.id || 0,
-        },
-      );
+  //   try {
+  //     this.setSyncing(true);
+  //     const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
+  //     const { data } = await PostService.syncUserPosts(
+  //       userId,
+  //       {
+  //         fromTimestamp,
+  //         fromId: fromPost?.id || 0,
+  //       },
+  //     );
 
-      this.setSyncing(false);
-      posts = data;
-    } catch (e) {
-      this.setSyncing(false);
-      ErrorHelper.handleUnexpectedError();
-    }
+  //     this.setSyncing(false);
+  //     posts = data;
+  //   } catch (e) {
+  //     this.setSyncing(false);
+  //     ErrorHelper.handleUnexpectedError();
+  //   }
 
-    return posts;
-  }
+  //   return posts;
+  // }
 }

@@ -111,7 +111,7 @@ const App: FC = () => {
                 type="post"
                 position="start"
                 onClose={() => {
-                  if (postStore.currentList?.type === 'feed') postStore.syncPosts();
+                  if (postStore.syncFunction) postStore.syncFunction();
                 }}
               >
                 <PostView />
