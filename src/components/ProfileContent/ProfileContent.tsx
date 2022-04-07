@@ -5,6 +5,7 @@ import React, {
   useState,
 } from 'react';
 import { Context } from '../../Context';
+import UserService from '../../services/UserService';
 import { ExtendedUserData } from '../../types/types';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import ProfileHeader from '../ProfileHeader/ProfileHeader';
@@ -17,18 +18,23 @@ const ProfileContent: FC<ProfileContentProps> = ({
   const { userStore } = useContext(Context);
   const [userData, setUserData] = useState<ExtendedUserData | null>(null);
 
-  const effectDeps = [];
-  if (username === userStore.user?.login) effectDeps.push(userStore.user);
-
   useEffect(() => {
-    if (userStore.user && username === userStore.user?.login) {
+    let isMounted = true;
+
+    if (userStore.user && username === userStore.user?.login && isMounted) {
       setUserData(userStore.user);
     } else {
-      userStore
+      UserService
         .getUserData(username)
-        .then((result) => setUserData(result));
+        .then(({ data }) => {
+          if (isMounted) setUserData(data);
+        });
     }
-  }, effectDeps);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [userStore.user, username]);
 
   if (!userData) {
     return (

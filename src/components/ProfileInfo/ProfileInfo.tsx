@@ -3,6 +3,7 @@ import React, { FC, useContext, useState } from 'react';
 
 import { Context } from '../../Context';
 import formatPostText from '../../lib/formatPostText/formatPostText';
+import UserService from '../../services/UserService';
 import Button from '../Button/Button';
 import { ProfileInfoProps } from './types';
 
@@ -15,7 +16,8 @@ const ProfileInfo: FC<ProfileInfoProps> = ({
   const subscribeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.currentTarget;
     target.disabled = true;
-    userStore.subscribeToUser(userData.id)
+    UserService
+      .subscribeToUser(userData.id)
       .then(() => {
         setSubscribed(true);
         target.disabled = false;
@@ -27,7 +29,8 @@ const ProfileInfo: FC<ProfileInfoProps> = ({
   const unsubscribeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.currentTarget;
     target.disabled = true;
-    userStore.unsubscribeFromUser(userData.id)
+    UserService
+      .unsubscribeFromUser(userData.id)
       .then(() => {
         setSubscribed(false);
         target.disabled = false;

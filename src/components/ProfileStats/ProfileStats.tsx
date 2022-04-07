@@ -18,13 +18,21 @@ const ProfileStats: FC<ProfileStatsProps> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     setLoading(true);
     userStore
       .getProfileStats(userData.id)
       .then((res) => {
-        setStats(res);
-        setLoading(false);
+        if (isMounted) {
+          setStats(res);
+          setLoading(false);
+        }
       });
+
+    return () => {
+      isMounted = false;
+    };
   }, [userData]);
 
   return (
