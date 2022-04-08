@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, {
-  FC, useContext, useEffect, useState,
+  FC, useContext, useEffect, useRef, useState,
 } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faInfo, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +19,24 @@ const Notification: FC<NotificationProps> = ({
   const [fadingOut, setFadingOut] = useState(false);
   const [fadingIn, setFadingIn] = useState(false);
   const [mods, setMods] = useState<string[]>([`type_${type}`]);
+  const hideTimeout = useRef<null | NodeJS.Timeout>(null);
+
+  const fadingOutAction = () => {
+    setFadingOut(false);
+    setMods(mods.filter((item) => item !== 'fading_in').concat(['fading_out']));
+    setTimeout(() => {
+      notificationStore.clear(id);
+    }, 500);
+  };
+
+  const closeAction = () => {
+    if (hideTimeout.current) {
+      clearTimeout(hideTimeout.current);
+      hideTimeout.current = null;
+
+      fadingOutAction();
+    }
+  };
 
   useEffect(() => {
     if (!fadingIn) {
@@ -26,20 +44,13 @@ const Notification: FC<NotificationProps> = ({
       setMods(mods.concat(['fading_in']));
 
       setTimeout(() => {
-        setTimeout(() => {
+        hideTimeout.current = setTimeout(() => {
           setFadingOut(true);
         }, timeout);
       }, 300);
     }
 
-    if (fadingOut) {
-      setFadingOut(false);
-      setMods(mods.filter((item) => item !== 'fading_in').concat(['fading_out']));
-
-      setTimeout(() => {
-        notificationStore.clear(id);
-      }, 500);
-    }
+    if (fadingOut) fadingOutAction();
   });
 
   const iconNames = {
@@ -51,7 +62,11 @@ const Notification: FC<NotificationProps> = ({
 
   return (
     <div className={classList}>
-      <div className="notification__content">
+      <div
+        className="notification__content"
+        role="presentation"
+        onClick={closeAction}
+      >
         <div className="notification__icon">
           <FontAwesomeIcon icon={iconNames[type]} />
         </div>

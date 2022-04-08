@@ -1,6 +1,7 @@
 import React, {
   FC,
   useContext,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -10,16 +11,22 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { Context } from '../../Context';
 import PanelButton from '../PanelButton/PanelButton';
 import { LikeButtonProps } from './types';
+import PostService from '../../services/PostService';
 
 const LikeButton: FC<LikeButtonProps> = ({
   postData,
   mods = [],
 }) => {
-  const { userStore, postStore, notificationStore } = useContext(Context);
+  const { userStore, notificationStore } = useContext(Context);
   const [liked, setLiked] = useState(postData.currentUserLiked);
   const [tempLikesValue, setTempLikesValue] = useState<number | null>(null);
   const [count, setCount] = useState<number>(postData.likesCount);
   const isLikedNow = useRef(false);
+
+  useEffect(() => {
+    setLiked(postData.currentUserLiked);
+    setCount(postData.likesCount);
+  }, [postData]);
 
   const classMods = ['type_like'].concat(mods);
   if (liked && isLikedNow.current) classMods.push('liked');
@@ -30,10 +37,10 @@ const LikeButton: FC<LikeButtonProps> = ({
         setLiked(false);
         setTempLikesValue(count - 1);
 
-        postStore
-          .unlikePost(postData.id)
-          .then((likesCount) => {
-            setCount(likesCount);
+        PostService
+          .unlike(postData.id)
+          .then(({ data }) => {
+            setCount(data);
             setTempLikesValue(null);
           });
       } else {
@@ -41,10 +48,10 @@ const LikeButton: FC<LikeButtonProps> = ({
         setLiked(true);
         setTempLikesValue(count + 1);
 
-        postStore
-          .likePost(postData.id)
-          .then((likesCount) => {
-            setCount(likesCount);
+        PostService
+          .like(postData.id)
+          .then(({ data }) => {
+            setCount(data);
             setTempLikesValue(null);
           });
       }

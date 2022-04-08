@@ -24,7 +24,12 @@ const LoadMoreButton: FC<LoadMoreButtonProps> = ({
         Загрузить еще
       </button>
       {isLoading && (
-        <LoadingMask cHeight={26} cWidth={26} bg="inherit" opacity={1} />
+        <LoadingMask
+          size={26}
+          bg="inherit"
+          weight="thin"
+          opacity={1}
+        />
       )}
     </div>
   );

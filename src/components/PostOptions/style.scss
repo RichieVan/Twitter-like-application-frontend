@@ -8,7 +8,7 @@
     position: relative;
   }
 
-  &__open-button {
+  &__open {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,7 +84,7 @@
     }
   }
 
-  &__option-button {
+  &__button {
     display: flex;
     align-items: center;
     width: 100%;

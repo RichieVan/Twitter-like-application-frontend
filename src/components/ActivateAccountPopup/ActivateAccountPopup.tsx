@@ -95,7 +95,11 @@ const ActivateAccountPopup: FC = () => {
       <div className="activate-account-popup__message">{message}</div>
       {resendOption()}
       {loading ? (
-        <LoadingMask cHeight={50} cWidth={50} bg="#0f0f0f" opacity={1} />
+        <LoadingMask
+          size={50}
+          bg="main"
+          opacity={1}
+        />
       ) : ''}
     </div>
   );

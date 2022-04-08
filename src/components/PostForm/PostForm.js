@@ -43,7 +43,13 @@ const PostForm = ({ type = 'post', postId = 0 }) => {
 
   return (
     <div className={`post-form post-form_type_${type}`}>
-      {isLoading && (<LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={0.6} />)}
+      {isLoading && (
+      <LoadingMask
+        size={50}
+        bg="inherit"
+        opacity={0.6}
+      />
+      )}
       {!userStore.user.isActivated && (
         <div className="post-form__auth-mask">
           <b>Вы не можете оставлять посты или комментарии</b>

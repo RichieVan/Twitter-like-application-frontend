@@ -162,10 +162,12 @@ export interface IPostStore {
   lastLoaded: PostData | null;
   canLoadMore: boolean;
   syncing: boolean;
+  syncFunction: (() => void) | null;
   currentList: CurrentList;
   feedType: 'subs' | 'all';
   canChangeFeedType: boolean;
   setSyncing(state: boolean): void;
+  setSyncFunction(state: () => void): void;
   setCurrentList(state: CurrentList): void;
   setCanLoadMore(state: boolean): void;
   setFeedPostsList(state: PostData[] | null): void;
@@ -176,18 +178,18 @@ export interface IPostStore {
   deleteFromCurrentCommentsList(id: number): void;
   createPost(postData: BaseNewPostData): Promise<void>;
   createComment(postData: NewCommentData): Promise<void>;
-  fetchPosts(): Promise<PostData[] | null>;
+  fetchPosts(): Promise<PostData[]>;
   loadMorePosts(): Promise<boolean>;
-  syncPosts(force?: boolean): Promise<PostData[] | void>;
+  syncPosts(): Promise<void>;
   fetchComments(postId: number): Promise<PostData[]>;
   // loadNewPosts(): Promise<void>;
   deletePost(id: number): Promise<void>;
   deleteComment(id: number): Promise<void>;
   likePost(id: number): Promise<number>;
   unlikePost(id: number): Promise<number>;
-  getUserPosts(id: number): Promise<FetchedPostsData>;
+  // getUserPosts(id: number): Promise<FetchedPostsData>;
   loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData>;
-  syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[]>;
+  // syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[]>;
 }
 
 export type AppStoreAliases = {

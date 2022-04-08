@@ -28,6 +28,7 @@
     font-weight: 500;
     opacity: 0;
     transition: opacity .3s ease-out;
+    cursor: pointer;
   }
 
   &_fading_in &__content {

@@ -6,10 +6,10 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { useLocation } from 'react-router-dom';
 
 import { Context } from '../../Context';
 import formatPostText from '../../lib/formatPostText/formatPostText';
+import PostService from '../../services/PostService';
 import { PostData } from '../../types/types';
 import EmptyDataMessage from '../EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../LoadingMask/LoadingMask';
@@ -21,74 +21,79 @@ const ProfilePostsList: FC<ProfilePostsListProps> = ({
   userData,
 }) => {
   const { postStore } = useContext(Context);
-  const [posts, setPosts] = useState<JSX.Element[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [posts, setPosts] = useState<PostData[] | null>(null);
+  const [isSyncing, setIsSyncing] = useState(false);
   const [canLoadMore, setCanLoadMore] = useState(false);
   const lastPost = useRef<PostData | null>(null);
-  const location = useLocation();
 
-  useEffect(() => {
-    if (posts.length === 0) {
-      postStore
-        .getUserPosts(userData.id)
-        .then((data) => {
-          setCanLoadMore(data.canLoadMore);
-          setPosts(
-            data.posts.map((val, i, arr) => {
-              if (i === arr.length - 1) lastPost.current = val;
-              const contentArray = formatPostText(val.textContent);
-              return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
-            }),
-          );
-          setIsLoading(false);
-        });
-    } else if (location.pathname === `/profile/${userData.login}`) {
-      postStore
-        .syncUserPosts(userData.id, lastPost.current!)
-        .then((data) => {
-          setPosts(
-            data.map((val, i, arr) => {
-              if (i === arr.length - 1) lastPost.current = val;
-              const contentArray = formatPostText(val.textContent);
-              return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
-            }),
-          );
+  const syncFunction = () => {
+    if (lastPost.current) {
+      setIsSyncing(true);
+      PostService
+        .syncUserPosts(userData.id, lastPost.current)
+        .then(({ data }) => {
+          setPosts(data);
+          lastPost.current = data[data.length - 1];
+          setIsSyncing(false);
         });
     }
-  }, [location.pathname]);
+  };
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (!posts) {
+      PostService
+        .getUserPosts(userData.id)
+        .then(({ data }) => {
+          if (isMounted) {
+            setCanLoadMore(data.canLoadMore);
+            const dataPosts = data.posts;
+            setPosts(dataPosts);
+            lastPost.current = dataPosts[dataPosts.length - 1];
+            postStore.setSyncFunction(syncFunction);
+          }
+        });
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  });
 
   const loadMoreAction = () => new Promise<void>((resolve, reject) => {
-    postStore
-      .loadMoreUserPosts(userData.id, lastPost.current!)
-      .then((data) => {
-        setPosts(
-          posts.concat(
-            data.posts.map((val, i, arr) => {
-              if (i === arr.length - 1) lastPost.current = val;
-              const contentArray = formatPostText(val.textContent);
-              return (
-                <Post
-                  key={val.id}
-                  id={val.id}
-                  data={val}
-                  contentArray={contentArray}
-                />
-              );
-            }),
-          ),
-        );
-        if (data.canLoadMore) resolve();
-        else reject(() => { setCanLoadMore(data.canLoadMore); });
-      });
+    if (posts && lastPost.current) {
+      postStore
+        .loadMoreUserPosts(userData.id, lastPost.current)
+        .then((data) => {
+          const dataPosts = data.posts;
+          setPosts(posts.concat(dataPosts));
+          lastPost.current = dataPosts[dataPosts.length - 1];
+          if (data.canLoadMore) resolve();
+          else reject(() => { setCanLoadMore(data.canLoadMore); });
+        });
+    }
   });
 
   const render = () => {
+    if (!posts) {
+      return (
+        <LoadingMask
+          size={50}
+          bg="inherit"
+          opacity={1}
+        />
+      );
+    }
+
     if (posts.length > 0) {
-      return posts;
+      const result = posts.map((val) => {
+        const contentArray = formatPostText(val.textContent);
+        return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
+      });
+      return result;
     }
-    if (isLoading) {
-      return (<LoadingMask cHeight={50} cWidth={50} bg="inherit" opacity={1} />);
-    }
+
     return (
       <EmptyDataMessage>
         <b>Посты не найдены</b>
@@ -101,7 +106,7 @@ const ProfilePostsList: FC<ProfilePostsListProps> = ({
     <PostsList
       canLoadMore={canLoadMore}
       loadMoreAction={loadMoreAction}
-      isSyncing={postStore.syncing}
+      isSyncing={isSyncing}
     >
       {render()}
     </PostsList>

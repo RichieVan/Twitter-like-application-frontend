@@ -18,13 +18,21 @@ const ProfileStats: FC<ProfileStatsProps> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     setLoading(true);
     userStore
       .getProfileStats(userData.id)
       .then((res) => {
-        setStats(res);
-        setLoading(false);
+        if (isMounted) {
+          setStats(res);
+          setLoading(false);
+        }
       });
+
+    return () => {
+      isMounted = false;
+    };
   }, [userData]);
 
   return (
@@ -49,7 +57,14 @@ const ProfileStats: FC<ProfileStatsProps> = ({
           </div>
         </div>
       </div>
-      {loading && <LoadingMask cHeight={40} cWidth={40} bg="var(--bg1)" opacity={1} />}
+      {loading && (
+        <LoadingMask
+          size={40}
+          bg="main"
+          weight="clear"
+          opacity={1}
+        />
+      )}
     </div>
   );
 };

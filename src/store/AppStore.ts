@@ -17,7 +17,6 @@ class AppStore implements IAppStore {
 
   aliases: AppStoreAliases = {
     static: '/assets',
-    static3: '/assets',
   };
 
   constructor(UserStore: IUserStore) {
@@ -38,6 +37,8 @@ class AppStore implements IAppStore {
   }
 
   async preloader(): Promise<void> {
+    this.setGlobalLoading(true);
+
     if (localStorage.getItem('accessToken')) {
       await this.userStore.checkAuthorization();
     }
@@ -49,6 +50,7 @@ class AppStore implements IAppStore {
     });
 
     this.setFirstLoading(false);
+    this.setGlobalLoading(false);
   }
 }
 

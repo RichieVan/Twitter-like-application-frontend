@@ -1,21 +1,25 @@
 import React, { FC } from 'react';
 import LoadingCircle from '../../assets/img/icons/loading.svg';
+import getClassList from '../../lib/getClassList/getClassList';
 import { LoadingMaskProps } from './types';
 
 const LoadingMask: FC<LoadingMaskProps> = ({
-  cHeight,
-  cWidth,
-  bg,
+  size,
+  bg = 'transparent',
+  weight,
   opacity,
 }) => {
+  const mods = [`bg_${bg}`];
+  if (weight) mods.push(`weight_${weight}`);
+  const classList = getClassList('loading-content', mods);
+
   const styles = {
-    backgroundColor: bg,
     opacity,
   };
 
   return (
-    <div className="loading-content" style={styles}>
-      <LoadingCircle height={cHeight} width={cWidth} />
+    <div className={classList} style={styles}>
+      <LoadingCircle height={size} width={size} />
     </div>
   );
 };

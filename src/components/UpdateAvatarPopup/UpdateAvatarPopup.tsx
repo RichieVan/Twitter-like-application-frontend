@@ -186,7 +186,11 @@ const UpdateAvatarPopup: FC<UpdateAvatarProps> = ({
     <div className="update-avatar">
       {render()}
       {isLoading ? (
-        <LoadingMask cHeight={70} cWidth={70} bg="#0f0f0f" opacity={0.8} />
+        <LoadingMask
+          size={70}
+          bg="inherit"
+          opacity={0.8}
+        />
       ) : ''}
     </div>
   );

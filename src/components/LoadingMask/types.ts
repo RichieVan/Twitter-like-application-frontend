@@ -1,6 +1,9 @@
+type LoadingMaskBackground = 'main' | 'transparent' | 'inherit';
+type LoadingMaskWeight = 'thin' | 'clear';
+
 export interface LoadingMaskProps {
-  cHeight: number;
-  cWidth: number;
-  bg: string;
+  size: number;
+  bg: LoadingMaskBackground;
   opacity: number;
+  weight?: LoadingMaskWeight;
 }

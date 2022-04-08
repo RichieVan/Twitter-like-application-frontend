@@ -43,7 +43,13 @@ export default class PostService {
     return api.get('/posts/sync', { params });
   }
 
-  static async syncUserPosts(userId: number, params: PostRequestParams): RequestPromise<PostData[]> {
+  static async syncUserPosts(userId: number, fromPost: PostData): RequestPromise<PostData[]> {
+    const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
+    const params = {
+      fromTimestamp,
+      fromId: fromPost?.id || 0,
+    };
+
     return api.get(`/posts/user/${userId}/sync`, { params });
   }
 

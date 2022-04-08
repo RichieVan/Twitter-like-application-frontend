@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import FastAverageColor from 'fast-average-color';
 
 import ProfileStats from '../ProfileStats/ProfileStats';
@@ -13,11 +13,21 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
 }) => {
   const [bgColor, setBgColor] = useState('');
 
-  fac
-    .getColorAsync(userData.avatar.url)
-    .then((color) => {
-      setBgColor(color.hex);
-    });
+  useEffect(() => {
+    let isMounted = true;
+
+    if (!bgColor) {
+      fac
+        .getColorAsync(userData.avatar.url)
+        .then((color) => {
+          if (isMounted) setBgColor(color.hex);
+        });
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  });
 
   const bgStyles = {
     backgroundColor: bgColor,

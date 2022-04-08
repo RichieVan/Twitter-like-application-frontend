@@ -16,7 +16,8 @@ import AuthRequired from './components/AuthRequired';
 import Greeting from './components/Greeting/Greeting';
 import PostView from './components/PostView/PostView';
 import SettingsForm from './components/SettingsForm/SettingsForm';
-import { LocationStateProps } from './types/types';
+import { LocationStateProps, UserData } from './types/types';
+import GlobalMask from './components/GlobalMask/GlobalMask';
 
 const App: FC = () => {
   const {
@@ -34,7 +35,7 @@ const App: FC = () => {
   }, []);
 
   if (appStore.isFirstLoading) {
-    return (<p>Загрузка...</p>);
+    return (<GlobalMask />);
   }
 
   if (locationState?.backgroundLocation) modalStore.setBodyUnscrollable(true);
@@ -44,31 +45,33 @@ const App: FC = () => {
   const layoutType = (locationState?.authRedirected || unauthorizedOnIndex) ? 'auth' : 'default';
 
   return (
-    <div>
+    <>
       <Routes location={locationState?.backgroundLocation || location}>
         <Route path="/" element={<Layout type={layoutType} />}>
           <Route
             path="/"
             element={(
-              <AuthRequired notAuthElement={<Greeting />}>
-                <Navigate to="/feed" />
-              </AuthRequired>
+              <AuthRequired
+                renderOnNotAuth={() => (<Greeting />)}
+                renderOnAuth={() => (<Navigate to="/feed" />)}
+              />
             )}
           />
           <Route
             path="feed"
             element={(
-              <AuthRequired notAuthRedirect="/">
-                <Feed />
-              </AuthRequired>
+              <AuthRequired
+                renderOnNotAuth={() => (<Navigate to="/" />)}
+                renderOnAuth={() => (<Feed />)}
+              />
             )}
           />
           <Route
             path="profile/settings"
             element={(
               <AuthRequired
-                notAuthRedirect="/"
-                render={(userData) => (
+                renderOnNotAuth={() => (<Navigate to="/" />)}
+                renderOnAuth={(userData: UserData) => (
                   <LocationModal heading="Настройки пользователя">
                     <SettingsForm userData={userData} />
                   </LocationModal>
@@ -93,8 +96,8 @@ const App: FC = () => {
             path="profile/settings"
             element={(
               <AuthRequired
-                notAuthRedirect="/"
-                render={(userData) => (
+                renderOnNotAuth={() => (<Navigate to="/" />)}
+                renderOnAuth={(userData: UserData) => (
                   <LocationModal heading="Настройки пользователя">
                     <SettingsForm userData={userData} />
                   </LocationModal>
@@ -109,7 +112,7 @@ const App: FC = () => {
                 type="post"
                 position="start"
                 onClose={() => {
-                  if (postStore.currentList?.type === 'feed') postStore.syncPosts(true);
+                  if (postStore.syncFunction) postStore.syncFunction();
                 }}
               >
                 <PostView />
@@ -118,7 +121,7 @@ const App: FC = () => {
           />
         </Routes>
       ) : ''}
-    </div>
+    </>
   );
 };
 

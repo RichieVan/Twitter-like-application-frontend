@@ -12,7 +12,7 @@ import useInput from '../../hooks/useInput';
 import Button from '../Button/Button';
 
 const AuthForm: FC = () => {
-  const { userStore } = useContext(Context);
+  const { userStore, notificationStore } = useContext(Context);
   const [isLoading, setisLoading] = useState(false);
   const loginOrEmail = useInput();
   const password = useInput();
@@ -25,7 +25,11 @@ const AuthForm: FC = () => {
         loginOrEmail: loginOrEmail.value,
         password: password.value,
       })
-      .catch(() => {
+      .then(() => {
+        notificationStore.show('Вы успешно авторизовались', 2000, 'success');
+      })
+      .catch((err: Error) => {
+        notificationStore.show(err.message, 2000, 'error');
         setisLoading(false);
       });
   };
@@ -38,7 +42,11 @@ const AuthForm: FC = () => {
       onSubmit={submitHandler}
     >
       {isLoading && (
-        <LoadingMask cHeight={50} cWidth={50} bg="var(--bg1)" opacity={0.8} />
+        <LoadingMask
+          size={50}
+          bg="main"
+          opacity={0.8}
+        />
       )}
       <h2 className="auth-form__heading">Авторизация</h2>
       <FormGroup mods={['thin']}>
