@@ -8,6 +8,7 @@ import ModalsList from './components/ModalsList/ModalsList';
 import SidebarRight from './components/SidebarRight/SidebarRight';
 import SidebarLeft from './components/SidebarLeft/SidebarLeft';
 import { LayoutProps } from './types/types';
+import Scroll from './components/Scroll/Scroll';
 
 const Layout: FC<LayoutProps> = ({
   type = 'default',
@@ -39,6 +40,7 @@ const Layout: FC<LayoutProps> = ({
       <ModalsList />
       <NotificationsList />
       <GlobalMask />
+      <Scroll />
     </div>
   );
 };
