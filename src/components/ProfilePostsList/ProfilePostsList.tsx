@@ -61,7 +61,7 @@ const ProfilePostsList: FC<ProfilePostsListProps> = ({
     };
   });
 
-  const loadMoreAction = () => new Promise<void>((resolve, reject) => {
+  const loadMoreAction = () => new Promise<boolean>((resolve) => {
     if (posts && lastPost.current) {
       postStore
         .loadMoreUserPosts(userData.id, lastPost.current)
@@ -69,8 +69,8 @@ const ProfilePostsList: FC<ProfilePostsListProps> = ({
           const dataPosts = data.posts;
           setPosts(posts.concat(dataPosts));
           lastPost.current = dataPosts[dataPosts.length - 1];
-          if (data.canLoadMore) resolve();
-          else reject(() => { setCanLoadMore(data.canLoadMore); });
+          setCanLoadMore(data.canLoadMore);
+          resolve(data.canLoadMore);
         });
     }
   });

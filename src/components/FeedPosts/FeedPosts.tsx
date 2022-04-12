@@ -22,12 +22,12 @@ const FeedPosts: FC = () => {
     }
   });
 
-  const loadMoreAction = () => new Promise<void>((resolve, reject) => {
+  const loadMoreAction = () => new Promise<boolean>((resolve) => {
     postStore
       .loadMorePosts()
       .then((result) => {
-        if (result) resolve();
-        else reject(() => { postStore.setCanLoadMore(false); });
+        postStore.setCanLoadMore(result);
+        resolve(result);
       });
   });
 
