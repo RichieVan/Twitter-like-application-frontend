@@ -75,10 +75,10 @@ const CommentsList: FC<CommentsListProps> = ({
     if (comments.length > 0) return comments;
 
     return (
-      <EmptyDataMessage>
-        <b>Здесь нет ни одного комментария :(</b>
-        <span>Будьте первыми!</span>
-      </EmptyDataMessage>
+      <EmptyDataMessage
+        primary="Здесь нет ни одного комментария :("
+        secondary="Будьте первыми!"
+      />
     );
   };
 
