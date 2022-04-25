@@ -12,7 +12,7 @@ import {
 } from '../types/types';
 
 export default class PostStore implements IPostStore {
-  feedPostsList: PostData[] | null = null;
+  feedPostsList: PostData[] = [];
 
   currentCommentsList: PostData[] = [];
 
@@ -36,6 +36,7 @@ export default class PostStore implements IPostStore {
 
   constructor() {
     makeAutoObservable(this, undefined, { deep: true });
+    this.feedType = localStorage.getItem('feedType') === 'subs' ? 'subs' : 'all';
   }
 
   setSyncing(state: boolean): void {
@@ -54,20 +55,16 @@ export default class PostStore implements IPostStore {
     this.canLoadMore = state;
   }
 
-  setFeedPostsList(state: PostData[] | null): void {
-    if (state === null) {
-      this.lastLoaded = null;
-      this.firstLoaded = null;
-      this.feedPostsList = null;
-    } else if (state.length > 0) {
+  setFeedPostsList(state: PostData[]): void {
+    if (state.length > 0) {
       this.lastLoaded = state[0];
       this.firstLoaded = state[state.length - 1];
-      this.feedPostsList = state;
     } else {
       this.lastLoaded = null;
       this.firstLoaded = null;
-      this.feedPostsList = [];
     }
+
+    this.feedPostsList = state;
   }
 
   setCurrentCommentsList(comments: PostData[], clear: boolean = false): void {
@@ -76,7 +73,7 @@ export default class PostStore implements IPostStore {
   }
 
   setFeedType(state: 'subs' | 'all'): void {
-    this.setFeedPostsList(null);
+    this.setFeedPostsList([]);
     this.feedType = state;
     localStorage.setItem('feedType', state);
   }
@@ -165,10 +162,10 @@ export default class PostStore implements IPostStore {
   }
 
   async syncPosts(): Promise<void> {
-    if (this.feedPostsList && this.feedPostsList.length > 0) {
+    if (this.feedPostsList.length > 0 && this.firstLoaded) {
       this.setSyncing(true);
       const fromPost = toJS(this.firstLoaded);
-      const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
+      const fromTimestamp = new Date(fromPost.createdAt.timestamp || 0).toISOString();
       const { data } = await PostService.syncPosts({
         fromTimestamp,
         fromId: fromPost?.id || 0,
@@ -186,15 +183,6 @@ export default class PostStore implements IPostStore {
     this.setCurrentCommentsList(data);
     return this.currentCommentsList;
   }
-
-  // async loadNewPosts(): Promise<void> {
-  //   try {
-  //    const response = await PostService.loadNewPosts(toJS(this.currentCommentsList)[0]?.id || 0);
-  //     this.setFeedPostsList(response.data);
-  //   } catch (e) {
-  //     // throw Error(e.response.data.message);
-  //   }
-  // }
 
   async deletePost(id: number): Promise<void> {
     try {
@@ -214,21 +202,6 @@ export default class PostStore implements IPostStore {
     }
   }
 
-  async likePost(id: number): Promise<number> {
-    const { data } = await PostService.like(id);
-    return data;
-  }
-
-  async unlikePost(id: number): Promise<number> {
-    const { data } = await PostService.unlike(id);
-    return data;
-  }
-
-  // async getUserPosts(id: number): Promise<FetchedPostsData> {
-  //   const { data } = await PostService.getUserPosts(id);
-  //   return data;
-  // }
-
   async loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData> {
     const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
     const { data } = await PostService.loadMoreUserPosts(
@@ -240,28 +213,4 @@ export default class PostStore implements IPostStore {
     );
     return data;
   }
-
-  // async syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[]> {
-  //   let posts: PostData[] = [];
-
-  //   try {
-  //     this.setSyncing(true);
-  //     const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
-  //     const { data } = await PostService.syncUserPosts(
-  //       userId,
-  //       {
-  //         fromTimestamp,
-  //         fromId: fromPost?.id || 0,
-  //       },
-  //     );
-
-  //     this.setSyncing(false);
-  //     posts = data;
-  //   } catch (e) {
-  //     this.setSyncing(false);
-  //     ErrorHelper.handleUnexpectedError();
-  //   }
-
-  //   return posts;
-  // }
 }

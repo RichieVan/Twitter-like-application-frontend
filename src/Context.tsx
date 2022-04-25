@@ -1,10 +1,10 @@
 import { createContext } from 'react';
 
-import AppStore from './store/AppStore';
-import ModalStore from './store/ModalStore';
-import NotificationStore from './store/NotificationStore';
-import UserStore from './store/UserStore';
-import PostStore from './store/PostStore';
+import AppStore from './stores/AppStore';
+import ModalStore from './stores/ModalStore';
+import NotificationStore from './stores/NotificationStore';
+import UserStore from './stores/UserStore';
+import PostStore from './stores/PostStore';
 
 const modalStore = new ModalStore();
 const notificationStore = new NotificationStore();
