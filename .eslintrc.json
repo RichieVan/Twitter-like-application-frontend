@@ -23,7 +23,6 @@
   },
   "plugins": ["react"],
   "rules": {
-    // "func-names": "off",
     "linebreak-style": ["error", "windows"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "no-unused-vars": ["error", {
