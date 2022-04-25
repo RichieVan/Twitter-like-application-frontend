@@ -1,8 +1,19 @@
 import React, { FC } from 'react';
 
-const EmptyDataMessage: FC = ({ children }) => (
+interface EmptyDataMessageProps {
+  primary: string;
+  secondary?: string;
+}
+
+const EmptyDataMessage: FC<EmptyDataMessageProps> = ({
+  primary,
+  secondary = '',
+}) => (
   <div className="empty-data-message">
-    {children}
+    <b className="empty-data-message__primary">{primary}</b>
+    {secondary && (
+      <span className="empty-data-message__secondary">{secondary}</span>
+    )}
   </div>
 );
 
