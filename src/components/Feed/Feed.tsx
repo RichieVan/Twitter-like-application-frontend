@@ -2,9 +2,9 @@ import React, { useEffect, useContext, FC } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import PostForm from '../PostForm/PostForm';
-import FeedPosts from '../FeedPosts/FeedPosts';
 import { Context } from '../../Context';
 import FeedTypeChange from '../FeedTypeChange/FeedTypeChange';
+import FeedPostsController from '../FeedPostsController/FeedPostsController';
 
 const Feed: FC = () => {
   const { postStore } = useContext(Context);
@@ -17,7 +17,7 @@ const Feed: FC = () => {
     <div className="feed">
       <PostForm />
       <FeedTypeChange />
-      <FeedPosts key={postStore.feedType} />
+      <FeedPostsController key={postStore.feedType} />
     </div>
   );
 };

@@ -9,7 +9,7 @@ import UserService from '../../services/UserService';
 import { ExtendedUserData } from '../../types/types';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import ProfileHeader from '../ProfileHeader/ProfileHeader';
-import ProfilePostsList from '../ProfilePostsList/ProfilePostsList';
+import ProfilePostsController from '../ProfilePostsController/ProfilePostsController';
 import { ProfileContentProps } from './types';
 
 const ProfileContent: FC<ProfileContentProps> = ({
@@ -51,7 +51,7 @@ const ProfileContent: FC<ProfileContentProps> = ({
   return (
     <div className="profile">
       <ProfileHeader userData={userData} />
-      <ProfilePostsList key={userData.id} userData={userData} />
+      <ProfilePostsController key={userData.id} userData={userData} />
     </div>
   );
 };
