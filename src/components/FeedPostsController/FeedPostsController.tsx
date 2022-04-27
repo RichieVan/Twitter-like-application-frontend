@@ -4,11 +4,15 @@ import React, {
   useState,
   useContext,
   useEffect,
-  useCallback,
 } from 'react';
 
 import { Context } from '../../Context';
+import withConditionalFeedback from '../../hoc/withConditionalFeedback/withConditionalFeedback';
+import { PostData } from '../../types/types';
 import PostsList from '../PostsList/PostsList';
+import { PostsListProps } from '../PostsList/types';
+
+const PostsListWithConditionalFeedback = withConditionalFeedback<PostData, PostsListProps>(PostsList, { propName: 'postsData' });
 
 const FeedPostsController: FC = () => {
   const { postStore } = useContext(Context);
@@ -29,18 +33,18 @@ const FeedPostsController: FC = () => {
     }
   }, [postStore]);
 
-  const loadMoreAction = useCallback(() => new Promise<boolean>((resolve) => {
+  const loadMoreAction = () => new Promise<boolean>((resolve) => {
     postStore
       .loadMorePosts()
-      .then((result) => {
-        postStore.setCanLoadMore(result);
-        resolve(result);
+      .then((canLoad) => {
+        postStore.setCanLoadMore(canLoad);
+        resolve(canLoad);
       });
-  }), [postStore]);
+  });
 
   return (
-    <PostsList
-      postsData={postStore.feedPostsList}
+    <PostsListWithConditionalFeedback
+      data={postStore.feedPostsList}
       canLoadMore={postStore.canLoadMore}
       loadMoreAction={loadMoreAction}
       isSyncing={postStore.syncing}

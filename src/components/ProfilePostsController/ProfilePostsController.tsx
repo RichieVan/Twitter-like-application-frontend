@@ -8,10 +8,14 @@ import React, {
 } from 'react';
 
 import { Context } from '../../Context';
+import withConditionalFeedback from '../../hoc/withConditionalFeedback/withConditionalFeedback';
 import PostService from '../../services/PostService';
 import { PostData } from '../../types/types';
 import PostsList from '../PostsList/PostsList';
+import { PostsListProps } from '../PostsList/types';
 import { ProfilePostsControllerProps } from './types';
+
+const PostsListWithConditionalFeedback = withConditionalFeedback<PostData, PostsListProps>(PostsList, { propName: 'postsData' });
 
 const ProfilePostsController: FC<ProfilePostsControllerProps> = ({
   userData,
@@ -74,14 +78,14 @@ const ProfilePostsController: FC<ProfilePostsControllerProps> = ({
   });
 
   return (
-    <PostsList
-      postsData={postsData}
+    <PostsListWithConditionalFeedback
+      data={postsData}
       canLoadMore={canLoadMore}
       loadMoreAction={loadMoreAction}
       isSyncing={isSyncing}
       isLoading={isLoading}
       emptyMessagePrimary="Посты не найдены"
-      emptyMessageSecondary="Вероятно, вы ни на кого не подписаны"
+      emptyMessageSecondary="Пользователь еще не оставил ни одного поста"
     />
   );
 };
