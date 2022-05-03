@@ -39,6 +39,9 @@
         "some": ["nesting", "id"]
       }
     }],
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": true, "peerDependencies": true}]
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": true, "peerDependencies": true}],
+    "max-len": ["warning", {
+      "code": 120
+    }]
   }
 }
