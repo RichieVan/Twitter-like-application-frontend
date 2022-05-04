@@ -1,11 +1,10 @@
 import React, {
   FC,
-  useContext,
   useEffect,
   useState,
 } from 'react';
 
-import { Context } from '../../Context';
+import UserService from '../../services/UserService';
 import { ProfileStatsData } from '../../types/types';
 import LoadingMask from '../LoadingMask/LoadingMask';
 import { ProfileStatsProps } from './types';
@@ -13,7 +12,6 @@ import { ProfileStatsProps } from './types';
 const ProfileStats: FC<ProfileStatsProps> = ({
   userData,
 }) => {
-  const { userStore } = useContext(Context);
   const [stats, setStats] = useState<ProfileStatsData | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -21,11 +19,11 @@ const ProfileStats: FC<ProfileStatsProps> = ({
     let isMounted = true;
 
     setLoading(true);
-    userStore
+    UserService
       .getProfileStats(userData.id)
-      .then((res) => {
+      .then(({ data }) => {
         if (isMounted) {
-          setStats(res);
+          setStats(data);
           setLoading(false);
         }
       });
