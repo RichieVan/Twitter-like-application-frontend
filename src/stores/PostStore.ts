@@ -3,7 +3,6 @@ import ErrorHelper from '../helpers/ErrorHelper';
 
 import PostService from '../services/PostService';
 import {
-  BaseNewCommentData,
   BaseNewPostData,
   CurrentList,
   FetchedPostsData,
@@ -13,8 +12,6 @@ import {
 
 export default class PostStore implements IPostStore {
   feedPostsList: PostData[] = [];
-
-  currentCommentsList: PostData[] = [];
 
   firstLoaded: PostData | null = null;
 
@@ -67,11 +64,6 @@ export default class PostStore implements IPostStore {
     this.feedPostsList = state;
   }
 
-  setCurrentCommentsList(comments: PostData[], clear: boolean = false): void {
-    if (clear) this.currentCommentsList = [];
-    else this.currentCommentsList = comments.concat(this.currentCommentsList);
-  }
-
   setFeedType(state: 'subs' | 'all'): void {
     this.setFeedPostsList([]);
     this.feedType = state;
@@ -86,11 +78,6 @@ export default class PostStore implements IPostStore {
     if (this.feedPostsList) {
       this.feedPostsList = toJS(this.feedPostsList).filter((value) => value.id !== Number(id));
     }
-  }
-
-  deleteFromCurrentCommentsList(id: number): void {
-    const convertedCommentsList = toJS(this.currentCommentsList);
-    this.currentCommentsList = convertedCommentsList.filter((value) => value.id !== Number(id));
   }
 
   async createPost(postData: BaseNewPostData): Promise<void> {
@@ -111,23 +98,6 @@ export default class PostStore implements IPostStore {
       this.setSyncing(false);
     } catch (e) {
       this.setSyncing(false);
-      ErrorHelper.handleUnexpectedError();
-    }
-  }
-
-  async createComment(postData: BaseNewCommentData): Promise<void> {
-    try {
-      const fromPost = toJS(this.currentCommentsList)[0];
-      const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
-      const { data } = await PostService.createComment({
-        ...postData,
-        params: {
-          fromTimestamp,
-          fromId: fromPost?.id || 0,
-        },
-      });
-      this.setCurrentCommentsList(data);
-    } catch (e) {
       ErrorHelper.handleUnexpectedError();
     }
   }
@@ -178,25 +148,10 @@ export default class PostStore implements IPostStore {
     this.setSyncing(false);
   }
 
-  async fetchComments(postId: number): Promise<PostData[]> {
-    const { data } = await PostService.getComments(postId);
-    this.setCurrentCommentsList(data);
-    return this.currentCommentsList;
-  }
-
   async deletePost(id: number): Promise<void> {
     try {
       const { data } = await PostService.deletePost(id);
       this.deleteFromFeedPostsList(data);
-    } catch (e) {
-      ErrorHelper.handleUnexpectedError();
-    }
-  }
-
-  async deleteComment(id: number): Promise<void> {
-    try {
-      const { data } = await PostService.deletePost(id);
-      this.deleteFromCurrentCommentsList(data);
     } catch (e) {
       ErrorHelper.handleUnexpectedError();
     }
