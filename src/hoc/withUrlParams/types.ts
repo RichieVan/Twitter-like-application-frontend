@@ -1,10 +1,10 @@
 import { ComponentType } from 'react';
 
-interface UrlParamsVerifyProps {
+interface UPHOCProps {
   cancellingAction?: () => void;
 }
-interface UrlParamsVerifyConfig {
+interface UPHOCConfig {
   params: string[];
 }
-type UPVCallback<P> = (props: P) => JSX.Element | null;
-export type WithUrlParamsVerify = <P extends object>(Component: ComponentType<Omit<P, keyof UrlParamsVerifyProps>>, config: UrlParamsVerifyConfig) => UPVCallback<P & UrlParamsVerifyProps>;
+type UPHOCCallback<P> = (props: P) => JSX.Element | null;
+export type UrlParamsHOC = <P extends object>(Component: ComponentType<Omit<P, keyof UPHOCProps>>, config: UPHOCConfig) => UPHOCCallback<P & UPHOCProps>;

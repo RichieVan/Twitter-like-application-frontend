@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { WithUrlParamsVerify } from './types';
+import { UrlParamsHOC } from './types';
 
-const withUrlParamsVerify: WithUrlParamsVerify = (Component, {
+const withUrlParamsVerify: UrlParamsHOC = (Component, {
   params: requestedParams,
 }) => ({
   cancellingAction,
