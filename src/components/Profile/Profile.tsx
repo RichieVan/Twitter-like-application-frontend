@@ -14,20 +14,14 @@ import ProfileStats from '../ProfileStats/ProfileStats';
 import ProfileInfo from '../ProfileInfo/ProfileInfo';
 import ProfilePostsController from '../ProfilePostsController/ProfilePostsController';
 import { ProfileProps } from './types';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Profile: FC<ProfileProps> = ({
-  username,
+  username = '',
 }) => {
   const { userStore, notificationStore } = useContext(Context);
   const [userData, setUserData] = useState<ExtendedUserData>();
-
-  if (!username) {
-    notificationStore.show('Профиль не найден', 3000, 'error');
-    return (
-      <Navigate to={'/'} />
-    )
-  }
+  const navigate = useNavigate();
 
   useEffect(() => {
     let isMounted = true;
@@ -38,7 +32,14 @@ const Profile: FC<ProfileProps> = ({
       UserService
         .getUserData(username)
         .then(({ data }) => {
-          if (isMounted) setUserData(data);
+          if (isMounted) {
+            if (!data) {
+              notificationStore.show('Профиль не найден', 3000, 'error');
+              navigate('/');
+            } else {
+              setUserData(data);
+            }
+          }
         });
     }
 
