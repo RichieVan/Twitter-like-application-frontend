@@ -15,19 +15,15 @@ const AuthRequired: FC<AuthRedirectProps> = ({
 }): JSX.Element | null => {
   const { userStore } = useContext(Context);
 
-  const renderResult = (): JSX.Element | null => {
-    if (userStore.user && renderOnAuth) {
-      return renderOnAuth(userStore.user);
-    }
+  if (userStore.user && renderOnAuth) {
+    return renderOnAuth(userStore.user);
+  }
 
-    if (renderOnNotAuth) {
-      return renderOnNotAuth();
-    }
+  if (renderOnNotAuth) {
+    return renderOnNotAuth();
+  }
 
-    return null;
-  };
-
-  return renderResult();
+  return null;
 };
 
 export default observer(AuthRequired);
