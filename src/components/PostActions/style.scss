@@ -1,4 +1,4 @@
-.post-options {
+.post-actions {
   position: absolute;
   right: 8px;
   top: 8px;
@@ -33,15 +33,15 @@
         color: $color-blue;
       }
     }
-  }
 
-  &_big &__open-button {
-    width: 32px;
-    height: 32px;
-    font-size: 18px;
-
-    svg {
-      height: 18px;
+    &_big {
+      width: 32px;
+      height: 32px;
+      font-size: 18px;
+  
+      svg {
+        height: 18px;
+      }
     }
   }
 
@@ -99,7 +99,15 @@
       color: #fff;
     }
 
-    &_type_delete {
+    &_type_success {
+      color: $color-green;
+
+      &:hover {
+        color: $color-green;
+      }
+    }
+
+    &_type_error {
       color: $color-red;
 
       &:hover {
