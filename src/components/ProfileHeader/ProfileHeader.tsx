@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import FastAverageColor from 'fast-average-color';
 
-import ProfileStats from '../ProfileStats/ProfileStats';
-import ProfileInfo from '../ProfileInfo/ProfileInfo';
 import ProfileUserInfo from '../ProfileUserInfo/ProfileUserInfo';
 import { ProfileHeaderProps } from './types';
 
@@ -35,12 +33,8 @@ const ProfileHeader: FC<ProfileHeaderProps> = ({
 
   return (
     <div className="profile-header">
-      <div className="profile-header__wrapper">
-        <div className="profile-header__background" style={bgStyles} />
-        <ProfileUserInfo userData={userData} />
-      </div>
-      <ProfileStats userData={userData} />
-      <ProfileInfo userData={userData} />
+      <div className="profile-header__background" style={bgStyles} />
+      <ProfileUserInfo userData={userData} />
     </div>
   );
 };

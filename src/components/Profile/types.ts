@@ -1,3 +1,3 @@
-export type ProfileParams = {
-  username: string;
-};
+export interface ProfileProps {
+  username?: string;
+}

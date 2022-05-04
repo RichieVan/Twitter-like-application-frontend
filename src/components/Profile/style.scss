@@ -1,3 +1,17 @@
 .profile {
   position: relative;
+
+  &__top {
+    background: #161616;
+    border-bottom: 2px solid $border-color-light;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+  }
+
+  &__posts {
+    position: relative;
+    background: #161616;
+    border-bottom: 2px solid $border-color-light;
+  }
 }
