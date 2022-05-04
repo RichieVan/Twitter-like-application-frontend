@@ -1,15 +1,18 @@
-import { FC } from 'react';
+import { ComponentType, FC } from 'react';
+import { LoadingMaskProps } from '../../components/LoadingMask/types';
 
-interface ConditionalFeedbackProps<D> {
-  data: D[];
+interface CFHOCProps<D> {
+  data: D;
   isLoading: boolean;
-  emptyMessagePrimary: string;
-  emptyMessageSecondary: string;
+  loadingProps?: LoadingMaskProps;
+  emptyMessagePrimary?: string;
+  emptyMessageSecondary?: string;
+  emptyDataCallback?: () => void;
+  dataVerifyCallback: (data: D) => boolean;
 }
-interface ConditionalFeedbackConfig<P> {
-  propName?: keyof P;
+interface CFHOCConfig<P> {
+  propName: keyof P;
+  showEmptyDataMessage?: boolean;
 }
-type CFProps<D> = ConditionalFeedbackProps<D>;
-type CFConfig<P> = ConditionalFeedbackConfig<P>;
-type CFCallback<C> = (props: C) => JSX.Element;
-export type ConditionalFeedback = <D, P extends object>(Component: FC<Omit<P & CFProps<D>, 'data'>>, config?: CFConfig<P>) => CFCallback<P & CFProps<D>>;
+type CFHOCCallback<C> = (props: C) => JSX.Element;
+export type ConditionalFeedbackHOC = <D, P extends object>(config: CFHOCConfig<P>) => (BaseComponent: ComponentType<Omit<P, keyof CFHOCProps<D>>>) => CFHOCCallback<P & CFHOCProps<D>>;

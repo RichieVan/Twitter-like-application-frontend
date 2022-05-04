@@ -3,45 +3,46 @@
 import React from 'react';
 import EmptyDataMessage from '../../components/EmptyDataMessage/EmptyDataMessage';
 import LoadingMask from '../../components/LoadingMask/LoadingMask';
-import { ConditionalFeedback } from './types';
+import { ConditionalFeedbackHOC } from './types';
 
-const withConditionalFeedback: ConditionalFeedback = (Component, config) => {
-  const getPropName = (): string | number | symbol => {
-    if (config && config.propName) {
-      return config.propName;
-    }
-    return 'data';
-  };
-
-  return (props) => {
-    const { data, ...propsWithoutData } = props;
-    const { isLoading, emptyMessagePrimary, emptyMessageSecondary } = propsWithoutData;
-
+const withConditionalFeedback: ConditionalFeedbackHOC = ({
+  propName,
+  showEmptyDataMessage = true,
+}) => (BaseComponent) => {
+  return ({
+    data,
+    isLoading,
+    loadingProps,
+    emptyMessagePrimary,
+    emptyMessageSecondary,
+    emptyDataCallback,
+    dataVerifyCallback,
+    ...clearProps
+  }) => {
     if (isLoading) {
       return (
-        <LoadingMask
-          size={50}
-          bg="inherit"
-          opacity={1}
-        />
+        <LoadingMask {...loadingProps}/>
       );
     }
 
-    if (data.length === 0) {
-      return (
-        <EmptyDataMessage
-          primary={emptyMessagePrimary}
-          secondary={emptyMessageSecondary}
-        />
-      );
+    if (!dataVerifyCallback(data)) {
+      if (emptyDataCallback) emptyDataCallback();
+      if (showEmptyDataMessage && emptyMessagePrimary) {
+        return (
+          <EmptyDataMessage
+            primary={emptyMessagePrimary}
+            secondary={emptyMessageSecondary}
+          />
+        );
+      }
     }
 
     const enhancedProps = {
-      ...propsWithoutData,
-      [getPropName()]: data,
+      ...clearProps,
+      [propName]: data,
     };
 
-    return (<Component {...enhancedProps} />);
+    return (<BaseComponent {...enhancedProps} />);
   };
 };
 
