@@ -1,5 +1,5 @@
 .post-view {
-  position: relative;
+  // position: relative;
   background: $bg-color-1;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -70,5 +70,9 @@
   &__panel {
     display: flex;
     border-top: 1px solid $border-color-dark;
-  } 
+  }
+
+  &__comments {
+    position: relative;
+  }
 }
