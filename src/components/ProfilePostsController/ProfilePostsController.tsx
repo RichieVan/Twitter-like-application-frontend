@@ -15,7 +15,9 @@ import PostsList from '../PostsList/PostsList';
 import { PostsListProps } from '../PostsList/types';
 import { ProfilePostsControllerProps } from './types';
 
-const PostsListWithConditionalFeedback = withConditionalFeedback<PostData, PostsListProps>(PostsList, { propName: 'postsData' });
+const PostsListWithConditionalFeedback = withConditionalFeedback<PostData[], PostsListProps>({
+  propName: 'postsData',
+})(PostsList);
 
 const ProfilePostsController: FC<ProfilePostsControllerProps> = ({
   userData,
@@ -80,10 +82,14 @@ const ProfilePostsController: FC<ProfilePostsControllerProps> = ({
   return (
     <PostsListWithConditionalFeedback
       data={postsData}
+      dataVerifyCallback={(data) => data.length > 0}
       canLoadMore={canLoadMore}
       loadMoreAction={loadMoreAction}
       isSyncing={isSyncing}
       isLoading={isLoading}
+      loadingProps={{
+        position: 'static',
+      }}
       emptyMessagePrimary="Посты не найдены"
       emptyMessageSecondary="Пользователь еще не оставил ни одного поста"
     />
