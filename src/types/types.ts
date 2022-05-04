@@ -86,7 +86,6 @@ export interface IUserStore {
   checkAuthorization(): Promise<void>;
   subscribeToUser(id: number): Promise<SubsCountObject | undefined>;
   unsubscribeFromUser(id: number): Promise<SubsCountObject | undefined>;
-  getUserData(login: string): Promise<ExtendedUserData | undefined>;
   getProfileStats(userId: number): Promise<ProfileStatsData | undefined>;
 }
 
