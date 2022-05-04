@@ -1,37 +1,85 @@
-import React, {
-  FC, useContext, useEffect, useState,
-} from 'react';
+import React, { FC, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { Context } from '../../Context';
-import PostOptions from '../PostOptions/PostOptions';
+import PostOptions from '../PostActions/PostActions';
 import LikeButton from '../LikeButton/LikeButton';
 import CommentButton from '../CommentButton/CommentButton';
 import { PostProps } from './types';
+import formatPostText from '../../lib/formatPostText/formatPostText';
+import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
+import PostService from '../../services/PostService';
+import ErrorHelper from '../../helpers/ErrorHelper';
+import { APP_URL } from '../../http';
+import { faBan, faLink } from '@fortawesome/free-solid-svg-icons';
+import { PostAction } from '../PostActions/types';
 
 const Post: FC<PostProps> = ({
-  id,
   data,
-  contentArray,
 }) => {
-  const { userStore, appStore, postStore } = useContext(Context);
+  const { userStore, modalStore, postStore, notificationStore, appStore } = useContext(Context);
   const navigate = useNavigate();
   const location = useLocation();
-  const [postData, setPostData] = useState(data);
-
-  useEffect(() => {
-    setPostData(data);
-  }, [data]);
 
   const postClickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!(e.currentTarget.localName in ['a', 'button'])) {
-      postStore.setCurrentCommentsList([], true);
-      navigate(`/post/${postData.id}`, {
+      navigate(`/post/${data.id}`, {
         state: { backgroundLocation: location.pathname },
       });
     }
   };
+
+  const deleteActionHandler = () => {
+    modalStore.openModal(
+      <ConfirmPopup
+        text={['Вы уверены что хотите удалить пост?', 'Это действие нельзя отменить.']}
+        confirmText="Удалить"
+        declineText="Отмена"
+        confirmButtonMods={['fill', 'error']}
+        confirmAction={async (): Promise<void> => {
+          try {
+            const { data: deletedPostId } = await PostService.deletePost(data.id);
+            postStore.deleteFromFeedPostsList(deletedPostId);
+            notificationStore.show('Пост удален', 2500, 'success');
+          } catch (e) {
+            ErrorHelper.handleUnexpectedError();
+          }
+        }}
+      />,
+      {
+        heading: 'Подтвердите действие',
+        temporal: true,
+      },
+    );
+  };
+
+  const copyActionHandler = () => {
+    window.navigator.clipboard.writeText(`${APP_URL}/post/${data.id}`)
+      .then(() => {
+        notificationStore.show('Скопировано!', 2000, 'success');
+      });
+  };
+
+  const actions: PostAction[] = [{
+    name: 'Скопировать ссылку',
+    handler: copyActionHandler,
+    icon: faLink,
+  }];
+
+  if (userStore.user && userStore.user.id === data.user.id) {
+    actions.push({
+      name: 'Удалить пост',
+      handler: deleteActionHandler,
+      icon: faBan,
+      type: 'error',
+    });
+  }
+
+  const contentArray = formatPostText(data.textContent);
+  const isActivePost = appStore.activePostOptions?.id === data.id;
+  const isPostViewType = appStore.activePostOptions?.type === 'post';
+  const showActions = isActivePost && isPostViewType;
 
   return (
     <article className="post post_type_feed">
@@ -42,9 +90,9 @@ const Post: FC<PostProps> = ({
       >
         <div className="post__avatar">
           <Link
-            to={`/profile/${postData.user.login}`}
+            to={`/profile/${data.user.login}`}
             className="post__avatar-link"
-            style={{ backgroundImage: `url(${postData.user.id === userStore.user?.id ? userStore.user.avatar.url : postData.user.avatar.url})` }}
+            style={{ backgroundImage: `url(${data.user.id === userStore.user?.id ? userStore.user.avatar.url : data.user.avatar.url})` }}
             onClick={(e) => {
               e.stopPropagation();
             }}
@@ -53,15 +101,15 @@ const Post: FC<PostProps> = ({
         <div className="post__content-wrapper">
           <div className="post__heading">
             <Link
-              to={`/profile/${postData.user.login}`}
+              to={`/profile/${data.user.login}`}
               className="post__profile-link"
               onClick={(e) => {
                 e.stopPropagation();
               }}
             >
-              {postData.user.username}
+              {data.user.username}
             </Link>
-            <div className="post__datetime" title={postData.createdAt.title}>{postData.createdAt.view}</div>
+            <div className="post__datetime" title={data.createdAt.title}>{data.createdAt.view}</div>
           </div>
           <div className="post__content">
             {contentArray}
@@ -69,14 +117,18 @@ const Post: FC<PostProps> = ({
         </div>
       </div>
       <PostOptions
-        show={appStore.activePostOptions?.id === id && appStore.activePostOptions?.type === 'post'}
-        owner={postData.user.id}
-        postId={id}
-        type="post"
+        actions={actions}
+        show={showActions}
+        showHandler={() => {
+          appStore.setActivePostOptions({
+            id: data.id,
+            type: 'post',
+          })
+        }}
       />
       <div className="post__panel">
-        <LikeButton postData={postData} />
-        <CommentButton postData={postData} />
+        <LikeButton postData={data} />
+        <CommentButton postData={data} />
       </div>
     </article>
   );
