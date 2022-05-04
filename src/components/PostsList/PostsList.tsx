@@ -13,7 +13,7 @@ const PostsList: FC<PostsListProps> = ({
 }) => {
   const posts = postsData.map((val) => {
     const contentArray = formatPostText(val.textContent);
-    return (<Post key={val.id} id={val.id} data={val} contentArray={contentArray} />);
+    return (<Post key={val.id} data={val} />);
   });
 
   return (
