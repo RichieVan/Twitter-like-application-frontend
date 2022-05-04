@@ -12,7 +12,9 @@ import { PostData } from '../../types/types';
 import PostsList from '../PostsList/PostsList';
 import { PostsListProps } from '../PostsList/types';
 
-const PostsListWithConditionalFeedback = withConditionalFeedback<PostData, PostsListProps>(PostsList, { propName: 'postsData' });
+const PostsListWithConditionalFeedback = withConditionalFeedback<PostData[], PostsListProps>({
+  propName: 'postsData',
+})(PostsList);
 
 const FeedPostsController: FC = () => {
   const { postStore } = useContext(Context);
@@ -45,10 +47,14 @@ const FeedPostsController: FC = () => {
   return (
     <PostsListWithConditionalFeedback
       data={postStore.feedPostsList}
+      dataVerifyCallback={(data) => data.length > 0}
       canLoadMore={postStore.canLoadMore}
       loadMoreAction={loadMoreAction}
       isSyncing={postStore.syncing}
       isLoading={isLoading}
+      loadingProps={{
+        position: 'static',
+      }}
       emptyMessagePrimary="Посты не найдены"
       emptyMessageSecondary="Вероятно, вы ни на кого не подписаны"
     />
