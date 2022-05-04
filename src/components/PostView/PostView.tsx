@@ -9,7 +9,7 @@ import {
   useNavigate,
 } from 'react-router-dom';
 
-import PostOptions from '../PostOptions/PostOptions';
+import PostOptions from '../PostActions/PostActions';
 import PostService from '../../services/PostService';
 import formatPostText from '../../lib/formatPostText/formatPostText';
 import LikeButton from '../LikeButton/LikeButton';
@@ -19,7 +19,7 @@ import CopyLinkButton from '../CopyLinkButton/CopyLinkButton';
 import { LocationStateProps } from '../../types/types';
 import CommentsController from '../CommentsController/CommentsController';
 import { PostViewProps } from './types';
-import { PostAction } from '../PostOptions/types';
+import { PostAction } from '../PostActions/types';
 import { faBan, faLink } from '@fortawesome/free-solid-svg-icons';
 import ConfirmPopup from '../ConfirmPopup/ConfirmPopup';
 import { APP_URL } from '../../http';
