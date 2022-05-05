@@ -86,7 +86,6 @@ export interface IUserStore {
   checkAuthorization(): Promise<void>;
   subscribeToUser(id: number): Promise<SubsCountObject | undefined>;
   unsubscribeFromUser(id: number): Promise<SubsCountObject | undefined>;
-  getUserData(login: string): Promise<ExtendedUserData | undefined>;
   getProfileStats(userId: number): Promise<ProfileStatsData | undefined>;
 }
 
@@ -157,7 +156,6 @@ export type CurrentList = {
 
 export interface IPostStore {
   feedPostsList: PostData[] | null;
-  currentCommentsList: PostData[];
   firstLoaded: PostData | null;
   lastLoaded: PostData | null;
   canLoadMore: boolean;
@@ -171,25 +169,15 @@ export interface IPostStore {
   setCurrentList(state: CurrentList): void;
   setCanLoadMore(state: boolean): void;
   setFeedPostsList(state: PostData[] | null): void;
-  setCurrentCommentsList(comments: PostData[], clear: boolean): void;
   setFeedType(state: 'subs' | 'all'): void;
   setCanChangeFeedType(state: boolean): void;
   deleteFromFeedPostsList(id: number): void;
-  deleteFromCurrentCommentsList(id: number): void;
   createPost(postData: BaseNewPostData): Promise<void>;
-  createComment(postData: NewCommentData): Promise<void>;
   fetchPosts(): Promise<PostData[]>;
   loadMorePosts(): Promise<boolean>;
   syncPosts(): Promise<void>;
-  fetchComments(postId: number): Promise<PostData[]>;
-  // loadNewPosts(): Promise<void>;
   deletePost(id: number): Promise<void>;
-  deleteComment(id: number): Promise<void>;
-  likePost(id: number): Promise<number>;
-  unlikePost(id: number): Promise<number>;
-  // getUserPosts(id: number): Promise<FetchedPostsData>;
   loadMoreUserPosts(userId: number, fromPost: PostData): Promise<FetchedPostsData>;
-  // syncUserPosts(userId: number, fromPost: PostData): Promise<PostData[]>;
 }
 
 export type AppStoreAliases = {

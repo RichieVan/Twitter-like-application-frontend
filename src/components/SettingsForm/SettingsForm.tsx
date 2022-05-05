@@ -2,7 +2,6 @@ import React, {
   useContext,
   useEffect,
   useState,
-  useRef,
   FC,
 } from 'react';
 import {
@@ -30,8 +29,12 @@ const SettingsForm: FC<SettingsFormProps> = ({
   const [isUpdatingAvatar, setIsUpdatingAvatar] = useState(false);
   const [goBack, setGoBack] = useState<GoBackFunction>(null);
   const [formValidated, setFormValidated] = useState(true);
-  const isFirstLoading = useRef(true);
 
+  useEffect(() => {
+    document.title = 'Настройки пользователя';
+  }, []);
+
+  const [avatar, setAvatar] = useState<UserAvatarData>(userData.avatar);
   const username = useValidatedInput(userData.username, {
     len: { min: 3, max: 26 },
   });
@@ -39,14 +42,8 @@ const SettingsForm: FC<SettingsFormProps> = ({
     len: { min: 0, max: 200 },
     linebreaks: 9,
   });
-  const [avatar, setAvatar] = useState<UserAvatarData>(userData.avatar);
 
   useEffect(() => {
-    if (isFirstLoading.current) {
-      document.title = 'Настройки пользователя';
-      isFirstLoading.current = false;
-    }
-
     if (username.validated && about.validated) setFormValidated(true);
     else setFormValidated(false);
   }, [username, about]);

@@ -1,6 +1,7 @@
-import { PostUserData } from '../../types/types';
+import { PostData, PostUserData } from '../../types/types';
 
 export interface CommentsListProps {
-  postId: number;
+  commentsData?: PostData[];
   postOwner: PostUserData;
+  deleteCommentHandler: (id: number) => void;
 }

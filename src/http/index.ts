@@ -23,7 +23,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error: RetriableError) => {
     const originalRequest = error.config;
-    if (error.response?.status === 401 && error.config && !originalRequest.isRetry) {
+    if (error.response?.status === 401 && originalRequest && !originalRequest.isRetry) {
       originalRequest.isRetry = true;
       try {
         const response = await axios.get<UserDataWithTokens>(`${API_URL}/refresh`, { withCredentials: true });

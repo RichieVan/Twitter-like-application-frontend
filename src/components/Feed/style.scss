@@ -2,4 +2,9 @@
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   background: $bg-color-1;
+
+  &__posts {
+    position: relative;
+    background: #161616;
+  }
 }

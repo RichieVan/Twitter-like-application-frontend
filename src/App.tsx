@@ -9,15 +9,21 @@ import {
 
 import { Context } from './Context';
 import Layout from './Layout';
-import Profile from './components/Profile/Profile';
 import Feed from './components/Feed/Feed';
 import LocationModal from './components/Modal/LocationModal';
 import AuthRequired from './components/AuthRequired';
 import Greeting from './components/Greeting/Greeting';
-import PostView from './components/PostView/PostView';
 import SettingsForm from './components/SettingsForm/SettingsForm';
 import { LocationStateProps, UserData } from './types/types';
 import GlobalMask from './components/GlobalMask/GlobalMask';
+import PostViewController from './components/PostViewController/PostViewController';
+import withUrlParamsVerify from './hoc/withUrlParams/withUrlParams';
+import Profile from './components/Profile/Profile';
+import { ProfileProps } from './components/Profile/types';
+
+const ProfileWithUrlParams = withUrlParamsVerify<ProfileProps>(Profile, {
+  params: ['username'],
+})
 
 const App: FC = () => {
   const {
@@ -62,7 +68,7 @@ const App: FC = () => {
             element={(
               <AuthRequired
                 renderOnNotAuth={() => (<Navigate to="/" />)}
-                renderOnAuth={() => (<Feed />)}
+                renderOnAuth={(userData: UserData) => (<Feed userData={userData} />)}
               />
             )}
           />
@@ -82,10 +88,12 @@ const App: FC = () => {
           <Route
             path="post/:id"
             element={
-              <PostView />
+              <PostViewController />
             }
           />
-          <Route path="profile/:username" element={<Profile />} />
+          <Route path="profile/:username" element={(
+            <ProfileWithUrlParams />
+          )} />
           <Route path="*" element={<p>Ничего не найдено</p>} />
         </Route>
       </Routes>
@@ -115,7 +123,7 @@ const App: FC = () => {
                   if (postStore.syncFunction) postStore.syncFunction();
                 }}
               >
-                <PostView />
+                <PostViewController />
               </LocationModal>
             )}
           />

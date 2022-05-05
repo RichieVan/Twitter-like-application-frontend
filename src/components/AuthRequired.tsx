@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 
 import { Context } from '../Context';
 import { UserData } from '../types/types';
@@ -14,15 +14,16 @@ const AuthRequired: FC<AuthRedirectProps> = ({
   renderOnAuth,
 }): JSX.Element | null => {
   const { userStore } = useContext(Context);
-  let result: JSX.Element | null = null;
 
   if (userStore.user && renderOnAuth) {
-    result = renderOnAuth(userStore.user);
-  } else if (renderOnNotAuth) {
-    result = renderOnNotAuth();
+    return renderOnAuth(userStore.user);
   }
 
-  return result;
+  if (renderOnNotAuth) {
+    return renderOnNotAuth();
+  }
+
+  return null;
 };
 
 export default observer(AuthRequired);

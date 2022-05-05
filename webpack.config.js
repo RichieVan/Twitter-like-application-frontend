@@ -26,7 +26,7 @@ module.exports = {
         use: 'babel-loader',
       },
       {
-        test: /\.(tsx|ts)$/,
+        test: /\.(tsx|ts)$/,  
         exclude: '/node_modules',
         use: 'ts-loader',
       },
@@ -58,7 +58,7 @@ module.exports = {
           {
             loader: 'react-svg-loader',
             options: {
-              jsx: true, // true outputs JSX tags
+              jsx: true,
             },
           },
         ],

@@ -61,19 +61,19 @@
 
   &__input {
     position: relative;
-    min-height: 35px;
     width: 100%;
     max-width: 100%;
     padding: 10px 0 5px;
     margin-bottom: 10px;
+    border: none;
     border-bottom: 2px solid $border-color-light;
+    background: inherit;
     outline: none;
     font-size: 20px;
     white-space: normal;
 
-    &:empty::before {
+    &::placeholder {
       color: $text-color;
-      cursor: text;
     }
   }
 
@@ -81,19 +81,11 @@
     border-top-right-radius: inherit;
     border-top-left-radius: inherit;
   }
-  
-  &_type_post &__input:empty::before {
-    content: 'Напишите что-нибудь...';
-  }
 
   &_type_comment {
     background: inherit;
     padding-top: 25px;
     padding-bottom: 25px;
-  }
-  
-  &_type_comment &__input:empty::before {
-    content: 'Напишите комментарий...';
   }
 }
 

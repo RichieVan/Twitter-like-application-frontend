@@ -10,8 +10,9 @@ const LoadMoreButton: FC<LoadMoreButtonProps> = ({
   const clickHandler = () => {
     setIsLoading(true);
     action()
-      .then(() => setIsLoading(false))
-      .catch((callback) => callback());
+      .then((result) => {
+        if (result) setIsLoading(false);
+      });
   };
 
   return (

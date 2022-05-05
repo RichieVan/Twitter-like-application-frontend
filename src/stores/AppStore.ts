@@ -32,7 +32,7 @@ class AppStore implements IAppStore {
     this.isGlobalLoading = state;
   }
 
-  setActivePostOptions(state: { id: number; type: any; } | null): void {
+  setActivePostOptions(state: ActivePostOptions | null): void {
     this.activePostOptions = state;
   }
 

@@ -49,7 +49,7 @@ class UserService {
     return api.post('/user/unsubscribe', { id });
   }
 
-  static async getUserData(username: string): RequestPromise<ExtendedUserData> {
+  static async getUserData(username: string): RequestPromise<ExtendedUserData | null> {
     return api.get('/user', {
       params: { username },
     });

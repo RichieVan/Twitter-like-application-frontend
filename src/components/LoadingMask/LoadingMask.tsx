@@ -4,10 +4,11 @@ import getClassList from '../../lib/getClassList/getClassList';
 import { LoadingMaskProps } from './types';
 
 const LoadingMask: FC<LoadingMaskProps> = ({
-  size,
+  size = 50,
+  position = 'absolute',
   bg = 'transparent',
+  opacity = 1,
   weight,
-  opacity,
 }) => {
   const mods = [`bg_${bg}`];
   if (weight) mods.push(`weight_${weight}`);
@@ -15,6 +16,7 @@ const LoadingMask: FC<LoadingMaskProps> = ({
 
   const styles = {
     opacity,
+    position,
   };
 
   return (

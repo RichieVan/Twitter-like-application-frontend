@@ -123,11 +123,6 @@ export default class UserStore implements IUserStore {
     return data;
   }
 
-  async getUserData(login: string): Promise<ExtendedUserData> {
-    const { data } = await UserService.getUserData(login);
-    return data;
-  }
-
   async getProfileStats(userId: number): Promise<ProfileStatsData> {
     const { data } = await UserService.getProfileStats(userId);
     return data;

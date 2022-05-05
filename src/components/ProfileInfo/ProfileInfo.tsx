@@ -9,8 +9,9 @@ import { ProfileInfoProps } from './types';
 
 const ProfileInfo: FC<ProfileInfoProps> = ({
   userData,
+  showSubscribeButton,
 }) => {
-  const { userStore, notificationStore } = useContext(Context);
+  const { notificationStore } = useContext(Context);
   const [subscribed, setSubscribed] = useState(userData.currentUserSubscribed);
 
   const subscribeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,7 +64,6 @@ const ProfileInfo: FC<ProfileInfoProps> = ({
 
   const noInfoMessage = 'Пользователь не оставил информации о себе';
   const aboutText = userData.about ? formatPostText(userData.about) : noInfoMessage;
-  const showSubscribeButton = userStore.user?.id && (userData.id !== userStore.user.id);
 
   return (
     <div className="profile-info">
