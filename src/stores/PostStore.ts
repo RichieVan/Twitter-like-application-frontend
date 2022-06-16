@@ -3,10 +3,9 @@ import ErrorHelper from '../helpers/ErrorHelper';
 
 import PostService from '../services/PostService';
 import {
-  BaseNewPostData,
   CurrentList,
   FetchedPostsData,
-  IPostStore,
+  IPostStore, NewPostData,
   PostData,
 } from '../types/types';
 
@@ -80,22 +79,10 @@ export default class PostStore implements IPostStore {
     }
   }
 
-  async createPost(postData: BaseNewPostData): Promise<void> {
+  async createPost(postData: NewPostData): Promise<void> {
     try {
-      this.setSyncing(true);
-      const fromPost = toJS(this.firstLoaded);
-      const fromTimestamp = new Date(fromPost?.createdAt.timestamp || 0).toISOString();
-      const { data } = await PostService.create({
-        ...postData,
-        params: {
-          fromTimestamp,
-          fromId: fromPost?.id || 0,
-          forSubs: this.feedType === 'subs',
-        },
-      });
-
-      this.setFeedPostsList(data);
-      this.setSyncing(false);
+      await PostService.create(postData);
+      return this.syncPosts();
     } catch (e) {
       this.setSyncing(false);
       ErrorHelper.handleUnexpectedError();
