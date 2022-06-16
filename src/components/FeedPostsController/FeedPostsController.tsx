@@ -11,6 +11,7 @@ import withConditionalFeedback from '../../hoc/withConditionalFeedback/withCondi
 import { PostData } from '../../types/types';
 import PostsList from '../PostsList/PostsList';
 import { PostsListProps } from '../PostsList/types';
+import PostService from '../../services/PostService';
 
 const PostsListWithConditionalFeedback = withConditionalFeedback<PostData[], PostsListProps>({
   propName: 'postsData',
@@ -20,7 +21,7 @@ const FeedPostsController: FC = () => {
   const { postStore } = useContext(Context);
   const [isLoading, setIsLoading] = useState(true);
 
-  const syncFunction = () => {
+  const syncFunction = (): void => {
     postStore.syncPosts();
   };
 
@@ -43,6 +44,19 @@ const FeedPostsController: FC = () => {
         resolve(canLoad);
       });
   });
+
+  const postDeleteAction = (id: number): void => {
+    PostService
+      .deletePost(id)
+      .then(({ data: deletedPostId }) => {
+        // setPostsData(postsData.filter(({ id: postId }) => postId !== deletedPostId));
+        // store value filter
+        // show notification
+      })
+      .catch(() => {
+        // show notification
+      })
+  }
 
   return (
     <PostsListWithConditionalFeedback

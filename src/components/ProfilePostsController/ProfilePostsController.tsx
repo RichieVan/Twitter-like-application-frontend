@@ -79,6 +79,18 @@ const ProfilePostsController: FC<ProfilePostsControllerProps> = ({
     }
   });
 
+  const postDeleteAction = (id: number): void => {
+    PostService
+      .deletePost(id)
+      .then(({ data: deletedPostId }) => {
+        setPostsData(postsData.filter(({ id: postId }) => postId !== deletedPostId));
+        // show notification
+      })
+      .catch(() => {
+        // show notification
+      })
+  }
+
   return (
     <PostsListWithConditionalFeedback
       data={postsData}
