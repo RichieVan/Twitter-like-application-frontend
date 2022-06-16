@@ -101,13 +101,9 @@ export type PostRequestParams = {
   forSubs?: boolean;
 };
 
-export type BaseNewPostData = {
+export type NewPostData = {
   textContent: string;
   userId: number;
-};
-
-export type NewPostData = BaseNewPostData & {
-  params: PostRequestParams;
 };
 
 export type BaseNewCommentData = {
@@ -172,7 +168,7 @@ export interface IPostStore {
   setFeedType(state: 'subs' | 'all'): void;
   setCanChangeFeedType(state: boolean): void;
   deleteFromFeedPostsList(id: number): void;
-  createPost(postData: BaseNewPostData): Promise<void>;
+  createPost(postData: NewPostData): Promise<void>;
   fetchPosts(): Promise<PostData[]>;
   loadMorePosts(): Promise<boolean>;
   syncPosts(): Promise<void>;

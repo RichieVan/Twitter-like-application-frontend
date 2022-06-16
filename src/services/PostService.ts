@@ -9,15 +9,9 @@ import {
 } from '../types/types';
 
 export default class PostService {
-  static async create(data: NewPostData): RequestPromise<PostData[]> {
+  static async create(data: NewPostData): RequestPromise<PostData> {
     return api.post('/posts', data);
   }
-
-  // static async getAllByUserId(userId: number): RequestPromise<PostData[]> {
-  //   return api.get('/posts', {
-  //     params: { userId },
-  //   });
-  // }
 
   static async getFeed(params: PostRequestParams): RequestPromise<FetchedPostsData> {
     return api.get('/posts', { params });
