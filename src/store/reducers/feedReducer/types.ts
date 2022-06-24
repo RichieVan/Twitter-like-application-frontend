@@ -30,5 +30,5 @@ export interface DeletePostPayload {
   id: number;
 }
 
-export const ASYNC_FETCH_POSTS = 'feed/asyncFetchPosts';
-export const ASYNC_LOAD_MORE_POSTS = 'feed/asyncLoadMorePosts';
+export const FEED_FETCH_POSTS = 'feed/asyncFetchPosts';
+export const FEED_LOAD_MORE_POSTS = 'feed/asyncLoadMorePosts';

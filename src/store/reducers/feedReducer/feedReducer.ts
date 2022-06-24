@@ -2,7 +2,10 @@ import {
   Action, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import {
-  ASYNC_FETCH_POSTS, ASYNC_LOAD_MORE_POSTS, DeletePostPayload, FeedState,
+  FEED_FETCH_POSTS,
+  FEED_LOAD_MORE_POSTS,
+  DeletePostPayload,
+  FeedState,
   FetchPostsSuccessPayload,
   LoadMorePostsSuccessPayload,
   SetPostsPayload,
@@ -67,11 +70,11 @@ const feedSlice = createSlice({
 });
 
 export const asyncFetchPosts = (): Action => ({
-  type: ASYNC_FETCH_POSTS,
+  type: FEED_FETCH_POSTS,
 });
 
 export const asyncLoadMorePosts = (): Action => ({
-  type: ASYNC_LOAD_MORE_POSTS,
+  type: FEED_LOAD_MORE_POSTS,
 });
 
 export const {
