@@ -255,8 +255,8 @@ export interface LayoutProps {
 }
 
 export type ApiErrorData = {
-  message?: string;
-  errors?: string[];
+  message: string;
+  errors: string[];
 };
 
 export type ApiErrorProps = {
