@@ -2,14 +2,15 @@ import {
   Action, createSlice, PayloadAction,
 } from '@reduxjs/toolkit';
 import {
-  ASYNC_SYNC_POSTS,
-  PostState,
+  POST_SYNC,
+  PostState, SetActivePostOptionsPayload,
   ToggleSyncingPayload,
 } from './types';
 
 const initialState: PostState = {
   syncing: false,
   syncFunction: null,
+  activePostOptions: null,
 };
 
 const postSlice = createSlice({
@@ -24,15 +25,25 @@ const postSlice = createSlice({
     //   ...state,
     //   feedPostsList: state.feedPostsList.filter((postData) => postData.id !== id),
     // }),
+    setActivePostOptions: (
+      state,
+      {
+        payload,
+      }: PayloadAction<SetActivePostOptionsPayload>,
+    ) => ({
+      ...state,
+      activePostOptions: payload,
+    }),
   },
 });
 
 export const asyncSyncPosts = (): Action => ({
-  type: ASYNC_SYNC_POSTS,
+  type: POST_SYNC,
 });
 
 export const {
   toggleSyncing,
+  setActivePostOptions,
 } = postSlice.actions;
 
 export default postSlice.reducer;
