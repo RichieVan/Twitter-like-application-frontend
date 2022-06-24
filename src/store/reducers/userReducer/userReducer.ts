@@ -1,7 +1,12 @@
 import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserLoginData } from '../../../types/types';
+import { UserLoginData, UserRegistrationData } from '../../../types/types';
 import {
-  ASYNC_USER_LOGIN, ASYNC_USER_LOGOUT, UserPayload, UserState,
+  USER_LOGIN,
+  USER_REGISTRATION,
+  USER_LOGOUT,
+  USER_CHECK_AUTHORIZATION,
+  UserPayload,
+  UserState, USER_UPDATE,
 } from './types';
 
 const initialState: UserState = {
@@ -24,12 +29,28 @@ const userReducer = createSlice({
 });
 
 export const { setUser, clearUser } = userReducer.actions;
-export const asyncUserLogin = (loginData: UserLoginData): PayloadAction<UserLoginData> => ({
-  type: ASYNC_USER_LOGIN,
-  payload: loginData,
+export const asyncUserLogin = (payload: UserLoginData): PayloadAction<UserLoginData> => ({
+  type: USER_LOGIN,
+  payload,
 });
+
 export const asyncUserLogout = (): Action => ({
-  type: ASYNC_USER_LOGOUT,
+  type: USER_LOGOUT,
+});
+
+export const asyncUserRegistration = (
+  payload: UserRegistrationData,
+): PayloadAction<UserRegistrationData> => ({
+  type: USER_REGISTRATION,
+  payload,
+});
+
+export const asyncCheckAuthorization = (): Action => ({
+  type: USER_CHECK_AUTHORIZATION,
+});
+
+export const asyncUserUpdate = (): Action => ({
+  type: USER_UPDATE,
 });
 
 export default userReducer.reducer;
