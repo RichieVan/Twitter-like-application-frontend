@@ -1,5 +1,6 @@
 import {
   takeLeading,
+  takeEvery,
   takeLatest,
   call,
   put,
@@ -11,15 +12,20 @@ import ErrorHelper from '../helpers/ErrorHelper';
 import {
   selectFeedType,
   selectFeedFirstLoaded,
+  selectFeedPosts,
 } from '../store/reducers/feedReducer/selectors';
 import {
-  loadMorePostsSuccess,
+  setPosts,
+  toggleSyncing,
+  toggleLoading,
   fetchPostsSuccess,
+  loadMorePostsSuccess,
 } from '../store/reducers/feedReducer/feedReducer';
 import getPostQueryParams from '../lib/getPostQueryParams/getPostQueryParams';
 import {
-  ASYNC_FETCH_POSTS,
-  ASYNC_LOAD_MORE_POSTS,
+  FEED_FETCH_POSTS,
+  FEED_LOAD_MORE_POSTS,
+  FEED_SYNC_POSTS,
 } from '../store/reducers/feedReducer/types';
 
 function* getPostsRequestData(withFeedType: boolean) {
@@ -36,6 +42,7 @@ function* getPostsRequestData(withFeedType: boolean) {
 
 function* fetchPosts() {
   try {
+    yield put(toggleLoading(true));
     const feedType: ReturnType<typeof selectFeedType> = yield select(selectFeedType);
     const {
       data: {
@@ -56,6 +63,8 @@ function* fetchPosts() {
     }));
   } catch (e) {
     ErrorHelper.handleUnexpectedError();
+  } finally {
+    yield put(toggleLoading(false));
   }
 }
 
@@ -74,40 +83,27 @@ function* loadMorePosts() {
   yield put(loadMorePostsSuccess({ posts, canLoadMore }));
 }
 
-// function* syncPosts() {
-//   const feedPosts: ReturnType<typeof selectFeedPosts> = yield select(selectFeedPosts);
-//   const firstLoaded: ReturnType<typeof selectFirstLoaded> = yield select(selectFirstLoaded);
-//
-//   if (feedPosts.length > 0 && firstLoaded) {
-//     yield put(toggleSyncing({ status: true }));
-//     const requestParams: PostRequestParams = yield call(getPostsRequestData, true);
-//     const { data }: Awaited<ReturnType<typeof PostService.syncPosts>> = yield call(
-//       PostService.syncPosts,
-//       requestParams,
-//     );
-//
-//     yield put(setFeedPosts({ posts: data }));
-//     yield put(toggleSyncing({ status: false }));
-//   }
-//   yield put(toggleSyncing({ status: false }));
-// }
+function* syncFeedPosts() {
+  const feedPosts: ReturnType<typeof selectFeedPosts> = yield select(selectFeedPosts);
+  const firstLoaded: ReturnType<typeof selectFeedFirstLoaded> = yield select(selectFeedFirstLoaded);
 
-// function* deletePost({ payload: { id } }: PayloadAction<DeletePostPayload>) {
-//   try {
-//     const { data }: Awaited<ReturnType<typeof PostService.deletePost>> = yield call(
-//       PostService.deletePost,
-//       id,
-//     );
-//     yield put(deletePostSuccess({ id: data }));
-//   } catch (e) {
-//     ErrorHelper.handleUnexpectedError();
-//   }
-// }
+  if (feedPosts.length > 0 && firstLoaded) {
+    yield put(toggleSyncing(true));
+    const requestParams: PostRequestParams = yield call(getPostsRequestData, true);
+    const { data }: Awaited<ReturnType<typeof PostService.syncPosts>> = yield call(
+      PostService.syncPosts,
+      requestParams,
+    );
 
-function* postWatcher() {
-  yield takeLatest(ASYNC_FETCH_POSTS, fetchPosts);
-  yield takeLeading(ASYNC_LOAD_MORE_POSTS, loadMorePosts);
-  // yield takeLatest(ASYNC_SYNC_POSTS, syncPosts);
+    yield put(setPosts(data));
+  }
+  yield put(toggleSyncing(false));
 }
 
-export default postWatcher;
+function* feedWatcher() {
+  yield takeLatest(FEED_FETCH_POSTS, fetchPosts);
+  yield takeLeading(FEED_LOAD_MORE_POSTS, loadMorePosts);
+  yield takeEvery(FEED_SYNC_POSTS, syncFeedPosts);
+}
+
+export default feedWatcher;

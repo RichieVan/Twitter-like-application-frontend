@@ -4,6 +4,8 @@ export type FeedType = 'subs' | 'all';
 
 export interface FeedState {
   posts: PostData[];
+  loading: boolean;
+  syncing: boolean;
   firstLoaded: PostData | null;
   lastLoaded: PostData | null;
   canLoadMore: boolean;
@@ -11,9 +13,7 @@ export interface FeedState {
   canChangeType: boolean;
 }
 
-export interface SetPostsPayload {
-  posts: PostData[];
-}
+export type SetPostsPayload = PostData[];
 
 export interface FetchPostsSuccessPayload {
   posts: PostData[];
@@ -32,3 +32,4 @@ export interface DeletePostPayload {
 
 export const FEED_FETCH_POSTS = 'feed/asyncFetchPosts';
 export const FEED_LOAD_MORE_POSTS = 'feed/asyncLoadMorePosts';
+export const FEED_SYNC_POSTS = 'feed/asyncSyncPosts';
