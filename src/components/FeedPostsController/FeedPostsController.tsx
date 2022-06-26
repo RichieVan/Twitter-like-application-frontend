@@ -1,48 +1,64 @@
 import { observer } from 'mobx-react-lite';
 import React, {
   FC,
-  useState,
-  useContext,
   useEffect,
 } from 'react';
 
-import { Context } from '../../Context';
+import { useLocation } from 'react-router-dom';
 import withConditionalFeedback from '../../hoc/withConditionalFeedback/withConditionalFeedback';
 import { PostData } from '../../types/types';
 import PostsList from '../PostsList/PostsList';
 import { PostsListProps } from '../PostsList/types';
 import PostService from '../../services/PostService';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import {
+  selectFeedCanLoadMore,
+  selectFeedLoading,
+  selectFeedPosts, selectFeedSyncing,
+} from '../../store/reducers/feedReducer/selectors';
+import {
+  asyncFeedSyncPosts,
+  asyncFetchPosts,
+  asyncLoadMorePosts,
+  toggleLoading,
+} from '../../store/reducers/feedReducer/feedReducer';
 
 const PostsListWithConditionalFeedback = withConditionalFeedback<PostData[], PostsListProps>({
   propName: 'postsData',
 })(PostsList);
 
-const FeedPostsController: FC = () => {
-  const { postStore } = useContext(Context);
-  const [isLoading, setIsLoading] = useState(true);
+const dataVerifyCallback = (data: PostData[]): boolean => data.length > 0;
 
-  const syncFunction = (): void => {
-    postStore.syncPosts();
-  };
+const FeedPostsController: FC = () => {
+  const dispatch = useAppDispatch();
+  const posts = useAppSelector(selectFeedPosts);
+  const canLoadMore = useAppSelector(selectFeedCanLoadMore);
+  const loading = useAppSelector(selectFeedLoading);
+  const syncing = useAppSelector(selectFeedSyncing);
+  const location = useLocation();
 
   useEffect(() => {
-    postStore.setSyncFunction(syncFunction);
-    if (postStore.feedPostsList.length === 0) {
-      postStore
-        .fetchPosts()
-        .then(() => setIsLoading(false));
-    } else {
-      setIsLoading(false);
+    if (location.pathname === '/feed') {
+      dispatch(asyncFeedSyncPosts());
     }
-  }, [postStore]);
+  }, [dispatch, location.pathname]);
 
-  const loadMoreAction = () => new Promise<boolean>((resolve) => {
-    postStore
-      .loadMorePosts()
-      .then((canLoad) => {
-        postStore.setCanLoadMore(canLoad);
-        resolve(canLoad);
-      });
+  useEffect(() => {
+    if (posts.length === 0) {
+      dispatch(asyncFetchPosts());
+    } else {
+      dispatch(toggleLoading(false));
+    }
+  }, [dispatch, posts]);
+
+  const loadMoreAction = () => new Promise<boolean>(() => {
+    dispatch(asyncLoadMorePosts());
+    // postStore
+    //   .loadMorePosts()
+    //   .then((canLoad) => {
+    //     postStore.setCanLoadMore(canLoad);
+    //     resolve(canLoad);
+    //   });
   });
 
   const postDeleteAction = (id: number): void => {
@@ -55,17 +71,17 @@ const FeedPostsController: FC = () => {
       })
       .catch(() => {
         // show notification
-      })
-  }
+      });
+  };
 
   return (
     <PostsListWithConditionalFeedback
-      data={postStore.feedPostsList}
-      dataVerifyCallback={(data) => data.length > 0}
-      canLoadMore={postStore.canLoadMore}
+      data={posts}
+      dataVerifyCallback={dataVerifyCallback}
+      canLoadMore={canLoadMore}
       loadMoreAction={loadMoreAction}
-      isSyncing={postStore.syncing}
-      isLoading={isLoading}
+      isSyncing={syncing}
+      isLoading={loading}
       loadingProps={{
         position: 'static',
       }}
