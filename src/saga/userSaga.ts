@@ -13,7 +13,7 @@ import {
   UserRegistrationData,
   UserUpdateData,
 } from '../types/types';
-import { clearUser, setUser } from '../store/reducers/userReducer/userReducer';
+import { clearUser, setUser } from '../store/stores/user';
 import UserService from '../services/UserService';
 import ErrorHelper from '../helpers/ErrorHelper';
 import {
@@ -21,9 +21,9 @@ import {
   USER_LOGOUT,
   USER_REGISTRATION,
   USER_UPDATE,
-} from '../store/reducers/userReducer/types';
+} from '../store/stores/user/types';
 import TokenService from '../services/TokenService';
-import { setLoginErrors, setRegistrationErrors } from '../store/reducers/formReducer/formReducer';
+import { setLoginErrors, setRegistrationErrors } from '../store/stores/form';
 import isAxiosError from '../guards/isAxiosError';
 import { API_URL } from '../http';
 

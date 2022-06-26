@@ -13,7 +13,7 @@ const initialState: UserState = {
   user: null,
 };
 
-const userReducer = createSlice({
+const userStore = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -28,7 +28,7 @@ const userReducer = createSlice({
   },
 });
 
-export const { setUser, clearUser } = userReducer.actions;
+export const { setUser, clearUser } = userStore.actions;
 export const asyncUserLogin = (payload: UserLoginData): PayloadAction<UserLoginData> => ({
   type: USER_LOGIN,
   payload,
@@ -53,4 +53,4 @@ export const asyncUserUpdate = (): Action => ({
   type: USER_UPDATE,
 });
 
-export default userReducer.reducer;
+export default userStore.reducer;

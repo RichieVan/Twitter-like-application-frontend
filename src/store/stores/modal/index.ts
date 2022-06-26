@@ -14,7 +14,7 @@ const modalNameFilter = (namesArray: string[], modalName: string) => (
   namesArray.filter((arrayItem: string) => arrayItem !== modalName)
 );
 
-const modalSlice = createSlice({
+const modalStore = createSlice({
   name: 'modal',
   initialState,
   reducers: {
@@ -85,6 +85,6 @@ const modalSlice = createSlice({
   },
 });
 
-export const { openModal } = modalSlice.actions;
+export const { openModal } = modalStore.actions;
 
-export default modalSlice.reducer;
+export default modalStore.reducer;

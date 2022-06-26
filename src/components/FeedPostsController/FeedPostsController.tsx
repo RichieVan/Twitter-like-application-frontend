@@ -15,13 +15,13 @@ import {
   selectFeedCanLoadMore,
   selectFeedLoading,
   selectFeedPosts, selectFeedSyncing,
-} from '../../store/reducers/feedReducer/selectors';
+} from '../../store/stores/feed/selectors';
 import {
   asyncFeedSyncPosts,
   asyncFetchPosts,
   asyncLoadMorePosts,
   toggleLoading,
-} from '../../store/reducers/feedReducer/feedReducer';
+} from '../../store/stores/feed';
 
 const PostsListWithConditionalFeedback = withConditionalFeedback<PostData[], PostsListProps>({
   propName: 'postsData',

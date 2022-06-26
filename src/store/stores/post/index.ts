@@ -9,7 +9,7 @@ const initialState: PostState = {
   activePostOptions: null,
 };
 
-const postSlice = createSlice({
+const postStore = createSlice({
   name: 'post',
   initialState,
   reducers: {
@@ -27,6 +27,6 @@ const postSlice = createSlice({
 
 export const {
   setActivePostOptions,
-} = postSlice.actions;
+} = postStore.actions;
 
-export default postSlice.reducer;
+export default postStore.reducer;

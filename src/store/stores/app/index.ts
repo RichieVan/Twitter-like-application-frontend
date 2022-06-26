@@ -9,7 +9,7 @@ const initialState: AppState = {
   },
 };
 
-const appSlice = createSlice({
+const appStore = createSlice({
   name: 'app',
   initialState,
   reducers: {
@@ -34,6 +34,6 @@ const appSlice = createSlice({
   },
 });
 
-export const { toggleFirstLoading, toggleGlobalLoading } = appSlice.actions;
+export const { toggleFirstLoading, toggleGlobalLoading } = appStore.actions;
 
-export default appSlice.reducer;
+export default appStore.reducer;

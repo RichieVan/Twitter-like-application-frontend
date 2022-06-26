@@ -13,20 +13,20 @@ import {
   selectFeedType,
   selectFeedFirstLoaded,
   selectFeedPosts,
-} from '../store/reducers/feedReducer/selectors';
+} from '../store/stores/feed/selectors';
 import {
   setPosts,
   toggleSyncing,
   toggleLoading,
   fetchPostsSuccess,
   loadMorePostsSuccess,
-} from '../store/reducers/feedReducer/feedReducer';
+} from '../store/stores/feed';
 import getPostQueryParams from '../lib/getPostQueryParams/getPostQueryParams';
 import {
   FEED_FETCH_POSTS,
   FEED_LOAD_MORE_POSTS,
   FEED_SYNC_POSTS,
-} from '../store/reducers/feedReducer/types';
+} from '../store/stores/feed/types';
 
 function* getPostsRequestData(withFeedType: boolean) {
   const fromPost: ReturnType<typeof selectFeedFirstLoaded> = yield select(selectFeedFirstLoaded);

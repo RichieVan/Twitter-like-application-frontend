@@ -24,7 +24,7 @@ const initialState: FeedState = {
   canChangeType: false,
 };
 
-const feedSlice = createSlice({
+const feedStore = createSlice({
   name: 'feed',
   initialState,
   reducers: {
@@ -107,6 +107,6 @@ export const {
   fetchPostsSuccess,
   loadMorePostsSuccess,
   deletePostSuccess,
-} = feedSlice.actions;
+} = feedStore.actions;
 
-export default feedSlice.reducer;
+export default feedStore.reducer;

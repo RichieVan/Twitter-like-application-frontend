@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootWatcher from '../saga';
-import userReducer from './reducers/userReducer/userReducer';
-import formReducer from './reducers/formReducer/formReducer';
-import appReducer from './reducers/appReducer/appReducer';
-import postReducer from './reducers/postReducer/postReducer';
-import feedReducer from './reducers/feedReducer/feedReducer';
+import userReducer from './stores/user';
+import formReducer from './stores/form';
+import appReducer from './stores/app';
+import postReducer from './stores/post';
+import feedReducer from './stores/feed';
 
 const sagaMiddleware = createSagaMiddleware();
 
