@@ -10,13 +10,12 @@ import {
   select,
 } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { BaseNewPostData, PostRequestParams } from '../types/types';
+import { PostRequestParams } from '../types/types';
 import PostService from '../services/PostService';
 import ErrorHelper from '../helpers/ErrorHelper';
 import {
-  ASYNC_CREATE_POST,
-} from '../store/reducers/postReducer/types';
-import { toggleSyncing } from '../store/reducers/postReducer/postReducer';
+  POST_CREATE,
+} from '../store/stores/post/types';
 
 // function* createPost({ payload }: PayloadAction<BaseNewPostData>) {
 //   try {
@@ -38,25 +37,18 @@ import { toggleSyncing } from '../store/reducers/postReducer/postReducer';
 //   }
 // }
 // function* syncPosts() {
-//   const feedPosts: ReturnType<typeof selectFeedPosts> = yield select(selectFeedPosts);
-//   const firstLoaded: ReturnType<typeof selectFirstLoaded> = yield select(selectFirstLoaded);
-//
-//   if (feedPosts.length > 0 && firstLoaded) {
-//     yield put(toggleSyncing({ status: true }));
-//     const requestParams: PostRequestParams = yield call(getPostsRequestData, true);
-//     const { data }: Awaited<ReturnType<typeof PostService.syncPosts>> = yield call(
-//       PostService.syncPosts,
-//       requestParams,
-//     );
-//
-//     yield put(setFeedPosts({ posts: data }));
-//     yield put(toggleSyncing({ status: false }));
+//   yield put(toggleSyncing(true));
+//   const syncFunction: ReturnType<typeof selectPostSyncFunction> = yield select(
+//     selectPostSyncFunction,
+//   );
+//   if (syncFunction) {
+//     yield call(syncFunction);
 //   }
-//   yield put(toggleSyncing({ status: false }));
+//   yield put(toggleSyncing(false));
 // }
 
 function* postWatcher() {
-  // yield takeLeading(ASYNC_CREATE_POST, createPost);
+  // yield takeLatest(POST_SYNC, syncPosts);
   // yield takeLatest(ASYNC_SYNC_POSTS, syncPosts);
 }
 
