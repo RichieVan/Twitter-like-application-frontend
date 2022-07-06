@@ -13,13 +13,13 @@ import Reduxtest from './components/reduxtest';
 const application = (
   <>
     <Provider store={ReduxStore}>
-      <Reduxtest />
+      <Context.Provider value={storeList}>
+        <Reduxtest />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Context.Provider>
     </Provider>
-    <Context.Provider value={storeList}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Context.Provider>
   </>
 );
 

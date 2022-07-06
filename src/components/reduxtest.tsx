@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { asyncUserLogin, asyncUserLogout } from '../store/reducers/userReducer/userReducer';
+import { asyncUserLogin, asyncUserLogout } from '../store/stores/user';
 
 const Reduxtest = () => {
   const dispatch = useAppDispatch();
