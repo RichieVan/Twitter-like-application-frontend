@@ -20,10 +20,11 @@ import PostViewController from './components/PostViewController/PostViewControll
 import withUrlParamsVerify from './hoc/withUrlParams/withUrlParams';
 import Profile from './components/Profile/Profile';
 import { ProfileProps } from './components/Profile/types';
+import {useAppDispatch, useAppSelector} from './store/hooks';
 
 const ProfileWithUrlParams = withUrlParamsVerify<ProfileProps>(Profile, {
   params: ['username'],
-})
+});
 
 const App: FC = () => {
   const {
@@ -34,7 +35,17 @@ const App: FC = () => {
   } = useContext(Context);
   const location = useLocation();
 
+  const dispatch = useAppDispatch();
+  // const activePostOptions = useAppSelector((state) => state.post.activePostOptions);
+  // document.addEventListener('click', (): void => {
+  //   if (activePostOptions) {
+  //     dispatch(setActivePostOptions(null));
+  //   }
+  // });
+
   const locationState = location.state as LocationStateProps;
+
+  console.log('app render');
 
   useEffect(() => {
     appStore.preloader();
@@ -91,9 +102,12 @@ const App: FC = () => {
               <PostViewController />
             }
           />
-          <Route path="profile/:username" element={(
-            <ProfileWithUrlParams />
-          )} />
+          <Route
+            path="profile/:username"
+            element={(
+              <ProfileWithUrlParams />
+          )}
+          />
           <Route path="*" element={<p>Ничего не найдено</p>} />
         </Route>
       </Routes>
@@ -120,7 +134,8 @@ const App: FC = () => {
                 type="post"
                 position="start"
                 onClose={() => {
-                  if (postStore.syncFunction) postStore.syncFunction();
+                  // if (postStore.syncFunction) postStore.syncFunction();
+                  // dispatch(asyncSyncPosts());
                 }}
               >
                 <PostViewController />
